@@ -54,7 +54,7 @@ def metadata(path):
 
 
 def field(text, name):
-    return [m.group(1).strip() for m in re.finditer(rf"^{name}: (.*)$", text, re.M)]
+    return [m.group(1).strip() for m in re.finditer(rf"^{name}: (.*)$", text, re.MULTILINE)]
 
 
 def plan(dist, binding):

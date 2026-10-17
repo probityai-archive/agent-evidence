@@ -18,7 +18,7 @@ members = ["packages/*"]
 package = false
 
 [dependency-groups]
-dev = ["pytest==9.1.1", "ruff==0.15.0"]
+dev = ["pytest==9.1.1", "ruff==0.17.0"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
@@ -26,6 +26,7 @@ addopts = ["--strict-markers", "-ra"]
 
 # The root ruff run covers the repository tools and the uv members. A crate under
 # crates/ brings its own checks (crate-<name>.yml), which ruff was never part of.
+# The repository tools read TOML with tomllib, which needs Python 3.11.
 [tool.ruff]
-target-version = "py310"
+target-version = "py311"
 extend-exclude = ["crates"]
