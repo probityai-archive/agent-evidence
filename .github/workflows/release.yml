@@ -1,0 +1,255 @@
+name: release
+
+# Publishes one unit of release.toml from a published GitHub release whose tag
+# is <prefix>-v<version>: a crate to crates.io (environment crates-io) or a
+# distribution to PyPI (environment pypi), both through trusted publishing, so
+# no registry token is stored anywhere. A pushed tag alone publishes nothing:
+# the import of a repository brings its old tags under a prefix, and those must
+# never trigger a publish.
+#
+# Trusted publisher entries, all alike: owner probityai, repository
+# agent-evidence, workflow release.yml, and the environment above.
+#
+#   tag prefix                  registry   unit
+#   dsse-v                      crates.io  crates/dsse
+#   jcs-admit-v                 crates.io  crates/jcs-admit
+#   jcs-admit-py-v              PyPI       crates/jcs-admit/python (seven wheels and the sdist)
+#   agent-evidence-vectors-v    PyPI       the vectors distribution
+#   agent-evidence-vocabulary-v PyPI       the vocabulary distribution
+#   agent-evidence-admission-v  PyPI       the admission distribution
+#
+# resolve refuses a tag whose unit is not in release.toml yet, whose directory
+# is missing, whose manifest carries another version, or whose commit is not on
+# main. Each publish job runs only for its own unit, so the job holding the
+# id-token for one project never runs for another. PyPI trusted publishing does
+# not accept a reusable workflow, so each publish job carries its steps here.
+
+on:
+  release:
+    types: [published]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: release-${{ github.event.release.tag_name }}
+  cancel-in-progress: false
+
+jobs:
+  resolve:
+    if: ${{ !github.event.release.prerelease }}
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    outputs:
+      prefix: ${{ steps.target.outputs.prefix }}
+      name: ${{ steps.target.outputs.name }}
+      registry: ${{ steps.target.outputs.registry }}
+      directory: ${{ steps.target.outputs.directory }}
+      version: ${{ steps.target.outputs.version }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - id: target
+        env:
+          TAG: ${{ github.event.release.tag_name }}
+        run: |
+          set -euo pipefail
+          git merge-base --is-ancestor "$GITHUB_SHA" origin/main
+          python3 scripts/workspace.py release-target "$TAG" > target.json
+          cat target.json
+          python3 - >> "$GITHUB_OUTPUT" <<'PYCODE'
+          import json
+          for key, value in sorted(json.load(open("target.json")).items()):
+              print(f"{key}={value}")
+          PYCODE
+
+  publish-crate-dsse:
+    needs: resolve
+    if: needs.resolve.outputs.prefix == 'dsse'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    environment:
+      name: crates-io
+      url: https://crates.io/crates/dsse
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - name: install the stable toolchain
+        run: |
+          rustup toolchain install stable --profile minimal
+          rustup default stable
+      - name: package exactly the files that will be published
+        working-directory: ${{ needs.resolve.outputs.directory }}
+        run: cargo package --locked
+      - uses: rust-lang/crates-io-auth-action@c6f97d42243bad5fab37ca0427f495c86d5b1a18 # v1.0.5
+        id: auth
+      - name: publish through crates.io trusted publishing
+        working-directory: ${{ needs.resolve.outputs.directory }}
+        env:
+          CARGO_REGISTRY_TOKEN: ${{ steps.auth.outputs.token }}
+        run: cargo publish --locked
+
+  publish-crate-jcs-admit:
+    needs: resolve
+    if: needs.resolve.outputs.prefix == 'jcs-admit'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    environment:
+      name: crates-io
+      url: https://crates.io/crates/jcs-admit
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - name: install the stable toolchain
+        run: |
+          rustup toolchain install stable --profile minimal
+          rustup default stable
+      - name: package exactly the files that will be published
+        working-directory: ${{ needs.resolve.outputs.directory }}
+        run: cargo package --locked
+      - uses: rust-lang/crates-io-auth-action@c6f97d42243bad5fab37ca0427f495c86d5b1a18 # v1.0.5
+        id: auth
+      - name: publish through crates.io trusted publishing
+        working-directory: ${{ needs.resolve.outputs.directory }}
+        env:
+          CARGO_REGISTRY_TOKEN: ${{ steps.auth.outputs.token }}
+        run: cargo publish --locked
+
+  build-jcs-admit-python:
+    needs: resolve
+    if: needs.resolve.outputs.prefix == 'jcs-admit-py'
+    uses: ./.github/workflows/jcs-admit-python-build.yml
+
+  publish-jcs-admit-python:
+    needs: [resolve, build-jcs-admit-python]
+    if: needs.resolve.outputs.prefix == 'jcs-admit-py'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    environment:
+      name: pypi
+      url: https://pypi.org/project/jcs-admit/
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
+        with:
+          pattern: python-*
+          merge-multiple: true
+          path: built
+      - name: verify the seven wheels and the sdist, and stage them
+        env:
+          TAG: ${{ github.event.release.tag_name }}
+        run: python3 scripts/check-jcs-admit-python-release.py built --tag "$TAG" --out upload
+      - name: install the staged files alone and import them
+        env:
+          TAG: ${{ github.event.release.tag_name }}
+        run: |
+          python3 -m venv "$RUNNER_TEMP/venv"
+          "$RUNNER_TEMP/venv/bin/pip" install --no-index --only-binary :all: --find-links upload jcs-admit
+          "$RUNNER_TEMP/venv/bin/python" - <<'PY'
+          import os
+          from importlib.metadata import version
+          import jcs_admit, jcs_admit.dsse
+          assert "jcs-admit-py-v" + version("jcs-admit") == os.environ["TAG"]
+          PY
+      - uses: pypa/gh-action-pypi-publish@dc37677b2e1c63e2034f94d8a5b11f265b73ba33 # v1.14.2
+        with:
+          packages-dir: upload
+
+  build-python:
+    needs: resolve
+    if: needs.resolve.outputs.registry == 'pypi' && needs.resolve.outputs.prefix != 'jcs-admit-py'
+    uses: ./.github/workflows/python-build.yml
+    with:
+      directory: ${{ needs.resolve.outputs.directory }}
+      distribution: ${{ needs.resolve.outputs.name }}
+      version: ${{ needs.resolve.outputs.version }}
+
+  publish-agent-evidence-vectors:
+    needs: [resolve, build-python]
+    if: needs.resolve.outputs.prefix == 'agent-evidence-vectors'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    environment:
+      name: pypi
+      url: https://pypi.org/project/agent-evidence-vectors/
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+      - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
+        with:
+          name: python-dist-agent-evidence-vectors
+          path: release-artifacts
+      - name: the files are the ones built from this commit
+        run: |
+          cd release-artifacts
+          test "$(cat SOURCE-COMMIT)" = "$GITHUB_SHA"
+          sha256sum --check SHA256SUMS
+      - uses: pypa/gh-action-pypi-publish@dc37677b2e1c63e2034f94d8a5b11f265b73ba33 # v1.14.2
+        with:
+          packages-dir: release-artifacts/dist/
+
+  publish-agent-evidence-vocabulary:
+    needs: [resolve, build-python]
+    if: needs.resolve.outputs.prefix == 'agent-evidence-vocabulary'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    environment:
+      name: pypi
+      url: https://pypi.org/project/agent-evidence-vocabulary/
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+      - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
+        with:
+          name: python-dist-agent-evidence-vocabulary
+          path: release-artifacts
+      - name: the files are the ones built from this commit
+        run: |
+          cd release-artifacts
+          test "$(cat SOURCE-COMMIT)" = "$GITHUB_SHA"
+          sha256sum --check SHA256SUMS
+      - uses: pypa/gh-action-pypi-publish@dc37677b2e1c63e2034f94d8a5b11f265b73ba33 # v1.14.2
+        with:
+          packages-dir: release-artifacts/dist/
+
+  publish-agent-evidence-admission:
+    needs: [resolve, build-python]
+    if: needs.resolve.outputs.prefix == 'agent-evidence-admission'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    environment:
+      name: pypi
+      url: https://pypi.org/project/agent-evidence-admission/
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+      - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
+        with:
+          name: python-dist-agent-evidence-admission
+          path: release-artifacts
+      - name: the files are the ones built from this commit
+        run: |
+          cd release-artifacts
+          test "$(cat SOURCE-COMMIT)" = "$GITHUB_SHA"
+          sha256sum --check SHA256SUMS
+      - uses: pypa/gh-action-pypi-publish@dc37677b2e1c63e2034f94d8a5b11f265b73ba33 # v1.14.2
+        with:
+          packages-dir: release-artifacts/dist/
