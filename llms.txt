@@ -1,0 +1,8 @@
+# Agent Evidence
+
+> The open specification layer for evidence about AI agents: conformance vectors, a term vocabulary, admission rules, a conformance board, and the jcs-admit and dsse crates.
+
+## Repository
+
+- [Layout and releases](https://github.com/probityai/agent-evidence/blob/main/docs/LAYOUT.md): directories, CI, tag prefixes and publishing
+- [Governance](https://github.com/probityai/agent-evidence/blob/main/GOVERNANCE.md): roles, the maintainer path and decisions
