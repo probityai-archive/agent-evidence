@@ -1,0 +1,28 @@
+# Workspace root for the Python distributions under packages/. It is not a
+# package: each member declares its own distribution, version, licence and
+# release tag, and uv resolves every member into the one uv.lock beside this
+# file. A directory under packages/ without a pyproject.toml is refused by uv,
+# so a member is added together with its manifest.
+
+[project]
+# Never built or published (package = false below); it carries only the
+# Python floor every member must support.
+name = "agent-evidence-workspace"
+version = "0"
+requires-python = ">=3.10"
+
+[tool.uv.workspace]
+members = ["packages/*"]
+
+[tool.uv]
+package = false
+
+[dependency-groups]
+dev = ["pytest==9.1.1", "ruff==0.15.0"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = ["--strict-markers", "-ra"]
+
+[tool.ruff]
+target-version = "py310"

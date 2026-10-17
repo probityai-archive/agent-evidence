@@ -1,0 +1,13 @@
+# Cargo workspace root for the crates under crates/.
+#
+# Each crate arrives with its own Cargo.lock, cargo-vet store and nested
+# packages (a wasm crate, a Python binding), and keeps them: it is excluded
+# here, so `cargo` run inside crates/<name> sees that crate as its own root and
+# `cargo publish` packages exactly what it packaged in its old repository. A
+# crate becomes a member of this workspace only in a change that also moves its
+# lock file and its supply-chain audits to the root.
+
+[workspace]
+resolver = "3"
+members = []
+exclude = ["crates"]
