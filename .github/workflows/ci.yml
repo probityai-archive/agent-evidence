@@ -1,0 +1,93 @@
+name: ci
+
+# One entry point for every pull request and every push to main. The changes
+# job asks scripts/workspace.py which areas a change touches (crates/<name>,
+# packages/<name>, vectors, site); each area's checks run only when needed, and
+# `ci-ok` is the one required check. An imported area adds its job here and to
+# the `needs` of `ci-ok`.
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+jobs:
+  changes:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    outputs:
+      areas: ${{ steps.map.outputs.areas }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - id: map
+        env:
+          EVENT: ${{ github.event_name }}
+          BASE: ${{ github.event.pull_request.base.sha }}
+        run: |
+          set -euo pipefail
+          if [ "$EVENT" = "pull_request" ]; then
+            areas="$(python3 scripts/workspace.py changes "$BASE" HEAD)"
+          else
+            # A push to main or a manual run checks every area.
+            areas="$(python3 scripts/workspace.py all)"
+          fi
+          echo "areas=$areas" >> "$GITHUB_OUTPUT"
+          echo "areas: $areas"
+
+  repository:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: astral-sh/setup-uv@1c37ad07a6a961277cf70c0d37d6f313000f5884 # v10.3.0
+        with:
+          version: "0.12.8"
+          enable-cache: false
+      - name: one lint configuration for the repository tools
+        run: uv run --frozen --only-group dev ruff check .
+      - name: the repository tools' tests
+        run: uv run --frozen --only-group dev python -m pytest
+      - name: the jcs-admit wheel release check refuses every fault it names
+        run: python3 scripts/check-jcs-admit-python-release-test.py
+      - name: the DCO sign-off rule
+        run: bash .github/scripts/dco-check.sh --selftest
+      - name: every workflow parses
+        run: uvx --from actionlint-py==1.7.12.25 actionlint
+      - name: every README stays one screen and every link in it resolves
+        run: |
+          python3 scripts/readme-lint-test.py
+          python3 scripts/readme-lint.py README.md
+      - name: the Cargo workspace root reads
+        run: cargo metadata --format-version 1 --no-deps > /dev/null
+
+  ci-ok:
+    if: always()
+    needs: [changes, repository]
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - name: every needed job passed or was not needed
+        env:
+          RESULTS: ${{ toJSON(needs) }}
+        run: |
+          python3 - <<'PYCODE'
+          import json, os
+          needs = json.loads(os.environ["RESULTS"])
+          for name, job in sorted(needs.items()):
+              print(f"{name}: {job['result']}")
+          bad = {n: j["result"] for n, j in needs.items() if j["result"] not in ("success", "skipped")}
+          raise SystemExit(f"failed: {bad}" if bad else 0)
+          PYCODE
