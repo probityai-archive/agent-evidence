@@ -36,7 +36,7 @@ once it is pushed.
 
    ```bash
    gh release create vX.Y.Z --verify-tag --title vX.Y.Z --notes "<what the release adds>"
-   curl -fsSL https://raw.githubusercontent.com/probityai/agent-evidence-vocabulary/vX.Y.Z/vocabulary.yaml | sha256sum
+   curl -fsSL https://raw.githubusercontent.com/probityai/agent-evidence/agent-evidence-vocabulary-vX.Y.Z/packages/vocabulary/vocabulary.yaml | sha256sum
    ```
 
    The digest must equal the one in the README's quick start.

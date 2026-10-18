@@ -8,13 +8,13 @@ organization's verifier returns the expected verdict on every vector in the fami
 level and at every level below it in the same pillar, at the pinned release:
 
 ```sh
-pip install agent-evidence-vectors==0.17.5
+pip install agent-evidence-vectors==0.20.0
 agent-evidence-vectors --corpus vectors-anchored-chain
 ```
 
 Pinned: `agent-evidence-vectors` 0.17.5 (tag `v0.17.5` of
 [probityai/agent-evidence-vectors](https://github.com/probityai/agent-evidence-vectors)), and
-[probityai/agent-evidence-admission](https://github.com/probityai/agent-evidence-admission) at commit
+[probityai/agent-evidence/packages/admission](https://github.com/probityai/agent-evidence/tree/main/packages/admission) at commit
 `53913a9007aa3d582378a924ab5fc2fe6f662fc1`. `python3 scripts/check_aimm_levels.py` checks that every
 family, case and policy named below exists at those pins.
 

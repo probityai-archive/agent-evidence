@@ -1,10 +1,10 @@
 # Predicate: agent change admission, version 1
 
 Predicate type URI:
-`https://github.com/probityai/agent-evidence-vocabulary/blob/main/docs/predicates/agent-change-admission-v1.md`
+`https://github.com/probityai/agent-evidence/blob/main/packages/vocabulary/docs/predicates/agent-change-admission-v1.md`
 
 Status: proposed. The terms it carries are in the `change_admission` section of
-[vocabulary.yaml](https://github.com/probityai/agent-evidence-vocabulary/blob/main/vocabulary.yaml),
+[vocabulary.yaml](https://github.com/probityai/agent-evidence/blob/main/packages/vocabulary/vocabulary.yaml),
 and every one of them starts proposed under the registry's promotion rule.
 
 ## Purpose
@@ -210,7 +210,7 @@ The decoded payload:
   },
   "exceptions": [],
   "parent": "3f2a9c41d07e",
-  "predicateType": "https://github.com/probityai/agent-evidence-vocabulary/blob/main/docs/predicates/agent-change-admission-v1.md",
+  "predicateType": "https://github.com/probityai/agent-evidence/blob/main/packages/vocabulary/docs/predicates/agent-change-admission-v1.md",
   "report_digests": {
     "heldout-summary": "f7a09632b19538955df6f7b4b7e6d8897a9a9b77f050bbb8ccda202bec61e3d0",
     "replay:guard-refund-over-limit": "d2f103ae67e3553f74308fbff61d1e91c4fec24d82a7af5d445d4bdaef6c1be9"

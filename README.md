@@ -9,7 +9,7 @@ It is for people who build or check an agent-evidence verifier, and for projects
 Pin the parts you use:
 
 ```bash
-pip install agent-evidence-vectors==0.19.0
+pip install agent-evidence-vectors==0.20.0
 cargo add dsse@0.1.4 jcs-admit@0.1.2
 ```
 
@@ -18,7 +18,7 @@ cargo add dsse@0.1.4 jcs-admit@0.1.2
 Run every vector of the default corpus through the bundled reference verifier. You need [uv](https://docs.astral.sh/uv/); nothing is cloned or built:
 
 ```bash
-uvx agent-evidence-vectors==0.19.0
+uvx agent-evidence-vectors==0.20.0
 ```
 
 The run prints one row per vector and ends with:
@@ -34,10 +34,10 @@ This repository is new. Each part moves here from its own repository with its fu
 | Part | Registry name | Current home |
 | --- | --- | --- |
 | Conformance vectors | `agent-evidence-vectors` (PyPI) | [probityai/agent-evidence-vectors](https://github.com/probityai/agent-evidence-vectors) |
-| Vocabulary | `agent-evidence-vocabulary` (PyPI) | [probityai/agent-evidence-vocabulary](https://github.com/probityai/agent-evidence-vocabulary) |
-| Admission rules | `agent-evidence-admission` (PyPI) | [probityai/agent-evidence-admission](https://github.com/probityai/agent-evidence-admission) |
-| DSSE envelopes | `dsse` (crates.io) | [probityai/dsse](https://github.com/probityai/dsse) |
-| JSON admission and RFC 8785 | `jcs-admit` (crates.io, PyPI) | [probityai/jcs-admit](https://github.com/probityai/jcs-admit) |
+| Vocabulary | `agent-evidence-vocabulary` (PyPI) | [probityai/agent-evidence/packages/vocabulary](https://github.com/probityai/agent-evidence/tree/main/packages/vocabulary) |
+| Admission rules | `agent-evidence-admission` (PyPI) | [probityai/agent-evidence/packages/admission](https://github.com/probityai/agent-evidence/tree/main/packages/admission) |
+| DSSE envelopes | `dsse` (crates.io) | [probityai/agent-evidence/crates/dsse](https://github.com/probityai/agent-evidence/tree/main/crates/dsse) |
+| JSON admission and RFC 8785 | `jcs-admit` (crates.io, PyPI) | [probityai/agent-evidence/crates/jcs-admit](https://github.com/probityai/agent-evidence/tree/main/crates/jcs-admit) |
 
 Moved repositories are archived, not deleted: their tags, releases, Actions and pages keep working.
 

@@ -55,7 +55,7 @@ It exits 1 with `FAIL digest-mismatch` when the bytes differ, or `FAIL no-digest
 
 ## Status
 
-Version 0.1.0. The Kubernetes admission policies (Rego, Kyverno, policy-controller) live in the same repository; see the [repository README](https://github.com/probityai/agent-evidence-admission#readme).
+Version 0.1.0. The Kubernetes admission policies (Rego, Kyverno, policy-controller) live in the same repository; see the [repository README](https://github.com/probityai/agent-evidence/tree/main/packages/admission#readme).
 
 ## Build packages
 

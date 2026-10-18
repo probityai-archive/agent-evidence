@@ -98,7 +98,7 @@ Runs a bounded synthetic checkout and refund composition as a CLI or Action, wit
 
 Released. [Reviewed guide and source](https://github.com/probityai/agent-checkout-runner/blob/297b5b182bb40605b62586eccbf93a9c68a4aee1/README.md)
 
-Composition CLI and Action: source tag [0.2.0](https://github.com/probityai/agent-checkout-runner/tree/v0.2.0), source [`297b5b182bb4`](https://github.com/probityai/agent-checkout-runner/tree/297b5b182bb40605b62586eccbf93a9c68a4aee1), read 2026-10-15. A bounded synthetic composition reference. The source tag pins the CLI and Action, not a registry release or a merchant deployment.
+Composition CLI and Action: source tag [0.2.0](https://github.com/probityai/probity/tree/v0.2.0/examples/checkout-runner), source [`297b5b182bb4`](https://github.com/probityai/agent-checkout-runner/tree/297b5b182bb40605b62586eccbf93a9c68a4aee1), read 2026-10-15. A bounded synthetic composition reference. The source tag pins the CLI and Action, not a registry release or a merchant deployment.
 
 <div>
 
@@ -242,7 +242,7 @@ Provides a source-tagged agent guard harness, signed admission records and publi
 
 Released. [Reviewed guide and source](https://github.com/probityai/ratchet/blob/b2800b26ec6cf60fee8e95682660846f674f97c2/README.md)
 
-Harness source: source tag [0.1.2](https://github.com/probityai/ratchet/tree/probity-ratchet-v0.1.2), source [`e2daf77f75e9`](https://github.com/probityai/ratchet/tree/e2daf77f75e92aa961cf184084335b67aaae7581), read 2026-10-15. Annotated harness tag, peeled to its source commit. It is separate from the public case package.
+Harness source: source tag [0.1.2](https://github.com/probityai/probity/tree/probity-ratchet-v0.1.2/packages/ratchet), source [`e2daf77f75e9`](https://github.com/probityai/ratchet/tree/e2daf77f75e92aa961cf184084335b67aaae7581), read 2026-10-15. Annotated harness tag, peeled to its source commit. It is separate from the public case package.
 
 <div>
 
