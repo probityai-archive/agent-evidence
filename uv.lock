@@ -5,6 +5,7 @@ requires-python = ">=3.10"
 [manifest]
 members = [
     "agent-evidence-admission",
+    "agent-evidence-vocabulary",
     "agent-evidence-workspace",
 ]
 
@@ -12,6 +13,11 @@ members = [
 name = "agent-evidence-admission"
 version = "0.1.0"
 source = { editable = "packages/admission/python" }
+
+[[package]]
+name = "agent-evidence-vocabulary"
+version = "0.6.0"
+source = { editable = "packages/vocabulary" }
 
 [[package]]
 name = "agent-evidence-workspace"

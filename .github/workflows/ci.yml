@@ -90,9 +90,14 @@ jobs:
     if: fromJSON(needs.changes.outputs.areas)['packages/admission']
     uses: ./.github/workflows/package-admission.yml
 
+  package-vocabulary:
+    needs: changes
+    if: fromJSON(needs.changes.outputs.areas)['packages/vocabulary']
+    uses: ./.github/workflows/package-vocabulary.yml
+
   ci-ok:
     if: always()
-    needs: [changes, repository, crate-dsse, crate-jcs-admit, package-admission]
+    needs: [changes, repository, crate-dsse, crate-jcs-admit, package-admission, package-vocabulary]
     runs-on: ubuntu-24.04
     timeout-minutes: 5
     steps:

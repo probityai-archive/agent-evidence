@@ -43,3 +43,9 @@ prefix = "agent-evidence-admission"
 name = "agent-evidence-admission"
 registry = "pypi"
 directory = "packages/admission/python"
+
+[[unit]]
+prefix = "agent-evidence-vocabulary"
+name = "agent-evidence-vocabulary"
+registry = "pypi"
+directory = "packages/vocabulary"

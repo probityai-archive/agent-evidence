@@ -16,3 +16,7 @@ updates:
     directory: /crates/jcs-admit
     schedule:
       interval: weekly
+  - package-ecosystem: pip
+    directory: /packages/vocabulary
+    schedule:
+      interval: weekly
