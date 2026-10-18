@@ -31,7 +31,7 @@ account of its limits. A failed check or missing observation can be useful too.
 | Which NIST AI 300-1 structural and mutation checks actually ran? | [Read the retained case](runs.html#record-nist-ai300-1-checker-2026-10-13). |
 | Can genuine signatures survive a broken or rolled-back stored history? | [Read the retained case](runs.html#record-signed-history-boundaries-2026-10-13). |
 | Did the guard distinguish a benign document from an actual force push? | [Read the retained case](runs.html#record-ratchet-benign-heredoc-2026-10-15). |
-| How do I check approval, retries, and a missing acknowledgement? | [Read the refund example](https://github.com/probityai/agent-evidence-observer/blob/main/docs/APS-REFUND-RETRIES.md). |
+| How do I check approval, retries, and a missing acknowledgement? | [Read the refund example](https://github.com/probityai/probity/blob/main/packages/observer/docs/APS-REFUND-RETRIES.md). |
 | Did a database write match its approval, even if the state changed later? | [Try the SQL example](approved-sql.html) and bring a native audit pair. |
 | Did the agent change the call after approval, or did the resource change later? | [Compare the request/effect cases](request-effect-join.html) and bring a reader or retained run. |
 | Does an approved target, completion report or later observation establish the same thing? | [Try the authority and effect controls](authority-effect-cases.html) and compare the separate conclusions. |
