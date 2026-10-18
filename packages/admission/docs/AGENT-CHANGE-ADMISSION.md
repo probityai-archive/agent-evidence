@@ -5,7 +5,7 @@ Admit an agent harness version, or the image that carries it, only when a signed
 An agent harness changes by proposal: a new guard that blocks a tool call, a procedure, a prompt edit, a narrower tool allowlist. An evaluator decides whether to admit each proposal and signs that decision as an agent change admission v1 receipt. The predicate type is:
 
 ```text
-https://github.com/probityai/agent-evidence/blob/main/packages/vocabulary/docs/predicates/agent-change-admission-v1.md
+https://github.com/probityai/agent-evidence-vocabulary/blob/main/docs/predicates/agent-change-admission-v1.md
 ```
 
 The rules here run on the deploy side. They refuse a harness that has no admitted receipt, a receipt for a different harness, a receipt whose admitted flag disagrees with its own gates, and a receipt signed by a key you did not pin.
