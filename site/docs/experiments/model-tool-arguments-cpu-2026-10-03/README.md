@@ -3,7 +3,7 @@
 This directory retains the exact native provider ZIP for Observer run
 [37116827382](https://github.com/probityai/agent-evidence-observer/actions/runs/37116827382),
 its byte-identical report, a selected source contract and complete native member
-inventory. [Claims P-51–P-56](../../claims.md) record the sources and limits.
+inventory. [Claims P-51–P-56](../../CLAIMS.md) record the sources and limits.
 
 All 128 planned calls started and scored. The 24-token cap reaches length in
 all 64 calls; none of those outputs is valid JSON. All 64 outputs at the

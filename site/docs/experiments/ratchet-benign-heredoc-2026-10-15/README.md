@@ -2,7 +2,7 @@
 
 [Report](report.json) · [Original source and output](provenance.json) · [Lab record](https://probityai.github.io/agent-evidence-atlas/runs.html#record-ratchet-benign-heredoc-2026-10-15)
 
-This packet retains historical evidence from `probityai/probity/packages/ratchet` at
+This packet retains historical evidence from `probityai/ratchet` at
 `b2800b26ec6cf60fee8e95682660846f674f97c2`. The [original host run](https://github.com/probityai/ratchet/actions/runs/38783949790)
 keeps its own date, command and result. The report reads that original output.
 The Atlas reader repeats no original workload.

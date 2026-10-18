@@ -3,7 +3,7 @@
 The reader was installed from PyPI with no clone of any repository, then run against the frozen REMORA package that ships inside the wheel:
 
 ```sh
-python3.13 -m venv v && v/bin/python -m pip install agent-evidence-vectors==0.20.0
+python3.13 -m venv v && v/bin/python -m pip install agent-evidence-vectors==0.17.6
 v/bin/agent-evidence-vectors-remora-e7 --output e7 --operator EXTERNAL \
   --run-ref https://github.com/darklordVirtual/REMORA-research/issues/707
 ```
