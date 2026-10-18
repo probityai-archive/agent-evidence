@@ -290,6 +290,34 @@ def _end_to_end() -> int:
             )
             bad += 1
 
+        # Imported history: a side history carrying a hit, merged with the
+        # import tool's subject, is published elsewhere and is not refused; the
+        # same history merged under any other subject still is.
+        for subject, wanted in (
+            ("chore(site): import example/source with its history", 0),
+            ("Merge branch side", 1),
+        ):
+            _git(root, "checkout", "--quiet", "--orphan", "side")
+            _git(root, "rm", "-r", "--quiet", "--cached", ".")
+            (root / "imported.txt").write_text(f"# see {dossier}/X.md\n", encoding="utf-8")
+            _git(root, "add", "imported.txt")
+            _git(root, "commit", "--quiet", "-m", "imported commit with a hit")
+            _git(root, "checkout", "--quiet", "-f", "-b", "importing", "main")
+            _git(
+                root, "merge", "--quiet", "--allow-unrelated-histories", "--no-ff",
+                "-m", subject, "side",
+            )
+            rc = scan("importing", ["--range", "main..HEAD"])
+            if rc != wanted:
+                print(
+                    f"selftest: a merge with subject {subject!r} bringing a hit in its "
+                    f"second parent: got exit {rc}, wanted {wanted}",
+                    file=sys.stderr,
+                )
+                bad += 1
+            _git(root, "checkout", "--quiet", "-f", "main")
+            _git(root, "branch", "--quiet", "-D", "importing", "side")
+
         # The defect this file removes, asserted so it cannot come back quietly:
         # the unscoped bound reaches the default branch's hit and refuses a branch
         # that added nothing wrong.

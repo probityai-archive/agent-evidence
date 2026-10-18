@@ -411,8 +411,41 @@ def _scan_added_lines(rev_args: list[str], sidecar: Sidecar) -> list[str]:
     return hits
 
 
+# The subject scripts/consolidation/repo_import.py writes on the merge that brings
+# another repository's history in, with that history as the merge's second parent.
+IMPORT_SUBJECT = re.compile(
+    r"^chore\([^)]+\): import [A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+ with its history$"
+)
+
+
+def import_exclusions(rev_args: list[str]) -> list[str]:
+    """`^<merge>^2` for every import merge the range reaches.
+
+    The history behind an import merge was published, and scanned or not, in the
+    repository it came from; refusing it here asks for a rewrite of published
+    history. What is written here stays scanned: every commit on the first-parent
+    side, and every commit added after the import.
+    """
+    listed = _git("log", "--merges", "--format=%H%x00%s", *rev_args)
+    return [
+        f"^{sha}^2"
+        for sha, _, subject in (line.partition("\x00") for line in listed.splitlines())
+        if sha and IMPORT_SUBJECT.match(subject)
+    ]
+
+
 def scan_range(rev_args: list[str], sidecar: Sidecar) -> tuple[int, list[str]]:
-    """Scan every commit `git log <rev_args>` reaches. Returns (commits scanned, hits)."""
+    """Scan every commit `git log <rev_args>` reaches, less imported history.
+
+    Returns (commits scanned, hits).
+    """
+    excluded = import_exclusions(rev_args)
+    if excluded:
+        print(
+            f"identity-scan: {len(excluded)} import merge(s); the history behind them is not scanned",
+            file=sys.stderr,
+        )
+        rev_args = [*rev_args, *excluded]
     commits = [c for c in _git("rev-list", *rev_args).split() if c]
     if not commits:
         return 0, []
