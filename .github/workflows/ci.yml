@@ -10,6 +10,9 @@ on:
   push:
     branches: [main]
   pull_request:
+    # `edited` re-runs the checks when the title changes: the title becomes the
+    # merge commit's subject, and the repository job lints it.
+    types: [opened, synchronize, reopened, edited]
   workflow_dispatch:
 
 permissions:
@@ -72,6 +75,20 @@ jobs:
           python3 scripts/readme-lint.py README.md
       - name: the Cargo workspace root reads
         run: cargo metadata --format-version 1 --no-deps > /dev/null
+      # A merge to main writes "<pull request title> (#N)" as the merge commit's
+      # subject, and the push run's commit-message lint then judges it after
+      # nothing can change it. Lint that subject here, before the merge.
+      - name: the pull request title makes a valid merge commit subject
+        if: github.event_name == 'pull_request'
+        env:
+          PR_TITLE: ${{ github.event.pull_request.title }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+        run: |
+          set -euo pipefail
+          message="$RUNNER_TEMP/merge-subject.txt"
+          printf '%s (#%s)\n' "$PR_TITLE" "$PR_NUMBER" > "$message"
+          cd packages/vocabulary
+          .githooks/commit-msg "$message"
 
   crate-dsse:
     needs: changes
