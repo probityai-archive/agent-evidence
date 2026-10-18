@@ -4,7 +4,7 @@
 
 Report a vulnerability privately through GitHub: open the repository's
 **Security** tab and choose **Report a vulnerability**
-(https://github.com/probityai/dsse/security/advisories/new). Please do not open a
+(https://github.com/probityai/agent-evidence/security/advisories/new). Please do not open a
 public issue for it.
 
 The most useful report is an envelope and a key: an envelope this crate verifies
@@ -29,5 +29,6 @@ API change ships as a new minor version.
 
 Every push and pull request runs the test suite on the declared minimum Rust
 version (1.88), `cargo semver-checks` against the newest release on crates.io,
-and `cargo vet` over every dependency in `Cargo.lock`. The workflows are in
-`.github/workflows/`.
+and `cargo vet` over every dependency in `Cargo.lock`. The workflows are in the
+repository root's `.github/workflows/` (`crate-dsse.yml`, `crate-dsse-npm.yml`
+and `release.yml`).

@@ -5,11 +5,11 @@ edition = "2021"
 rust-version = "1.88"
 license = "Apache-2.0"
 description = "DSSE (Dead Simple Signing Envelope) with PAE pre-authentication encoding: envelope construction, signing, and threshold verification."
-repository = "https://github.com/probityai/dsse"
+repository = "https://github.com/probityai/agent-evidence"
 documentation = "https://docs.rs/dsse"
-homepage = "https://github.com/probityai/dsse#readme"
+homepage = "https://github.com/probityai/agent-evidence/tree/main/crates/dsse#readme"
 readme = "README.md"
-exclude = ["*.ledger.json", ".humanizer/", "/.github", "/scripts", "/vectors/generate", "/npm"]
+exclude = ["*.ledger.json", ".humanizer/", "/scripts", "/vectors/generate", "/npm"]
 keywords = ["dsse", "in-toto", "sigstore", "signing", "attestation"]
 categories = ["cryptography", "encoding"]
 

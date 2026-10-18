@@ -1,4 +1,14 @@
-name: qualify npm artifact
+name: crate-dsse-npm
+
+# Builds the dsse npm package from crates/dsse/npm, installs the packed tarball
+# into Node and browser consumers, and checks the tarball against the exact
+# source identity (crates/dsse/npm/check_release.py). crate-dsse.yml calls it
+# for every change to the crate; release.yml calls it for a dsse-npm-v<version>
+# release and publishes the artifact it uploads, never a rebuild.
+#
+# crates/dsse/npm/artifact.py hashes this file and release.yml into the
+# package's source identity, and check_release.py reads the two Node pins below
+# (the package minimum and the current runtime) from this file.
 
 on:
   workflow_call:
@@ -13,6 +23,10 @@ on:
 
 permissions:
   contents: read
+
+defaults:
+  run:
+    working-directory: crates/dsse
 
 jobs:
   package:
@@ -51,9 +65,9 @@ jobs:
       - name: scan the exact npm artifact with the existing native boundary check
         run: cargo test --locked --test no_private_names
         env:
-          DSSE_SCAN_ROOT: ${{ github.workspace }}/npm/dist
+          DSSE_SCAN_ROOT: ${{ github.workspace }}/crates/dsse/npm/dist
       - run: npx --no-install playwright install --with-deps chromium --only-shell
-        working-directory: npm
+        working-directory: crates/dsse/npm
       - run: npm test --prefix npm
       - run: python3 npm/test/release-guard.py
       - name: verify the tested tarball and exact source identity
@@ -65,4 +79,4 @@ jobs:
           name: dsse-npm-${{ github.run_id }}-${{ github.run_attempt }}
           if-no-files-found: warn
           retention-days: 90
-          path: npm/test-results/
+          path: crates/dsse/npm/test-results/

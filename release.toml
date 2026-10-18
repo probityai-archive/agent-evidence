@@ -5,10 +5,17 @@
 # on main. A unit is added in the change that imports its directory.
 #
 # registry "crates.io" reads the version from <directory>/Cargo.toml;
-# registry "pypi" reads it from <directory>/pyproject.toml.
+# registry "pypi" reads it from <directory>/pyproject.toml;
+# registry "npm" reads it from <directory>/package.json.
 
 [[unit]]
 prefix = "dsse"
 name = "dsse"
 registry = "crates.io"
 directory = "crates/dsse"
+
+[[unit]]
+prefix = "dsse-npm"
+name = "dsse"
+registry = "npm"
+directory = "crates/dsse/npm"

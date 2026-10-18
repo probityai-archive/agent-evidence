@@ -16,8 +16,10 @@ def source_identity(root):
         'examples/wasm_oracle.rs', 'docs/NPM.md',
         'vectors/cross_lang_signing.json', 'tests/spec_vector.rs',
         'interop/sigstore-js-threshold-2026-10-04/cases.json',
-        '.github/workflows/npm-package.yml',
-        '.github/workflows/npm.yml', '.github/workflows/npm-release.yml',
+        # The workflows that qualify and publish the package live at the
+        # repository root, two levels above the crate.
+        '../../.github/workflows/crate-dsse-npm.yml',
+        '../../.github/workflows/release.yml',
     ]
     paths = [root / name for name in names]
     paths += sorted((root / 'src').rglob('*.rs'))

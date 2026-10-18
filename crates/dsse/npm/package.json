@@ -6,10 +6,10 @@
   "license": "Apache-2.0",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/probityai/dsse.git",
-    "directory": "npm"
+    "url": "git+https://github.com/probityai/agent-evidence.git",
+    "directory": "crates/dsse/npm"
   },
-  "homepage": "https://github.com/probityai/dsse/blob/main/docs/NPM.md",
+  "homepage": "https://github.com/probityai/agent-evidence/blob/main/crates/dsse/docs/NPM.md",
   "engines": { "node": ">=22.14.0" },
   "types": "./lib/index.d.ts",
   "exports": {

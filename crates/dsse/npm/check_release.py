@@ -33,7 +33,7 @@ def expected_evidence(root=ROOT):
     need(process.returncode == 0, 'Could not read the actual consumer case population.')
     expected = json.loads(process.stdout)
     manifest = json.loads((root/'npm/package.json').read_text())
-    workflow = (root/'.github/workflows/npm-package.yml').read_text()
+    workflow = (root/'../../.github/workflows/crate-dsse-npm.yml').read_text()
     versions = re.findall(r'^\s+node-version:\s*(\d+\.\d+\.\d+)\s*$', workflow, re.M)
     minimum = re.fullmatch(r'>=(\d+\.\d+\.\d+)', manifest['engines']['node'])
     need(minimum is not None and len(versions) == 2 and len(set(versions)) == 2

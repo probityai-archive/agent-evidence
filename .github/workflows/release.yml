@@ -1,9 +1,10 @@
 name: release
 
 # Publishes one unit of release.toml from a published GitHub release whose tag
-# is <prefix>-v<version>: a crate to crates.io (environment crates-io) or a
-# distribution to PyPI (environment pypi), both through trusted publishing, so
-# no registry token is stored anywhere. A pushed tag alone publishes nothing:
+# is <prefix>-v<version>: a crate to crates.io (environment crates-io), a
+# distribution to PyPI (environment pypi) or the dsse package to npm
+# (environment npm), all through trusted publishing, so no registry token is
+# stored anywhere. A pushed tag alone publishes nothing:
 # the import of a repository brings its old tags under a prefix, and those must
 # never trigger a publish.
 #
@@ -12,6 +13,7 @@ name: release
 #
 #   tag prefix                  registry   unit
 #   dsse-v                      crates.io  crates/dsse
+#   dsse-npm-v                  npm        crates/dsse/npm (the tarball crate-dsse-npm.yml qualified)
 #   jcs-admit-v                 crates.io  crates/jcs-admit
 #   jcs-admit-py-v              PyPI       crates/jcs-admit/python (seven wheels and the sdist)
 #   agent-evidence-vectors-v    PyPI       the vectors distribution
@@ -124,6 +126,81 @@ jobs:
         env:
           CARGO_REGISTRY_TOKEN: ${{ steps.auth.outputs.token }}
         run: cargo publish --locked
+
+  qualify-dsse-npm:
+    needs: resolve
+    if: needs.resolve.outputs.prefix == 'dsse-npm'
+    uses: ./.github/workflows/crate-dsse-npm.yml
+    secrets:
+      DSSE_FORBIDDEN_SHA256: ${{ secrets.DSSE_FORBIDDEN_SHA256 }}
+
+  # Publishes the exact tarball the qualification job tested, with npm
+  # provenance, and attests it as pkg:npm/dsse@<version>. Ported from
+  # probityai/dsse npm-release.yml and the provenance job of its npm.yml.
+  publish-dsse-npm:
+    needs: [resolve, qualify-dsse-npm]
+    if: needs.resolve.outputs.prefix == 'dsse-npm'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    environment:
+      name: npm
+      url: https://www.npmjs.com/package/dsse
+    permissions:
+      contents: read
+      id-token: write
+      attestations: write
+    defaults:
+      run:
+        working-directory: crates/dsse
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
+        with:
+          name: ${{ needs.qualify-dsse-npm.outputs.artifact-name }}
+          path: ${{ runner.temp }}/dsse-qualified
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: 24.19.0
+          package-manager-cache: false
+          registry-url: https://registry.npmjs.org
+      - name: verify the exact qualified artifact and bind its subject
+        id: artifact
+        env:
+          QUALIFIED_RECEIPTS: ${{ runner.temp }}/dsse-qualified
+          VERIFIED_NPM: ${{ runner.temp }}/dsse-verified-npm.json
+        run: |
+          python3 npm/check_release.py "$QUALIFIED_RECEIPTS" --commit "$GITHUB_SHA" > "$VERIFIED_NPM"
+          python3 - <<'PY'
+          import hashlib, json, os
+          from pathlib import Path
+          verified = json.loads(Path(os.environ['VERIFIED_NPM']).read_text())
+          manifest = json.loads(Path('npm/package.json').read_text())
+          assert manifest['name'] == 'dsse'
+          tarball = Path(verified['tarball']).read_bytes()
+          assert hashlib.sha256(tarball).hexdigest() == verified['sha256']
+          with open(os.environ['GITHUB_OUTPUT'], 'a') as output:
+              output.write('tarball=' + verified['tarball'] + '\n')
+              output.write('subject=pkg:npm/' + manifest['name'] + '@' + manifest['version'] + '\n')
+              output.write('digest=sha512:' + hashlib.sha512(tarball).hexdigest() + '\n')
+          PY
+      - uses: actions/attest@1e69f48acb82d1966a394da916b4c1698aa569d6 # v4.1.0
+        id: attest
+        with:
+          subject-name: ${{ steps.artifact.outputs.subject }}
+          subject-digest: ${{ steps.artifact.outputs.digest }}
+      - name: retain the signed npm provenance bundle
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7
+        with:
+          name: dsse-npm-provenance-${{ github.run_id }}-${{ github.run_attempt }}
+          if-no-files-found: error
+          retention-days: 90
+          path: ${{ steps.attest.outputs.bundle-path }}
+      - name: publish the tested bytes with npm trusted publishing
+        env:
+          QUALIFIED_TARBALL: ${{ steps.artifact.outputs.tarball }}
+        run: npm publish "$QUALIFIED_TARBALL" --access public --provenance --ignore-scripts
 
   build-jcs-admit-python:
     needs: resolve

@@ -19,13 +19,16 @@ def repo(tmp_path: Path) -> Path:
     (tmp_path / "packages" / "vocab").mkdir(parents=True)
     (tmp_path / "packages" / "vocab" / "pyproject.toml").write_text(
         '[project]\nname = "agent-evidence-vocabulary"\nversion = "0.6.0"\n')
+    (tmp_path / "crates" / "dsse" / "npm").mkdir()
+    (tmp_path / "crates" / "dsse" / "npm" / "package.json").write_text('{"name": "dsse", "version": "0.1.0"}\n')
     (tmp_path / "vectors").mkdir()
     (tmp_path / "release.toml").write_text(
         '[[unit]]\nprefix = "dsse"\nname = "dsse"\nregistry = "crates.io"\ndirectory = "crates/dsse"\n\n'
         '[[unit]]\nprefix = "agent-evidence-vocabulary"\nname = "agent-evidence-vocabulary"\n'
         'registry = "pypi"\ndirectory = "packages/vocab"\n\n'
         '[[unit]]\nprefix = "jcs-admit"\nname = "jcs-admit"\nregistry = "crates.io"\n'
-        'directory = "crates/jcs-admit"\n')
+        'directory = "crates/jcs-admit"\n\n'
+        '[[unit]]\nprefix = "dsse-npm"\nname = "dsse"\nregistry = "npm"\ndirectory = "crates/dsse/npm"\n')
     return tmp_path
 
 
@@ -58,9 +61,15 @@ def test_a_python_tag_resolves_to_its_unit(repo: Path) -> None:
     assert got["name"] == "agent-evidence-vocabulary" and got["version"] == "0.6.0"
 
 
+def test_an_npm_tag_resolves_to_its_unit_and_not_the_crate(repo: Path) -> None:
+    got = workspace.release_target("dsse-npm-v0.1.0", repo)
+    assert got["prefix"] == "dsse-npm" and got["registry"] == "npm" and got["version"] == "0.1.0"
+
+
 @pytest.mark.parametrize("tag, message", [
     ("dsse-v0.1.5", "does not match"),
     ("dsse-0.1.4", "is not <prefix>-v"),
+    ("dsse-npm-v0.1.4", "does not match"),
     ("nothing-v1.0.0", "names no single unit"),
     ("jcs-admit-v0.1.2", "does not exist"),
 ])

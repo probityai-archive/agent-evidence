@@ -50,6 +50,8 @@ def _version(unit: dict[str, str], root: Path) -> str:
         return tomllib.loads((directory / "Cargo.toml").read_text())["package"]["version"]
     if unit["registry"] == "pypi":
         return tomllib.loads((directory / "pyproject.toml").read_text())["project"]["version"]
+    if unit["registry"] == "npm":
+        return json.loads((directory / "package.json").read_text())["version"]
     raise SystemExit(f"unit {unit['prefix']!r} names an unknown registry {unit['registry']!r}")
 
 
