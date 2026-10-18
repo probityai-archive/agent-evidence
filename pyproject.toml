@@ -12,7 +12,10 @@ version = "0"
 requires-python = ">=3.10"
 
 [tool.uv.workspace]
-members = ["packages/*"]
+# A package whose Python distribution sits in a subdirectory names that
+# subdirectory, and its top directory is excluded.
+members = ["packages/*", "packages/admission/python"]
+exclude = ["packages/admission"]
 
 [tool.uv]
 package = false

@@ -37,3 +37,9 @@ prefix = "jcs-admit-npm"
 name = "jcs-admit"
 registry = "npm"
 directory = "crates/jcs-admit/npm"
+
+[[unit]]
+prefix = "agent-evidence-admission"
+name = "agent-evidence-admission"
+registry = "pypi"
+directory = "packages/admission/python"

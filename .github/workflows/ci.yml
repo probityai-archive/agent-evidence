@@ -85,9 +85,14 @@ jobs:
     if: fromJSON(needs.changes.outputs.areas)['crates/jcs-admit']
     uses: ./.github/workflows/crate-jcs-admit.yml
 
+  package-admission:
+    needs: changes
+    if: fromJSON(needs.changes.outputs.areas)['packages/admission']
+    uses: ./.github/workflows/package-admission.yml
+
   ci-ok:
     if: always()
-    needs: [changes, repository, crate-dsse, crate-jcs-admit]
+    needs: [changes, repository, crate-dsse, crate-jcs-admit, package-admission]
     runs-on: ubuntu-24.04
     timeout-minutes: 5
     steps:
