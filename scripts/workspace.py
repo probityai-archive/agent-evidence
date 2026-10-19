@@ -6,7 +6,7 @@
     python3 scripts/workspace.py release-target <tag>     # JSON for the unit the tag releases
 
 An area is a directory with its own checks: crates/<name>, packages/<name>,
-vectors and site, each once it exists. An area is changed when a file under it
+vectors, site and pages, each once it exists. An area is changed when a file under it
 changed, or when a shared file changed (anything outside every area, except
 documentation). CI and the tests read the same answer from here. Standard
 library only, because CI runs it before anything is installed.
@@ -24,7 +24,7 @@ from pathlib import Path, PurePosixPath
 ROOT = Path(__file__).resolve().parents[1]
 _DOCS = re.compile(r"(docs/.*|.*\.md|LICENSE)\Z")
 _TAG = re.compile(r"(?P<prefix>[a-z0-9][a-z0-9-]*?)-v(?P<version>\d+\.\d+\.\d+)\Z")
-_TOP_AREAS = ("vectors", "site")
+_TOP_AREAS = ("vectors", "site", "pages")
 
 
 def areas(root: Path = ROOT) -> list[str]:

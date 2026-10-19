@@ -8,3 +8,4 @@
 - Rules for one part live in that part's directory. Read its `AGENTS.md` before changing it.
 - An imported part adds its CI job to `.github/workflows/ci.yml` and to the `needs` of `ci-ok`, and its row to `release.toml`.
 - Never push a tag to publish. A release is a published GitHub release, and `release.yml` checks it.
+- Never edit `pages/` by hand. Rebuild it with `scripts/build_predicate_pages.py` and commit the new pin in `pages/predicate/v1/PAGES.sha256` with the page; `docs/predicate-pages.md` says when a page may change.
