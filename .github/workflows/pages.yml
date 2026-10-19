@@ -1,0 +1,77 @@
+name: pages
+
+# Publishes pages/ to the Pages site of this repository,
+# https://probityai.github.io/agent-evidence/. The persistent identifiers under
+# https://w3id.org/agent-evidence/predicate/v1/ redirect here, so each predicate
+# page is checked against its pin before it is deployed, and the deployed pages
+# are read back after.
+
+on:
+  push:
+    branches: [main]
+    paths: ['pages/**', 'scripts/check_predicate_pages.py', '.github/workflows/pages.yml']
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - name: every predicate page matches its pin
+        run: python3 scripts/check_predicate_pages.py
+      - uses: actions/configure-pages@45bfe0192ca1faeb007ade9deae92b16b8254a0d # v6.0.0
+      - uses: actions/upload-pages-artifact@fc324d3547104276b827a68afc52ff2a11cc49c9 # v5.0.0
+        with:
+          path: pages
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@368f82528645a54fb793d4d04e342629a3f51346 # v5.0.1
+
+  # Only the host can show that it serves the pinned bytes, and only after the deploy.
+  resolve:
+    needs: deploy
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - name: every predicate page is served with its pinned bytes
+        run: |
+          set -euo pipefail
+          while read -r digest name; do
+            url="https://probityai.github.io/agent-evidence/predicate/v1/$name/"
+            served=""
+            for attempt in 1 2 3 4 5 6; do
+              if served="$(curl -fsSL "$url" | sha256sum | cut -d' ' -f1)" && [ "$served" = "$digest" ]; then
+                break
+              fi
+              sleep 20
+            done
+            if [ "$served" != "$digest" ]; then
+              echo "::error::$url serves $served, pinned $digest"
+              exit 1
+            fi
+            echo "$url serves the pinned page"
+          done < pages/predicate/v1/PAGES.sha256
