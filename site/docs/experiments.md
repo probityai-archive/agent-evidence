@@ -168,7 +168,7 @@ Every refusal must leave consumer state unchanged. Fresh stores for the latter c
 To reproduce on Linux:
 
 ``` sh
-git clone https://github.com/probityai/agent-evidence-observer observer-source
+git clone https://github.com/probityai/probity/tree/main/packages/observer observer-source
 git -C observer-source checkout --detach 8562c25fb7ec97596ea9d0297c495340298914b6
 uv run --no-project --python 3.12.14 --with cryptography==46.0.7 \
   python experiments/observer-admission/run.py --observer-root observer-source \

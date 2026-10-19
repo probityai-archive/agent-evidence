@@ -43,7 +43,7 @@ See the [package guide](https://github.com/probityai/agent-evidence/blob/main/pa
 For Kubernetes, pin the policies to a commit and evaluate the sample statement with OPA:
 
 ```bash
-git clone https://github.com/probityai/agent-evidence-admission && cd agent-evidence-admission
+git clone https://github.com/probityai/agent-evidence/tree/main/packages/admission && cd agent-evidence-admission
 git checkout 1ded5b8d1ae4d13b8a2c3b61fc18f6a2d9d40119
 opa eval -f raw -d rego/execution_evidence.rego \
   -I 'count(data.sigstore.errors)' < samples/adversarial-execution-evidence.pass.statement.json

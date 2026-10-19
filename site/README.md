@@ -11,7 +11,7 @@ Find a Probity tool, inspect retained runs, or compare agent assurance mechanism
 Read a retained run locally. Python 3.11 or later:
 
 ```sh
-git clone https://github.com/probityai/agent-evidence-atlas && cd agent-evidence-atlas
+git clone https://github.com/probityai/agent-evidence/tree/main/site && cd agent-evidence-atlas
 git checkout 3109ae4be7dca77594fa7ddba8565d7feb261cf9
 python3 tools/check_lab.py --list
 python3 tools/check_lab.py --record E6-observer-admission --json

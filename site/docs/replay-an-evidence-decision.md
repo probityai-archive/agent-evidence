@@ -37,10 +37,10 @@ The [provenance manifest](experiments/observer-admission/provenance.json) binds 
 Use Linux with Git and [uv](https://docs.astral.sh/uv/getting-started/installation/). The command selects the exact runtime and source for the historical experiment. It does not advertise that older source as the current Observer install.
 
 ``` sh
-git clone https://github.com/probityai/agent-evidence-atlas atlas-replay
+git clone https://github.com/probityai/agent-evidence/tree/main/site atlas-replay
 cd atlas-replay
 git checkout --detach 57d0085723c9eee1400797acf6729c4204325451
-git clone https://github.com/probityai/agent-evidence-observer observer-source
+git clone https://github.com/probityai/probity/tree/main/packages/observer observer-source
 git -C observer-source checkout --detach 8562c25fb7ec97596ea9d0297c495340298914b6
 uv run --no-project --python 3.12.14 --with cryptography==46.0.7 \
   python experiments/observer-admission/run.py \

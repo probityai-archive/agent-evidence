@@ -347,7 +347,7 @@
 <p>Every refusal must leave consumer state unchanged. Fresh stores for the latter controls ensure replay protection cannot mask a missing authority or signature check. A newly executed demo generates new keys, nonces and signatures; the comparison checks complete semantic outcomes and source digests, while the original bundle has its own exact file manifest.</p>
 <p>To reproduce on Linux:</p>
 <div class="code-scroll" tabindex="0" role="region" aria-label="Code example">
-<div class="sourceCode" id="cb3"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> clone https://github.com/probityai/agent-evidence-observer observer-source</span>
+<div class="sourceCode" id="cb3"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> clone https://github.com/probityai/probity/tree/main/packages/observer observer-source</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> <span class="at">-C</span> observer-source checkout <span class="at">--detach</span> 8562c25fb7ec97596ea9d0297c495340298914b6</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="ex">uv</span> run <span class="at">--no-project</span> <span class="at">--python</span> 3.12.14 <span class="at">--with</span> cryptography==46.0.7 <span class="dt">\</span></span>
 <span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  python experiments/observer-admission/run.py <span class="at">--observer-root</span> observer-source <span class="dt">\</span></span>

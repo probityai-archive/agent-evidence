@@ -33,7 +33,7 @@ An open cell is a mechanism and a property where the mechanism's own documentati
 1.  **Declarative policy decision point (OPA, Cedar, OpenFGA, Kyverno) x Effect** (did the downstream system commit the effect?). Limit: "a decision precedes execution and cannot observe the result" [source](https://github.com/open-policy-agent/opa/blob/a6c13a96f0cd11dc7ca6db9296b2af842ffdc0fd/README.md) (states the scope). Take it: a passing case binds an allow decision to an effect observed from a vantage the decider does not control.
 2.  **Signature over a canonical JSON or CWT record (RFC 8785 JCS, JWS) x Occurrence** (did the recorded event actually happen, rather than being asserted?). Limit: "TRACE LIMITATIONS: a privileged operator can produce a valid-looking Level 0 record for a run that never happened" [source](https://github.com/agentrust-io/trace-spec/blob/5222ed4e238627590fb21e801e0acdf7c9d78cbc/LIMITATIONS.md) (states the limit). Take it: a passing case refuses a well-signed record with no independent observation of the run.
 
-To take a cell, [open an Evidence run issue](https://github.com/probityai/agent-evidence-atlas/issues/new?template=evidence-run.yml) naming it. Listing a cell makes no claim about who closes it; a run that does is recorded in the Lab like any other.
+To take a cell, [open an Evidence run issue](https://github.com/probityai/agent-evidence/issues/new?template=evidence-run.yml) naming it. Listing a cell makes no claim about who closes it; a run that does is recorded in the Lab like any other.
 
 <a id="every-record"></a>
 
