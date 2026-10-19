@@ -63,7 +63,7 @@ jobs:
           while read -r digest name; do
             url="https://probityai.github.io/agent-evidence/predicate/v1/$name/"
             served=""
-            for attempt in 1 2 3 4 5 6; do
+            for _ in 1 2 3 4 5 6; do
               if served="$(curl -fsSL "$url" | sha256sum | cut -d' ' -f1)" && [ "$served" = "$digest" ]; then
                 break
               fi
