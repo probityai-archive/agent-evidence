@@ -28,6 +28,12 @@ FORBIDDEN = re.compile(
 )
 SAFE_TEXT = re.compile(r"[A-Za-z0-9 .,:;()'/-]+\Z")
 SAFE_PATH = re.compile(r"[A-Za-z0-9._/-]+\Z")
+# A project's README may live in an approved repository other than the one that
+# names the project: a package moved into a monorepo keeps its record and its ID.
+SOURCE_README = re.compile(
+    r"https://github\.com/(?P<repository>[A-Za-z0-9][A-Za-z0-9_.-]*/[A-Za-z0-9][A-Za-z0-9_.-]*)"
+    r"/blob/(?P<commit>[0-9a-f]{40})/(?:[A-Za-z0-9._-]+/)*README\.md"
+)
 
 
 class CatalogError(ValueError):
@@ -255,8 +261,13 @@ def check_repository(record: dict[str, Any], approved: set[str]) -> None:
     if record["full_name"] not in approved or not identity_matches:
         fail("Public repository identity does not match its approval")
     source = record["source"]
-    expected = f"{record['url']}/blob/{source['commit']}/README.md"
-    if source["url"] != expected or source["repository"] != record["id"]:
+    match = SOURCE_README.fullmatch(source["url"])
+    if (
+        match is None
+        or match["repository"] not in approved
+        or match["commit"] != source["commit"]
+        or source["repository"] != record["id"]
+    ):
         fail("Public repository source must pin its own README commit")
 
 
