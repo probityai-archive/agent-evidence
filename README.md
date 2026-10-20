@@ -24,7 +24,8 @@ Pin the parts you use:
 ```bash
 uv add agent-evidence-vectors==0.20.0
 pip install agent-evidence-vectors==0.20.0
-cargo add dsse@0.1.4 jcs-admit@0.1.2
+cargo add dsse@0.1.5 jcs-admit@0.1.3
+pip install jcs-admit==0.1.0
 ```
 
 ## Try it
