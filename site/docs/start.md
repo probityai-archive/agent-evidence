@@ -35,7 +35,7 @@ Component ID: `admission`.
 
 Provides a Python artifact-digest checker, admission policies for OPA, Kyverno and policy-controller, and a pre-call budget reservation API.
 
-Draft. [Reviewed guide and source](https://github.com/probityai/agent-evidence-admission/blob/c8f34fe857a969a5a503e0792466b76797d66355/README.md)
+Draft. [Reviewed guide and source](https://github.com/probityai/agent-evidence/blob/44066a188c1b080b7c9bd5a73f6626c229baaa14/packages/admission/README.md)
 
 Python digest checker: published release [py-v0.1.0](https://github.com/probityai/agent-evidence-admission/releases/tag/py-v0.1.0), source [`0004d2333a84`](https://github.com/probityai/agent-evidence-admission/tree/0004d2333a841c95658d4a9c75232f0913ca7141), read 2026-10-15. This release is the digest-check package. Admission policy and budget tasks retain their own source pins.
 
@@ -47,7 +47,7 @@ Profile ID: `aps-refund-retries`. Component ID: `observer`.
 
 Runs a local APS refund example that ties retries to approved actions and retains records for a separate reader.
 
-Prototype. [Reviewed guide and source](https://github.com/probityai/agent-evidence-observer/blob/753932b42b00ab8257396112c529f840396f0ce7/docs/APS-REFUND-RETRIES.md)
+Prototype. [Reviewed guide and source](https://github.com/probityai/probity/blob/e2164379c19cf17a00356dfbdf625a998272ac58/packages/observer/docs/APS-REFUND-RETRIES.md)
 
 <a id="artifact-digest-check"></a>
 
@@ -57,7 +57,7 @@ Profile ID: `artifact-digest-check`. Component ID: `admission`.
 
 Checks an artifact against digests named by a TEA document, CycloneDX SBOM or VEX, or in-toto statement.
 
-Released. [Reviewed guide and source](https://github.com/probityai/agent-evidence-admission/blob/c8f34fe857a969a5a503e0792466b76797d66355/python/README.md)
+Released. [Reviewed guide and source](https://github.com/probityai/agent-evidence/blob/44066a188c1b080b7c9bd5a73f6626c229baaa14/packages/admission/python/README.md)
 
 <div>
 
@@ -68,7 +68,7 @@ agent-evidence-admission / recorded package release 0.1.0
 
 <p class="distribution-actions">
 
-<a href="https://github.com/probityai/agent-evidence-admission/blob/c8f34fe857a969a5a503e0792466b76797d66355/python/README.md#install">Install</a> <a href="https://pypi.org/project/agent-evidence-admission/0.1.0/#files">Download release files</a> <a href="https://pypi.org/project/agent-evidence-admission/0.1.0/">Registry release</a> <a href="https://pepy.tech/projects/agent-evidence-admission">Download statistics</a>
+<a href="https://github.com/probityai/agent-evidence/blob/44066a188c1b080b7c9bd5a73f6626c229baaa14/packages/admission/python/README.md#install">Install</a> <a href="https://pypi.org/project/agent-evidence-admission/0.1.0/#files">Download release files</a> <a href="https://pypi.org/project/agent-evidence-admission/0.1.0/">Registry release</a> <a href="https://pepy.tech/projects/agent-evidence-admission">Download statistics</a>
 </p>
 
 <p class="distribution-badges">
@@ -86,7 +86,7 @@ Component ID: `atlas`.
 
 Provides task-based project navigation, agent assurance documentation and an Open Evidence Lab run register.
 
-Draft. [Reviewed guide and source](https://github.com/probityai/agent-evidence-atlas/blob/ec67f0375e008cb7befc19a31762490b5cbbe520/README.md)
+Draft. [Reviewed guide and source](https://github.com/probityai/agent-evidence/blob/44066a188c1b080b7c9bd5a73f6626c229baaa14/site/README.md)
 
 <a id="checkout-runner"></a>
 
@@ -96,7 +96,7 @@ Component ID: `checkout-runner`.
 
 Runs a bounded synthetic checkout and refund composition as a CLI or Action, with separate decisions, attempts, effects and observations for offline replay.
 
-Released. [Reviewed guide and source](https://github.com/probityai/agent-checkout-runner/blob/297b5b182bb40605b62586eccbf93a9c68a4aee1/README.md)
+Released. [Reviewed guide and source](https://github.com/probityai/probity/blob/e2164379c19cf17a00356dfbdf625a998272ac58/examples/checkout-runner/README.md)
 
 Composition CLI and Action: source tag [0.2.0](https://github.com/probityai/agent-checkout-runner/tree/v0.2.0), source [`297b5b182bb4`](https://github.com/probityai/agent-checkout-runner/tree/297b5b182bb40605b62586eccbf93a9c68a4aee1), read 2026-10-15. A bounded synthetic composition reference. The source tag pins the CLI and Action, not a registry release or a merchant deployment.
 
@@ -109,7 +109,7 @@ Composition CLI and Action
 
 <p class="distribution-actions">
 
-<a href="https://github.com/probityai/agent-checkout-runner/blob/297b5b182bb40605b62586eccbf93a9c68a4aee1/README.md#install">Install</a> <a href="https://github.com/probityai/agent-checkout-runner/blob/297b5b182bb40605b62586eccbf93a9c68a4aee1/README.md#run-it-in-your-own-ci">Use pinned Action</a> <a href="https://github.com/probityai/agent-checkout-runner/actions/workflows/ci.yml">Workflow runs</a>
+<a href="https://github.com/probityai/probity/blob/e2164379c19cf17a00356dfbdf625a998272ac58/examples/checkout-runner/README.md#install">Install</a> <a href="https://github.com/probityai/agent-checkout-runner/blob/297b5b182bb40605b62586eccbf93a9c68a4aee1/README.md#run-it-in-your-own-ci">Use pinned Action</a> <a href="https://github.com/probityai/agent-checkout-runner/actions/workflows/ci.yml">Workflow runs</a>
 </p>
 
 <p class="distribution-badges">
@@ -127,7 +127,7 @@ Component ID: `dsse`.
 
 Signs and verifies DSSE envelopes with explicit threshold and key handling.
 
-Released. [Reviewed guide and source](https://github.com/probityai/dsse/blob/8549e5e54080b5f8c864f8b3eba8f57af8bd9c51/README.md)
+Released. [Reviewed guide and source](https://github.com/probityai/agent-evidence/blob/44066a188c1b080b7c9bd5a73f6626c229baaa14/crates/dsse/README.md)
 
 Rust crate: registry release [0.1.3](https://crates.io/crates/dsse/0.1.3), source [`5f1e4b5ffd61`](https://github.com/probityai/dsse/tree/5f1e4b5ffd61b6bae0f69b43766c493370004d29), read 2026-10-15. Signature verification checks bytes under caller-selected keys, not the truth of the payload.
 
@@ -140,7 +140,7 @@ dsse / recorded package release 0.1.3
 
 <p class="distribution-actions">
 
-<a href="https://github.com/probityai/dsse/blob/8549e5e54080b5f8c864f8b3eba8f57af8bd9c51/README.md#quick-start">Install</a> <a href="https://crates.io/api/v1/crates/dsse/0.1.3/download">Download release files</a> <a href="https://crates.io/crates/dsse/0.1.3">Registry release</a> <a href="https://crates.io/crates/dsse">Download statistics</a>
+<a href="https://github.com/probityai/agent-evidence/blob/44066a188c1b080b7c9bd5a73f6626c229baaa14/crates/dsse/README.md#quick-start">Install</a> <a href="https://crates.io/api/v1/crates/dsse/0.1.3/download">Download release files</a> <a href="https://crates.io/crates/dsse/0.1.3">Registry release</a> <a href="https://crates.io/crates/dsse">Download statistics</a>
 </p>
 
 <p class="distribution-badges">
@@ -158,7 +158,7 @@ Profile ID: `inspect-native-reader`. Component ID: `observer`.
 
 Reads selected retained Inspect execution profiles offline, preserving errors and unstarted attempts. Inspect accepted the catalog entry, and the live Inspect extensions catalog lists it as of October 14, 2026.
 
-Prototype. [Reviewed guide and source](https://github.com/probityai/agent-evidence-observer/blob/71ac0b2126473316655184235000647a6dd0f5cf/docs/NATIVE-CONSUMER-CI.md)
+Prototype. [Reviewed guide and source](https://github.com/probityai/probity/blob/e2164379c19cf17a00356dfbdf625a998272ac58/packages/observer/docs/NATIVE-CONSUMER-CI.md)
 
 <a id="jcs-admit"></a>
 
@@ -168,7 +168,7 @@ Component ID: `jcs-admit`.
 
 Checks raw JSON input before producing its RFC 8785 canonical form.
 
-Released. [Reviewed guide and source](https://github.com/probityai/jcs-admit/blob/0a058d7b676fb452929337c528b893c7f2121062/README.md)
+Released. [Reviewed guide and source](https://github.com/probityai/agent-evidence/blob/44066a188c1b080b7c9bd5a73f6626c229baaa14/crates/jcs-admit/README.md)
 
 Rust crate: registry release [0.1.2](https://crates.io/crates/jcs-admit/0.1.2), source [`d7e65f04bf13`](https://github.com/probityai/jcs-admit/tree/d7e65f04bf13873e6579a91aa111234866020389), read 2026-10-15. Canonicalization and raw-input admission are separate from envelope verification.
 
@@ -181,7 +181,7 @@ jcs-admit / recorded package release 0.1.2
 
 <p class="distribution-actions">
 
-<a href="https://github.com/probityai/jcs-admit/blob/0a058d7b676fb452929337c528b893c7f2121062/README.md#quick-start">Install</a> <a href="https://crates.io/api/v1/crates/jcs-admit/0.1.2/download">Download release files</a> <a href="https://crates.io/crates/jcs-admit/0.1.2">Registry release</a> <a href="https://crates.io/crates/jcs-admit">Download statistics</a>
+<a href="https://github.com/probityai/agent-evidence/blob/44066a188c1b080b7c9bd5a73f6626c229baaa14/crates/jcs-admit/README.md#quick-start">Install</a> <a href="https://crates.io/api/v1/crates/jcs-admit/0.1.2/download">Download release files</a> <a href="https://crates.io/crates/jcs-admit/0.1.2">Registry release</a> <a href="https://crates.io/crates/jcs-admit">Download statistics</a>
 </p>
 
 <p class="distribution-badges">
@@ -199,7 +199,7 @@ Profile ID: `mintid-trace-records-v2`. Component ID: `jcs-admit`.
 
 Reads published MintID trace records after raw JSON admission and checks source-bound evidence and actor attribution.
 
-Prototype. [Reviewed guide and source](https://github.com/probityai/jcs-admit/blob/fb32a68aa2772e51cee32bc14835075d88af3953/interop/mintid-trace-records-v2/README.md)
+Prototype. [Reviewed guide and source](https://github.com/probityai/agent-evidence/blob/44066a188c1b080b7c9bd5a73f6626c229baaa14/crates/jcs-admit/interop/mintid-trace-records-v2/README.md)
 
 <a id="observer"></a>
 
@@ -209,7 +209,7 @@ Component ID: `observer`.
 
 Records brokered file actions with signed packets and history, and reads selected native delegation evidence offline.
 
-Prototype. [Reviewed guide and source](https://github.com/probityai/agent-evidence-observer/blob/6c251b9fe98946f96a721521a8ca424efd0b3550/README.md)
+Prototype. [Reviewed guide and source](https://github.com/probityai/probity/blob/e2164379c19cf17a00356dfbdf625a998272ac58/packages/observer/README.md)
 
 Python package: registry release [0.0.1](https://pypi.org/project/agent-evidence-observer/0.0.1/), source [`c12869620f18`](https://github.com/probityai/agent-evidence-observer/tree/c12869620f1834ce566cd924ba95918c4dde52ce), read 2026-10-15. Root package release; separate integration profile wheels and source readers keep their own installation paths. The reviewed quick start remains a pinned source recipe.
 
@@ -222,7 +222,7 @@ agent-evidence-observer / recorded package release 0.0.1
 
 <p class="distribution-actions">
 
-<a href="https://github.com/probityai/agent-evidence-observer/blob/6c251b9fe98946f96a721521a8ca424efd0b3550/README.md#quick-start">Install</a> <a href="https://pypi.org/project/agent-evidence-observer/0.0.1/#files">Download release files</a> <a href="https://pypi.org/project/agent-evidence-observer/0.0.1/">Registry release</a> <a href="https://pepy.tech/projects/agent-evidence-observer">Download statistics</a>
+<a href="https://github.com/probityai/probity/blob/e2164379c19cf17a00356dfbdf625a998272ac58/packages/observer/README.md#quick-start">Install</a> <a href="https://pypi.org/project/agent-evidence-observer/0.0.1/#files">Download release files</a> <a href="https://pypi.org/project/agent-evidence-observer/0.0.1/">Registry release</a> <a href="https://pepy.tech/projects/agent-evidence-observer">Download statistics</a>
 </p>
 
 <p class="distribution-badges">
@@ -240,7 +240,7 @@ Component ID: `ratchet`.
 
 Provides a source-tagged agent guard harness, signed admission records and public regression cases.
 
-Released. [Reviewed guide and source](https://github.com/probityai/ratchet/blob/b2800b26ec6cf60fee8e95682660846f674f97c2/README.md)
+Released. [Reviewed guide and source](https://github.com/probityai/probity/blob/e2164379c19cf17a00356dfbdf625a998272ac58/packages/ratchet/README.md)
 
 Harness source: source tag [0.1.2](https://github.com/probityai/ratchet/tree/probity-ratchet-v0.1.2), source [`e2daf77f75e9`](https://github.com/probityai/ratchet/tree/e2daf77f75e92aa961cf184084335b67aaae7581), read 2026-10-15. Annotated harness tag, peeled to its source commit. It is separate from the public case package.
 
@@ -253,7 +253,7 @@ Harness source
 
 <p class="distribution-actions">
 
-<a href="https://github.com/probityai/ratchet/blob/b2800b26ec6cf60fee8e95682660846f674f97c2/README.md#install">Install</a>
+<a href="https://github.com/probityai/probity/blob/e2164379c19cf17a00356dfbdf625a998272ac58/packages/ratchet/README.md#install">Install</a>
 </p>
 
 </div>
@@ -268,7 +268,7 @@ Profile ID: `ratchet-cases`. Component ID: `ratchet`.
 
 Grades agent tasks in a simulated company on final state, with declared tool faults, traps and benign cases. All shipped splits are public.
 
-Released. [Reviewed guide and source](https://github.com/probityai/ratchet/blob/b6504260db8af7d3746e9ac87740430dd988e8d9/probity-ratchet-cases/README.md)
+Released. [Reviewed guide and source](https://github.com/probityai/probity/blob/e2164379c19cf17a00356dfbdf625a998272ac58/packages/ratchet/probity-ratchet-cases/README.md)
 
 <div>
 
@@ -279,7 +279,7 @@ probity-ratchet-cases / recorded package release 0.2.0
 
 <p class="distribution-actions">
 
-<a href="https://github.com/probityai/ratchet/blob/b6504260db8af7d3746e9ac87740430dd988e8d9/probity-ratchet-cases/README.md#install">Install</a> <a href="https://pypi.org/project/probity-ratchet-cases/0.2.0/#files">Download release files</a> <a href="https://pypi.org/project/probity-ratchet-cases/0.2.0/">Registry release</a> <a href="https://pepy.tech/projects/probity-ratchet-cases">Download statistics</a>
+<a href="https://github.com/probityai/probity/blob/e2164379c19cf17a00356dfbdf625a998272ac58/packages/ratchet/probity-ratchet-cases/README.md#install">Install</a> <a href="https://pypi.org/project/probity-ratchet-cases/0.2.0/#files">Download release files</a> <a href="https://pypi.org/project/probity-ratchet-cases/0.2.0/">Registry release</a> <a href="https://pepy.tech/projects/probity-ratchet-cases">Download statistics</a>
 </p>
 
 <p class="distribution-badges">
@@ -359,7 +359,7 @@ Component ID: `vocabulary`.
 
 Defines versioned terms and crosswalks for claims about agent execution.
 
-Released. [Reviewed guide and source](https://github.com/probityai/agent-evidence-vocabulary/blob/59c93ac4529c1e8fdf6e7cdfff7a950740c873f3/README.md)
+Released. [Reviewed guide and source](https://github.com/probityai/agent-evidence/blob/44066a188c1b080b7c9bd5a73f6626c229baaa14/packages/vocabulary/README.md)
 
 Python package: registry release [0.4.0](https://pypi.org/project/agent-evidence-vocabulary/0.4.0/), source [`59c93ac4529c`](https://github.com/probityai/agent-evidence-vocabulary/tree/59c93ac4529c1e8fdf6e7cdfff7a950740c873f3), read 2026-10-15. Python package carries the released registry and crosswalk data. The reviewed quick start still reads the independently tagged v0.4.0 raw registry.
 
@@ -372,7 +372,7 @@ agent-evidence-vocabulary / recorded package release 0.4.0
 
 <p class="distribution-actions">
 
-<a href="https://github.com/probityai/agent-evidence-vocabulary/blob/59c93ac4529c1e8fdf6e7cdfff7a950740c873f3/README.md#quick-start">Install</a> <a href="https://pypi.org/project/agent-evidence-vocabulary/0.4.0/#files">Download release files</a> <a href="https://pypi.org/project/agent-evidence-vocabulary/0.4.0/">Registry release</a> <a href="https://pepy.tech/projects/agent-evidence-vocabulary">Download statistics</a>
+<a href="https://github.com/probityai/agent-evidence/blob/44066a188c1b080b7c9bd5a73f6626c229baaa14/packages/vocabulary/README.md#quick-start">Install</a> <a href="https://pypi.org/project/agent-evidence-vocabulary/0.4.0/#files">Download release files</a> <a href="https://pypi.org/project/agent-evidence-vocabulary/0.4.0/">Registry release</a> <a href="https://pepy.tech/projects/agent-evidence-vocabulary">Download statistics</a>
 </p>
 
 <p class="distribution-badges">
@@ -392,7 +392,7 @@ Profile ID: `witnessed-run-selection`. Component ID: `observer`.
 
 Checks a supplied run against consumer-retained witness anchors, plan and control pins, and execution closure.
 
-Prototype. [Reviewed guide and source](https://github.com/probityai/agent-evidence-observer/blob/d53776c7b783abbce42a3422f56ed390dfedd2f2/docs/WITNESSED-RUN-SELECTION.md)
+Prototype. [Reviewed guide and source](https://github.com/probityai/probity/blob/e2164379c19cf17a00356dfbdf625a998272ac58/packages/observer/docs/WITNESSED-RUN-SELECTION.md)
 
 <a id="run-and-share-a-check"></a>
 

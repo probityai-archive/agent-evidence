@@ -2,7 +2,7 @@
   "components": [
     {
       "display_name": "Probity Admission",
-      "docs_url": "https://github.com/probityai/agent-evidence-admission/blob/c8f34fe857a969a5a503e0792466b76797d66355/README.md",
+      "docs_url": "https://github.com/probityai/agent-evidence/blob/44066a188c1b080b7c9bd5a73f6626c229baaa14/packages/admission/README.md",
       "id": "admission",
       "packages": [
         "agent-evidence-admission"
@@ -17,7 +17,7 @@
     },
     {
       "display_name": "Agent Evidence Conformance Board",
-      "docs_url": "https://github.com/probityai/agent-evidence-atlas/blob/ec67f0375e008cb7befc19a31762490b5cbbe520/README.md",
+      "docs_url": "https://github.com/probityai/agent-evidence/blob/44066a188c1b080b7c9bd5a73f6626c229baaa14/site/README.md",
       "id": "atlas",
       "packages": [],
       "relationships": [],
@@ -30,7 +30,7 @@
     },
     {
       "display_name": "Checkout composition reference",
-      "docs_url": "https://github.com/probityai/agent-checkout-runner/blob/297b5b182bb40605b62586eccbf93a9c68a4aee1/README.md",
+      "docs_url": "https://github.com/probityai/probity/blob/e2164379c19cf17a00356dfbdf625a998272ac58/examples/checkout-runner/README.md",
       "id": "checkout-runner",
       "packages": [],
       "relationships": [],
@@ -43,7 +43,7 @@
     },
     {
       "display_name": "dsse",
-      "docs_url": "https://github.com/probityai/dsse/blob/8549e5e54080b5f8c864f8b3eba8f57af8bd9c51/README.md",
+      "docs_url": "https://github.com/probityai/agent-evidence/blob/44066a188c1b080b7c9bd5a73f6626c229baaa14/crates/dsse/README.md",
       "id": "dsse",
       "packages": [
         "dsse"
@@ -58,7 +58,7 @@
     },
     {
       "display_name": "jcs-admit",
-      "docs_url": "https://github.com/probityai/jcs-admit/blob/0a058d7b676fb452929337c528b893c7f2121062/README.md",
+      "docs_url": "https://github.com/probityai/agent-evidence/blob/44066a188c1b080b7c9bd5a73f6626c229baaa14/crates/jcs-admit/README.md",
       "id": "jcs-admit",
       "packages": [
         "jcs-admit"
@@ -73,7 +73,7 @@
     },
     {
       "display_name": "Probity Observer",
-      "docs_url": "https://github.com/probityai/agent-evidence-observer/blob/6c251b9fe98946f96a721521a8ca424efd0b3550/README.md",
+      "docs_url": "https://github.com/probityai/probity/blob/e2164379c19cf17a00356dfbdf625a998272ac58/packages/observer/README.md",
       "id": "observer",
       "packages": [
         "agent-evidence-observer"
@@ -88,7 +88,7 @@
     },
     {
       "display_name": "Probity Ratchet",
-      "docs_url": "https://github.com/probityai/ratchet/blob/b2800b26ec6cf60fee8e95682660846f674f97c2/README.md",
+      "docs_url": "https://github.com/probityai/probity/blob/e2164379c19cf17a00356dfbdf625a998272ac58/packages/ratchet/README.md",
       "id": "ratchet",
       "packages": [
         "probity-ratchet-cases"
@@ -133,7 +133,7 @@
     },
     {
       "display_name": "Probity Vocabulary",
-      "docs_url": "https://github.com/probityai/agent-evidence-vocabulary/blob/59c93ac4529c1e8fdf6e7cdfff7a950740c873f3/README.md",
+      "docs_url": "https://github.com/probityai/agent-evidence/blob/44066a188c1b080b7c9bd5a73f6626c229baaa14/packages/vocabulary/README.md",
       "id": "vocabulary",
       "packages": [
         "agent-evidence-vocabulary"
@@ -151,7 +151,7 @@
     {
       "component": "observer",
       "display_name": "Probity APS refund example",
-      "docs_url": "https://github.com/probityai/agent-evidence-observer/blob/753932b42b00ab8257396112c529f840396f0ce7/docs/APS-REFUND-RETRIES.md",
+      "docs_url": "https://github.com/probityai/probity/blob/e2164379c19cf17a00356dfbdf625a998272ac58/packages/observer/docs/APS-REFUND-RETRIES.md",
       "id": "aps-refund-retries",
       "repositories": [
         "repo-observer"
@@ -163,7 +163,7 @@
     {
       "component": "admission",
       "display_name": "Probity artifact digest check",
-      "docs_url": "https://github.com/probityai/agent-evidence-admission/blob/c8f34fe857a969a5a503e0792466b76797d66355/python/README.md",
+      "docs_url": "https://github.com/probityai/agent-evidence/blob/44066a188c1b080b7c9bd5a73f6626c229baaa14/packages/admission/python/README.md",
       "id": "artifact-digest-check",
       "packages": [
         "agent-evidence-admission"
@@ -178,7 +178,7 @@
     {
       "component": "observer",
       "display_name": "Probity native Inspect reader",
-      "docs_url": "https://github.com/probityai/agent-evidence-observer/blob/71ac0b2126473316655184235000647a6dd0f5cf/docs/NATIVE-CONSUMER-CI.md",
+      "docs_url": "https://github.com/probityai/probity/blob/e2164379c19cf17a00356dfbdf625a998272ac58/packages/observer/docs/NATIVE-CONSUMER-CI.md",
       "id": "inspect-native-reader",
       "repositories": [
         "repo-observer"
@@ -190,7 +190,7 @@
     {
       "component": "jcs-admit",
       "display_name": "Probity MintID trace reader",
-      "docs_url": "https://github.com/probityai/jcs-admit/blob/fb32a68aa2772e51cee32bc14835075d88af3953/interop/mintid-trace-records-v2/README.md",
+      "docs_url": "https://github.com/probityai/agent-evidence/blob/44066a188c1b080b7c9bd5a73f6626c229baaa14/crates/jcs-admit/interop/mintid-trace-records-v2/README.md",
       "id": "mintid-trace-records-v2",
       "repositories": [
         "repo-jcs-admit"
@@ -202,7 +202,7 @@
     {
       "component": "ratchet",
       "display_name": "Probity Ratchet public cases",
-      "docs_url": "https://github.com/probityai/ratchet/blob/b6504260db8af7d3746e9ac87740430dd988e8d9/probity-ratchet-cases/README.md",
+      "docs_url": "https://github.com/probityai/probity/blob/e2164379c19cf17a00356dfbdf625a998272ac58/packages/ratchet/probity-ratchet-cases/README.md",
       "id": "ratchet-cases",
       "packages": [
         "probity-ratchet-cases"
@@ -217,7 +217,7 @@
     {
       "component": "observer",
       "display_name": "Probity witnessed run selection",
-      "docs_url": "https://github.com/probityai/agent-evidence-observer/blob/d53776c7b783abbce42a3422f56ed390dfedd2f2/docs/WITNESSED-RUN-SELECTION.md",
+      "docs_url": "https://github.com/probityai/probity/blob/e2164379c19cf17a00356dfbdf625a998272ac58/packages/observer/docs/WITNESSED-RUN-SELECTION.md",
       "id": "witnessed-run-selection",
       "repositories": [
         "repo-observer"
@@ -232,9 +232,9 @@
       "display_name": "Probity Admission",
       "id": "repo-admission",
       "source": {
-        "commit": "c8f34fe857a969a5a503e0792466b76797d66355",
+        "commit": "44066a188c1b080b7c9bd5a73f6626c229baaa14",
         "repository": "repo-admission",
-        "url": "https://github.com/probityai/agent-evidence-admission/blob/c8f34fe857a969a5a503e0792466b76797d66355/README.md"
+        "url": "https://github.com/probityai/agent-evidence/blob/44066a188c1b080b7c9bd5a73f6626c229baaa14/packages/admission/README.md"
       },
       "status": "draft",
       "summary": "Provides a Python artifact-digest checker, admission policies for OPA, Kyverno and policy-controller, and a pre-call budget reservation API.",
@@ -245,9 +245,9 @@
       "display_name": "Agent Evidence Conformance Board",
       "id": "repo-atlas",
       "source": {
-        "commit": "ec67f0375e008cb7befc19a31762490b5cbbe520",
+        "commit": "44066a188c1b080b7c9bd5a73f6626c229baaa14",
         "repository": "repo-atlas",
-        "url": "https://github.com/probityai/agent-evidence-atlas/blob/ec67f0375e008cb7befc19a31762490b5cbbe520/README.md"
+        "url": "https://github.com/probityai/agent-evidence/blob/44066a188c1b080b7c9bd5a73f6626c229baaa14/site/README.md"
       },
       "status": "draft",
       "summary": "Provides task-based project navigation, agent assurance documentation and an Open Evidence Lab run register.",
@@ -258,9 +258,9 @@
       "display_name": "Checkout composition reference",
       "id": "repo-checkout-runner",
       "source": {
-        "commit": "297b5b182bb40605b62586eccbf93a9c68a4aee1",
+        "commit": "e2164379c19cf17a00356dfbdf625a998272ac58",
         "repository": "repo-checkout-runner",
-        "url": "https://github.com/probityai/agent-checkout-runner/blob/297b5b182bb40605b62586eccbf93a9c68a4aee1/README.md"
+        "url": "https://github.com/probityai/probity/blob/e2164379c19cf17a00356dfbdf625a998272ac58/examples/checkout-runner/README.md"
       },
       "status": "released",
       "summary": "Runs a bounded synthetic checkout and refund composition as a CLI or Action, with separate decisions, attempts, effects and observations for offline replay.",
@@ -271,9 +271,9 @@
       "display_name": "dsse",
       "id": "repo-dsse",
       "source": {
-        "commit": "8549e5e54080b5f8c864f8b3eba8f57af8bd9c51",
+        "commit": "44066a188c1b080b7c9bd5a73f6626c229baaa14",
         "repository": "repo-dsse",
-        "url": "https://github.com/probityai/dsse/blob/8549e5e54080b5f8c864f8b3eba8f57af8bd9c51/README.md"
+        "url": "https://github.com/probityai/agent-evidence/blob/44066a188c1b080b7c9bd5a73f6626c229baaa14/crates/dsse/README.md"
       },
       "status": "released",
       "summary": "Signs and verifies DSSE envelopes with explicit threshold and key handling.",
@@ -284,9 +284,9 @@
       "display_name": "jcs-admit",
       "id": "repo-jcs-admit",
       "source": {
-        "commit": "0a058d7b676fb452929337c528b893c7f2121062",
+        "commit": "44066a188c1b080b7c9bd5a73f6626c229baaa14",
         "repository": "repo-jcs-admit",
-        "url": "https://github.com/probityai/jcs-admit/blob/0a058d7b676fb452929337c528b893c7f2121062/README.md"
+        "url": "https://github.com/probityai/agent-evidence/blob/44066a188c1b080b7c9bd5a73f6626c229baaa14/crates/jcs-admit/README.md"
       },
       "status": "released",
       "summary": "Checks raw JSON input before producing its RFC 8785 canonical form.",
@@ -297,9 +297,9 @@
       "display_name": "Probity Observer",
       "id": "repo-observer",
       "source": {
-        "commit": "6c251b9fe98946f96a721521a8ca424efd0b3550",
+        "commit": "e2164379c19cf17a00356dfbdf625a998272ac58",
         "repository": "repo-observer",
-        "url": "https://github.com/probityai/agent-evidence-observer/blob/6c251b9fe98946f96a721521a8ca424efd0b3550/README.md"
+        "url": "https://github.com/probityai/probity/blob/e2164379c19cf17a00356dfbdf625a998272ac58/packages/observer/README.md"
       },
       "status": "prototype",
       "summary": "Records brokered file actions with signed packets and history, and reads selected native delegation evidence offline.",
@@ -310,9 +310,9 @@
       "display_name": "Probity Ratchet",
       "id": "repo-ratchet",
       "source": {
-        "commit": "b2800b26ec6cf60fee8e95682660846f674f97c2",
+        "commit": "e2164379c19cf17a00356dfbdf625a998272ac58",
         "repository": "repo-ratchet",
-        "url": "https://github.com/probityai/ratchet/blob/b2800b26ec6cf60fee8e95682660846f674f97c2/README.md"
+        "url": "https://github.com/probityai/probity/blob/e2164379c19cf17a00356dfbdf625a998272ac58/packages/ratchet/README.md"
       },
       "status": "released",
       "summary": "Provides a source-tagged agent guard harness, signed admission records and public regression cases.",
@@ -349,9 +349,9 @@
       "display_name": "Probity Vocabulary",
       "id": "repo-vocabulary",
       "source": {
-        "commit": "59c93ac4529c1e8fdf6e7cdfff7a950740c873f3",
+        "commit": "44066a188c1b080b7c9bd5a73f6626c229baaa14",
         "repository": "repo-vocabulary",
-        "url": "https://github.com/probityai/agent-evidence-vocabulary/blob/59c93ac4529c1e8fdf6e7cdfff7a950740c873f3/README.md"
+        "url": "https://github.com/probityai/agent-evidence/blob/44066a188c1b080b7c9bd5a73f6626c229baaa14/packages/vocabulary/README.md"
       },
       "status": "released",
       "summary": "Defines versioned terms and crosswalks for claims about agent execution.",
