@@ -58,16 +58,25 @@ impl serde::Serialize for RepeatedMember {
     }
 }
 
-/// THE refusal. Three ways into the delegate, three acceptances, and two
-/// different canonical forms for one document.
+/// THE refusal, now split in two by the delegate's own 0.4.1 fix.
 ///
-/// `pipe` and the `Value` path keep the LAST member because `serde_json::Map`
-/// overwrites. Feeding the delegate's serializer directly keeps the FIRST,
-/// because its object is a `BTreeSet` and `BTreeSet::insert` does not replace an
-/// equal element. A signature over either output verifies. That is the split view
-/// in one crate, without an attacker needing two implementations.
+/// `pipe` and the `Value` path still keep the LAST member, because
+/// `serde_json::Map` has already collapsed the duplicate before the delegate
+/// ever sees the document: there is one key left by the time its formatter
+/// runs, so nothing in 0.4.1 changes this path. Feeding the delegate's
+/// serializer directly, bypassing `serde_json::Value`, used to keep the FIRST
+/// member, because its object was a `BTreeSet` and `BTreeSet::insert` does
+/// not replace an equal element. 0.4.1 makes `end_object_value` check that
+/// insert's return value and refuse instead
+/// (<https://github.com/evik42/serde-json-canonicalizer> `v0.3.2...v0.4.1`,
+/// `src/jcs.rs`). So the split view this test pinned -- two canonical forms,
+/// a signature over either verifying -- survives for `pipe` and `Value`
+/// callers and closes for a caller that drives the serializer directly. That
+/// is a real narrowing of this crate's differential claim for this one
+/// entry point, which is exactly what the module doc above says to expect
+/// and record rather than paper over; see CHANGELOG.md 0.1.4.
 #[test]
-fn a_repeated_member_is_accepted_three_ways_by_the_delegate_and_refused_here() {
+fn a_repeated_member_is_accepted_two_ways_and_now_refused_a_third_by_the_delegate_too() {
     const DOC: &str = r#"{"a":1,"a":2}"#;
 
     let via_pipe = serde_json_canonicalizer::pipe(DOC).expect("the delegate accepts it");
@@ -80,17 +89,13 @@ fn a_repeated_member_is_accepted_three_ways_by_the_delegate_and_refused_here() {
         "the Value path keeps the last member"
     );
 
-    let via_serializer =
-        serde_json_canonicalizer::to_string(&RepeatedMember).expect("the delegate accepts it");
-    assert_eq!(
-        via_serializer, r#"{"a":1}"#,
-        "straight into its serializer keeps the FIRST member"
-    );
-
-    assert_ne!(
-        via_pipe, via_serializer,
-        "two canonical forms for one document is the whole argument; if these ever \
-         agree, re-derive the argument before trusting it"
+    let via_serializer_err = serde_json_canonicalizer::to_string(&RepeatedMember)
+        .expect_err("0.4.1 refuses a duplicate key reaching its own object assembly");
+    assert!(
+        via_serializer_err
+            .to_string()
+            .contains("duplicate object key"),
+        "want a duplicate-key refusal, got {via_serializer_err}"
     );
 
     match admit(DOC.as_bytes()) {

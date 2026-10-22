@@ -22,9 +22,14 @@ const FLOORS: &[(&str, &str)] = &[
     // serde_json 1.0.87 is the lowest the delegate compiles against, and it
     // requires serde 1.0.100.
     ("serde", "1.0.100"),
-    // The release the number formatting was measured against (src/delegate.rs),
-    // and the one 0.1.0 already declared.
-    ("serde_json_canonicalizer", "0.3.2"),
+    // 0.4.1: the release that makes serde_json_canonicalizer itself refuse a
+    // duplicate object key (it previously returned Ok and kept the last
+    // value). This crate already refuses duplicates earlier, in parse.rs,
+    // before any byte reaches the delegate, so the behavior this crate admits
+    // or refuses does not change; the floor still moves, because a caller
+    // that reaches serde_json_canonicalizer directly now gets the same
+    // refusal this crate already gave. See CHANGELOG.md 0.1.4.
+    ("serde_json_canonicalizer", "0.4.1"),
 ];
 
 /// Reads the `[dependencies]` requirements from the manifest, in both the form

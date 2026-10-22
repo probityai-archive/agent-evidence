@@ -5,6 +5,20 @@ All notable changes to this crate are recorded here.
 The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this crate
 follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## 0.1.4
+
+### Changed
+
+- The `serde_json_canonicalizer` floor is now `0.4.1`, up from `0.3.2`. The new release makes
+  the delegate's own serializer refuse a duplicate object key reaching its object assembly
+  directly, instead of silently keeping the first one (its `pipe` and `Value` entry points are
+  unaffected: `serde_json::Value` has already collapsed the duplicate to the last member before
+  either reaches the delegate). This crate already refuses a duplicate object member on the raw
+  bytes, in `parse.rs`, before any entry point is called, so nothing this crate admits or
+  refuses changes. `tests/incumbent_differential.rs` is updated to match: the entry point that
+  used to be a second, disagreeing acceptance is now a second refusal, and the test and its
+  doc comment say so rather than silently going green on an overbroad old assertion.
+
 ## 0.1.3
 
 ### Changed
