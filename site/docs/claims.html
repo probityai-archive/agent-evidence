@@ -2651,11 +2651,11 @@
 </tr>
 <tr data-read="2026-10-23">
 <td>P-111</td>
-<td>giskard09’s execution-join-ref-v1 verifier at argentum-core fcee058 passes 14 of 14 vectors; the file-domain rewrite vector fails effective_call_binding and the later-change vector fails only the proposed post_commit_consistency invariant</td>
+<td>giskard09’s execution-join-ref-v1 verifier at argentum-core fcee058 passes 14 of 14 vectors; the file-domain rewrite vector fails effective_call_binding and the later-change vector fails only the proposed post_commit_consistency invariant. Mutants still pass: a positive or AUTHORIZED_EFFECTIVE_CALL vector whose decision is set to deny and rehashed, and a negative vector whose defect is removed (later hash equal to the committed one, or effective path equal to the approved one)</td>
 <td><code>examples/request-effect-join/CASE-TABLE.md</code>; <a href="https://github.com/giskard09/argentum-core/tree/fcee058367fc7f594bfb45a7490ecfb7751a0f99/examples/conformance/execution-join-ref">verifier at fcee058</a></td>
 <td>2026-10-23 <span class="cadence">(does not expire)</span></td>
-<td>Clone argentum-core at fcee058 and run <code>python3 examples/conformance/execution-join-ref/verify.py</code>; count the PASS lines</td>
-<td>Producer-authored vectors and verifier. Invariant 7 and POST_COMMIT_DIVERGENCE are proposals, not an adopted contract version.</td>
+<td>Clone argentum-core at fcee058 and run <code>python3 examples/conformance/execution-join-ref/verify.py</code>; count the PASS lines; apply each mutant to <code>vectors.json</code> and rerun</td>
+<td>Producer-authored vectors and verifier. Invariant 7 and POST_COMMIT_DIVERGENCE are proposals, not an adopted contract version. The verifier does not read a decision’s outcome, and its summary counts any failure as the expected refusal.</td>
 </tr>
 </tbody>
 </table>

@@ -132,3 +132,17 @@ on CPython 3.13.15 on 2026-10-23: 14 of 14 vectors passed. The rewrite vector fa
 `effective_call_binding` with `EFFECTIVE_CALL_REBINDING_FAILED`. The later-change vector fails only
 `post_commit_consistency` with `POST_COMMIT_DIVERGENCE`, so the original join keeps its result.
 Invariant 7 and its code are the producer's proposal; no adopted version of the contract carries them yet.
+
+A mutation check of that verifier at `fcee058` found two gaps, both reproduced here on 2026-10-23:
+
+| Mutant | Verifier output |
+| --- | --- |
+| Positive vector, decision `outcome` set to `deny` and `decision_id` rehashed | `PASS`, 14 of 14 |
+| `AUTHORIZED_EFFECTIVE_CALL`, covering decision set to `deny` and rehashed | `PASS`, 14 of 14 |
+| Later-change vector with the later hash set equal to the committed hash | `PASS`; the vector still expects `POST_COMMIT_DIVERGENCE` |
+| Rewrite vector with the effective path set equal to the approved path | `PASS`; the vector still expects `EFFECTIVE_CALL_REBINDING_FAILED` |
+
+The first two rows are the deny gap from the cold mutation run above, still open in this verifier: it never reads
+a decision's `outcome`. In the last two the verifier computes the invariant as true and reports a fixture
+mismatch internally, but its summary counts any failure as the expected refusal, so a negative vector passes
+after its defect is removed. Until both are fixed, 14 of 14 here establishes less than it reads.
