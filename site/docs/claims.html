@@ -2641,6 +2641,22 @@
 <td>Clone the verifier at 2cc79c9 and run <code>python3 verify.py vectors.json</code>; apply the deny and later-timestamp mutants from the finding and rerun</td>
 <td>Probity reran a producer-authored verifier on producer-authored vectors; not an independent reader, not observed dispatch, and no ordering claim between decision and attempt.</td>
 </tr>
+<tr data-read="2026-10-23">
+<td>P-110</td>
+<td>babyblueviper1’s payment-effect run at f82d691 matches 10 of 10 cases with both Base receipts re-read live; exhibit 3, whose EIP-3009 nonce equals the verdict’s decision_ref, stays UNRESOLVED with execution_policy_not_committed, and the random-nonce exhibit 2 adds payment_does_not_carry_verdict</td>
+<td><code>examples/request-effect-join/CASE-TABLE.md</code>; <a href="https://github.com/probityai/agent-evidence/issues/28">Evidence run #28</a>; <a href="https://github.com/babyblueviper1/preaction-governance-conformance/tree/f82d69154d0b5eb9881f1ea1065926f86c33fec8/examples/resolution-payment-pair-v0">checker at f82d691</a></td>
+<td>2026-10-23 <span class="cadence">(does not expire)</span></td>
+<td>Clone the checker at f82d691 and run <code>python3 check.py --live</code> in <code>examples/resolution-payment-pair-v0</code>; compare each case line and the two receipt re-reads</td>
+<td>A payment, not a file write. One operator controlled the verdict key and both wallets; the verdict’s created_at is the signer’s clock. The cross-reference does not establish file-effect ordering.</td>
+</tr>
+<tr data-read="2026-10-23">
+<td>P-111</td>
+<td>giskard09’s execution-join-ref-v1 verifier at argentum-core fcee058 passes 14 of 14 vectors; the file-domain rewrite vector fails effective_call_binding and the later-change vector fails only the proposed post_commit_consistency invariant</td>
+<td><code>examples/request-effect-join/CASE-TABLE.md</code>; <a href="https://github.com/giskard09/argentum-core/tree/fcee058367fc7f594bfb45a7490ecfb7751a0f99/examples/conformance/execution-join-ref">verifier at fcee058</a></td>
+<td>2026-10-23 <span class="cadence">(does not expire)</span></td>
+<td>Clone argentum-core at fcee058 and run <code>python3 examples/conformance/execution-join-ref/verify.py</code>; count the PASS lines</td>
+<td>Producer-authored vectors and verifier. Invariant 7 and POST_COMMIT_DIVERGENCE are proposals, not an adopted contract version.</td>
+</tr>
 </tbody>
 </table>
 </div>
