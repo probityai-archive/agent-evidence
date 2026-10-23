@@ -2300,6 +2300,14 @@
 <td>Inspect the pinned source paths and linked draft schemas; compare their field meanings with the input contract and source map</td>
 <td>Dated source reading and a producer-published draft. No claim that the older engine is the current enterprise implementation, or that the nominated native pair has been supplied.</td>
 </tr>
+<tr data-read="2026-10-23">
+<td>P-112</td>
+<td>ogasurfproject-jpg’s approved-SQL reader at horizon-shield 5037ecf8, written from the input contract and fixture inputs only, agrees with the manifest on 16 of 16 exit codes, 4 of 16 exact result names and 15 of 16 later_state values, and never joins two fixtures the manifest separates</td>
+<td><code>examples/approved-sql/README.md</code>; <code>examples/approved-sql/fixtures/manifest.json</code>; <a href="https://github.com/ogasurfproject-jpg/horizon-shield/tree/5037ecf8a2195f2f17f1b47ca3d2b5f49ea0a0e0/workers/hs-ledger/nenrin/approved-sql-reader-v0">reader at 5037ecf8</a></td>
+<td>2026-10-23 <span class="cadence">(does not expire)</span></td>
+<td>In <code>examples/approved-sql</code>, run the reader on each fixture and compare exit, result and later_state with <code>fixtures/manifest.json</code></td>
+<td>Author-created fixtures; the reader’s result names were its own because the contract then named only two results. Agreement on these fixtures does not establish behaviour on native exports.</td>
+</tr>
 <tr data-read="2026-10-09">
 <td>P-85</td>
 <td>The request/effect case table freezes a proposed experiment against the selected execution-join contract: pre-dispatch rebinding, a later changed resource and a failed digest recomputation retain separate meanings. Declared, hashed-action and executor-configured targets remain separate experiment fields.</td>
