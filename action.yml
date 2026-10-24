@@ -1,0 +1,88 @@
+name: agent-evidence
+description: Admit or refuse AI-agent evidence in CI with the pinned agent-evidence admission rules and digest checker.
+author: Probity AI
+branding:
+  icon: shield
+  color: blue
+
+# The one Action of this repository, and its GitHub Marketplace listing. `check` picks
+# what runs; each check pins every tool it installs by version and SHA-256 in
+# actions/admission/pins.json, so a tag of this repository is one fixed set of bytes.
+# Usage and every input: docs/ACTION.md.
+
+inputs:
+  check:
+    description: "What to check: `digest` (an artifact has a digest its document names) or `policy` (a statement passes one admission rule set)."
+    required: true
+  document:
+    description: "For `digest`: the in-toto statement, CycloneDX SBOM or TEA artifact that names the digests."
+    required: false
+    default: ""
+  artifacts:
+    description: "For `digest`: the artifact paths, one per line. Each must have a digest the document names."
+    required: false
+    default: ""
+  statement:
+    description: "For `policy`: the in-toto statement (or signed envelope, for agent-change-admission) paths, one per line."
+    required: false
+    default: ""
+  rules:
+    description: "For `policy`: `execution-evidence`, `agent-change-admission` or `verifier-isolation`."
+    required: false
+    default: execution-evidence
+  pins:
+    description: "For `policy`: a JSON data document with your consumer pins. Without one the rules refuse every statement that needs a pin."
+    required: false
+    default: ""
+
+outputs:
+  result:
+    description: "`admitted` when every subject passed, `refused` when any did."
+    value: ${{ steps.check.outputs.result }}
+  refusals:
+    description: The number of subjects refused.
+    value: ${{ steps.check.outputs.refusals }}
+
+runs:
+  using: composite
+  steps:
+    - name: install the pinned tools
+      id: tools
+      shell: bash
+      env:
+        CHECK: ${{ inputs.check }}
+        SCRIPT: ${{ github.action_path }}/actions/admission/run.py
+      run: |
+        set -euo pipefail
+        tools="$RUNNER_TEMP/agent-evidence-action"
+        case "$CHECK" in
+          policy)
+            opa="$(python3 "$SCRIPT" install-opa "$tools/bin")"
+            echo "opa=$opa" >> "$GITHUB_OUTPUT" ;;
+          digest)
+            python="$(python3 "$SCRIPT" install-checker "$tools/checker")"
+            echo "python=$python" >> "$GITHUB_OUTPUT" ;;
+          *)
+            echo "::error::check must be digest or policy, not '$CHECK'"
+            exit 2 ;;
+        esac
+    - name: check the evidence
+      id: check
+      shell: bash
+      env:
+        CHECK: ${{ inputs.check }}
+        SCRIPT: ${{ github.action_path }}/actions/admission/run.py
+        OPA: ${{ steps.tools.outputs.opa }}
+        CHECKER_PYTHON: ${{ steps.tools.outputs.python }}
+        DOCUMENT: ${{ inputs.document }}
+        ARTIFACTS: ${{ inputs.artifacts }}
+        STATEMENT: ${{ inputs.statement }}
+        RULES: ${{ inputs.rules }}
+        PINS: ${{ inputs.pins }}
+      run: |
+        set -euo pipefail
+        if [ "$CHECK" = digest ]; then
+          python3 "$SCRIPT" digest --python "$CHECKER_PYTHON" --document "$DOCUMENT" --artifact "$ARTIFACTS"
+        else
+          python3 "$SCRIPT" policy --opa "$OPA" --rules "$RULES" --statement "$STATEMENT" --pins "$PINS"
+        fi
