@@ -2673,6 +2673,14 @@
 <td>Clone argentum-core at fcee058 and run <code>python3 examples/conformance/execution-join-ref/verify.py</code>; count the PASS lines; apply each mutant to <code>vectors.json</code> and rerun</td>
 <td>Producer-authored vectors and verifier. Invariant 7 and POST_COMMIT_DIVERGENCE are proposals, not an adopted contract version. The verifier does not read a decision’s outcome, and its summary counts any failure as the expected refusal.</td>
 </tr>
+<tr data-read="2026-10-24">
+<td>P-113</td>
+<td>giskard09’s execution-join-ref-v1 verifier at argentum-core bc9449b (merge of #147) passes 18 of 18 vectors, and each of the four mutants that passed at fcee058 now fails on its own vector: a positive or AUTHORIZED_EFFECTIVE_CALL vector whose decision is set to deny and rehashed, a later-change vector whose later hash equals the committed one, and a rewrite vector whose effective preimage equals the approved one</td>
+<td><code>examples/request-effect-join/CASE-TABLE.md</code>; <a href="https://github.com/giskard09/argentum-core/tree/bc9449bff7efa956f38510504a2c4fed6237e009/examples/conformance/execution-join-ref">verifier at bc9449b</a>; <a href="https://github.com/probityai/agent-evidence/issues/26">Evidence run #26</a></td>
+<td>2026-10-24 <span class="cadence">(does not expire)</span></td>
+<td>Clone argentum-core at bc9449b and run <code>python3 examples/conformance/execution-join-ref/verify.py</code>; apply each mutant to <code>vectors.json</code>, rehashing the changed ref, and rerun</td>
+<td>Producer-authored vectors and verifier. Invariant 7 and POST_COMMIT_DIVERGENCE are proposals, not an adopted contract version. The four added vectors were written by the producer after our mutation report, so they are not blind.</td>
+</tr>
 </tbody>
 </table>
 </div>
