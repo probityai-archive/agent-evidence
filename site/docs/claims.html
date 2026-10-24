@@ -2308,6 +2308,14 @@
 <td>In <code>examples/approved-sql</code>, run the reader on each fixture and compare exit, result and later_state with <code>fixtures/manifest.json</code></td>
 <td>Author-created fixtures; the reader’s result names were its own because the contract then named only two results. Agreement on these fixtures does not establish behaviour on native exports.</td>
 </tr>
+<tr data-read="2026-10-24">
+<td>P-114</td>
+<td>The approved-SQL illustration’s 17th fixture, <code>approval-not-granted-no-audit-match.json</code> (approval.granted false, no matching audit record in a complete, matching scope), gives no_match_in_declared_complete_scope with exit 1, and the example’s 57 tests pass. ogasurfproject-jpg’s contract-aligned reader at horizon-shield 156d0db1 agrees with the manifest on 17 of 17 exit codes, result names and later_state values; his clean-room reader at 5037ecf8 returns approval_not_granted on the 17th, also exit 1</td>
+<td><code>examples/approved-sql/README.md</code>; <code>examples/approved-sql/fixtures/manifest.json</code>; <a href="https://github.com/ogasurfproject-jpg/horizon-shield/tree/156d0db10074ab44547832dbd415469d7666c95f/workers/hs-ledger/nenrin/approved-sql-reader-v0">reader at 156d0db1</a>; <a href="https://github.com/probityai/agent-evidence/issues/27">Evidence run #27</a></td>
+<td>2026-10-24 <span class="cadence">(does not expire)</span></td>
+<td>In <code>examples/approved-sql</code>, run <code>.venv/bin/python -m pytest</code>; run each reader on each fixture and compare exit, result and later_state with <code>fixtures/manifest.json</code></td>
+<td>Author-created fixtures. The 156d0db1 revision was written after its author saw the manifest, so it is not clean-room; 5037ecf8 remains the clean-room reader. The 9 October qualification record covers 16 fixtures and is not rerun here.</td>
+</tr>
 <tr data-read="2026-10-09">
 <td>P-85</td>
 <td>The request/effect case table freezes a proposed experiment against the selected execution-join contract: pre-dispatch rebinding, a later changed resource and a failed digest recomputation retain separate meanings. Declared, hashed-action and executor-configured targets remain separate experiment fields.</td>
@@ -2664,6 +2672,14 @@
 <td>2026-10-23 <span class="cadence">(does not expire)</span></td>
 <td>Clone argentum-core at fcee058 and run <code>python3 examples/conformance/execution-join-ref/verify.py</code>; count the PASS lines; apply each mutant to <code>vectors.json</code> and rerun</td>
 <td>Producer-authored vectors and verifier. Invariant 7 and POST_COMMIT_DIVERGENCE are proposals, not an adopted contract version. The verifier does not read a decision’s outcome, and its summary counts any failure as the expected refusal.</td>
+</tr>
+<tr data-read="2026-10-24">
+<td>P-113</td>
+<td>giskard09’s execution-join-ref-v1 verifier at argentum-core bc9449b (merge of #147) passes 18 of 18 vectors, and each of the four mutants that passed at fcee058 now fails on its own vector: a positive or AUTHORIZED_EFFECTIVE_CALL vector whose decision is set to deny and rehashed, a later-change vector whose later hash equals the committed one, and a rewrite vector whose effective preimage equals the approved one</td>
+<td><code>examples/request-effect-join/CASE-TABLE.md</code>; <a href="https://github.com/giskard09/argentum-core/tree/bc9449bff7efa956f38510504a2c4fed6237e009/examples/conformance/execution-join-ref">verifier at bc9449b</a>; <a href="https://github.com/probityai/agent-evidence/issues/26">Evidence run #26</a></td>
+<td>2026-10-24 <span class="cadence">(does not expire)</span></td>
+<td>Clone argentum-core at bc9449b and run <code>python3 examples/conformance/execution-join-ref/verify.py</code>; apply each mutant to <code>vectors.json</code>, rehashing the changed ref, and rerun</td>
+<td>Producer-authored vectors and verifier. Invariant 7 and POST_COMMIT_DIVERGENCE are proposals, not an adopted contract version. The four added vectors were written by the producer after our mutation report, so they are not blind.</td>
 </tr>
 </tbody>
 </table>

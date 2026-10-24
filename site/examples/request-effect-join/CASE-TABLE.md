@@ -146,3 +146,20 @@ The first two rows are the deny gap from the cold mutation run above, still open
 a decision's `outcome`. In the last two the verifier computes the invariant as true and reports a fixture
 mismatch internally, but its summary counts any failure as the expected refusal, so a negative vector passes
 after its defect is removed. Until both are fixed, 14 of 14 here establishes less than it reads.
+
+`giskard09` fixed both in [argentum-core#147](https://github.com/giskard09/argentum-core/pull/147), merged as
+[`bc9449b`](https://github.com/giskard09/argentum-core/tree/bc9449bff7efa956f38510504a2c4fed6237e009/examples/conformance/execution-join-ref).
+`effective_call_binding` now reads the covering decision's `outcome`, so `deny` and `defer` no longer authorize the
+dispatched call. A negative vector now passes only when an invariant its own `checks` declares false computes false.
+He added four vectors, 18 in all: `effective-call-binding-covering-deny-001`, `effective-call-binding-covering-defer-001`,
+`file-write-rebinding-fixed-001` and `post-commit-consistency-confirmed-001`. We ran the verifier at `bc9449b` on
+CPython 3.13.15 on 2026-10-24: 18 of 18 passed. The same four mutants, applied to its vectors:
+
+| Mutant at `bc9449b` | Verifier output |
+| --- | --- |
+| Positive vector, decision `outcome` set to `deny` and `decision_id` rehashed | `FAIL` on that vector, 17 of 18 |
+| `AUTHORIZED_EFFECTIVE_CALL`, covering decision set to `deny` and rehashed | `FAIL` on that vector, 17 of 18 |
+| Later-change vector with the later hash set equal to the committed hash and `post_commit_ref` rehashed | `FAIL` on that vector, 17 of 18 |
+| Rewrite vector with the effective preimage set equal to the approved one and `effective_action_ref` rehashed | `FAIL` on that vector, 17 of 18 |
+
+Both gaps are closed at `bc9449b`. Invariant 7 is still the producer's proposal.
