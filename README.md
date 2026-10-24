@@ -42,6 +42,16 @@ The run prints one row per vector and ends with:
 totals: 288 vectors, 288 pass, 0 fail; report written to conformance-report.json
 ```
 
+To admit or refuse evidence in a workflow, pin the Action to a release:
+
+```yaml
+- uses: probityai/agent-evidence@action-v0.1.0
+  with:
+    check: policy
+    statement: evidence/run.statement.json
+    pins: evidence/pins.json
+```
+
 Verified by Probity (github.com/probityai/probity). The `probityai` command line is planned, not yet released: `uv add probityai`, then `pip install probityai`.
 
 ## Status
@@ -62,6 +72,7 @@ Moved repositories are archived, not deleted: their tags, releases, Actions and 
 
 | I want to | Read |
 | --- | --- |
+| Check evidence in CI with the Action | [The agent-evidence Action](docs/ACTION.md) |
 | See where each part lives and how it is released | [Layout and releases](docs/LAYOUT.md) |
 | Contribute a change | [Contributing](CONTRIBUTING.md) |
 | Become a maintainer | [Governance](GOVERNANCE.md) |

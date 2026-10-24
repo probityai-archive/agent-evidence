@@ -6,7 +6,8 @@
 #
 # registry "crates.io" reads the version from <directory>/Cargo.toml;
 # registry "pypi" reads it from <directory>/pyproject.toml;
-# registry "npm" reads it from <directory>/package.json.
+# registry "npm" reads it from <directory>/package.json;
+# registry "github-actions" reads it from <directory>/VERSION.
 
 [[unit]]
 prefix = "dsse"
@@ -58,3 +59,11 @@ prefix = "agent-evidence-vocabulary-python"
 name = "agent-evidence-vocabulary"
 registry = "pypi"
 directory = "packages/vocabulary"
+
+# The root action.yml, whose code is under actions/. Its release is the GitHub
+# release itself (and its Marketplace listing); nothing goes to a registry.
+[[unit]]
+prefix = "action"
+name = "agent-evidence"
+registry = "github-actions"
+directory = "actions"

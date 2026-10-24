@@ -6,7 +6,7 @@
     python3 scripts/workspace.py release-target <tag>     # JSON for the unit the tag releases
 
 An area is a directory with its own checks: crates/<name>, packages/<name>,
-vectors, site and pages, each once it exists. An area is changed when a file under it
+actions, vectors, site and pages, each once it exists. An area is changed when a file under it
 changed, or when a shared file changed (anything outside every area, except
 documentation). CI and the tests read the same answer from here. Standard
 library only, because CI runs it before anything is installed.
@@ -24,7 +24,7 @@ from pathlib import Path, PurePosixPath
 ROOT = Path(__file__).resolve().parents[1]
 _DOCS = re.compile(r"(docs/.*|.*\.md|LICENSE)\Z")
 _TAG = re.compile(r"(?P<prefix>[a-z0-9][a-z0-9-]*?)-v(?P<version>\d+\.\d+\.\d+)\Z")
-_TOP_AREAS = ("vectors", "site", "pages")
+_TOP_AREAS = ("actions", "vectors", "site", "pages")
 
 
 def areas(root: Path = ROOT) -> list[str]:
@@ -52,6 +52,9 @@ def _version(unit: dict[str, str], root: Path) -> str:
         return tomllib.loads((directory / "pyproject.toml").read_text())["project"]["version"]
     if unit["registry"] == "npm":
         return json.loads((directory / "package.json").read_text())["version"]
+    if unit["registry"] == "github-actions":
+        # An Action has no manifest version; its release line is a one-line VERSION file.
+        return (directory / "VERSION").read_text().strip()
     raise SystemExit(f"unit {unit['prefix']!r} names an unknown registry {unit['registry']!r}")
 
 
