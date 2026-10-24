@@ -13,7 +13,7 @@ uv sync --frozen --group dev
 The output includes `"result": "recorded_commit_matches"` and `"later_state": "supplied_state_differs"`.
 That is the useful distinction: a later change does not erase an earlier matching execution record.
 
-Version 0.1.0. The 16 fixtures are author-created examples. This source does not invoke Tadpole or a database.
+Version 0.1.0. The 17 fixtures are author-created examples. This source does not invoke Tadpole or a database.
 The reader compares supplied records. It does not authenticate them or prove that an audit export is complete.
 
 | Read next | Content |
@@ -40,7 +40,17 @@ We ran it over the fixtures on 2026-10-23 with CPython 3.13.15. Against the mani
 
 Its two contract gaps, a literal reading that accepts `approval.granted: false` and a missing application
 record, are now closed in the [input contract](docs/INPUT-CONTRACT.md), which lists every result.
-Run it from this directory:
+The 17th fixture, `approval-not-granted-no-audit-match.json`, pins the one difference the new text exposed:
+`approval.granted: false` and no matching audit record in a complete, matching scope. The contract checks the
+join first, so it gives `no_match_in_declared_complete_scope`; the clean-room reader gives `approval_not_granted`.
+Both exit 1.
+
+`ogasurfproject-jpg` then moved the reader to the contract's result names, check order and `later_state` values in
+[`horizon-shield@156d0db1`](https://github.com/ogasurfproject-jpg/horizon-shield/tree/156d0db10074ab44547832dbd415469d7666c95f/workers/hs-ledger/nenrin/approved-sql-reader-v0)
+(`reader.py` sha256 `507238d9...`). He wrote it after seeing the manifest, so it is not clean-room, and
+`5037ecf8` stays the clean-room reader. We ran it over the 17 fixtures on 2026-10-24 with CPython 3.13.15:
+17 of 17 exit codes, `result` strings and `later_state` values.
+Run either from this directory:
 
 ```sh
 for f in fixtures/*.json; do [ "$(basename $f)" = manifest.json ] || { python3 <path>/reader.py "$f" > /dev/null; echo "$(basename $f) $?"; }; done

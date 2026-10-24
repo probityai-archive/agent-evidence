@@ -96,6 +96,12 @@
       "expected_result": "application_record_missing",
       "expected_later_state": "not_supplied",
       "expected_exit": 1
+    },
+    {
+      "path": "fixtures/approval-not-granted-no-audit-match.json",
+      "expected_result": "no_match_in_declared_complete_scope",
+      "expected_later_state": "not_supplied",
+      "expected_exit": 1
     }
   ]
 }

@@ -39,7 +39,7 @@ The inspected DML path saves `reqQuery.getSql()` in the application history, the
 
 One shareable, version-pinned example is enough to start: the approved Settle export, its application execution record and SQL child record, and the corresponding database-native audit event. Include the database/version, the join rule, typed bound parameters, execution-time target and principal, transaction outcome, and audit collection scope. If a field cannot be exported, keep that field unknown.
 
-The [runnable illustration](README.md) implements this comparison with 16 author-created fixtures. Its fields belong to the illustration. They are not claimed as Tadpole's export fields or a database-native adapter.
+The [runnable illustration](README.md) implements this comparison with 17 author-created fixtures. Its fields belong to the illustration. They are not claimed as Tadpole's export fields or a database-native adapter.
 
 Producer semantics stay with Tadpole and the database's audit specification. We own the comparison code and its test cases. A native export, an outside run, and a kept downstream check remain separate tasks.
 
