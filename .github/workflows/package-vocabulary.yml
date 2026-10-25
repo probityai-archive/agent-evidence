@@ -274,11 +274,18 @@ jobs:
       - name: Lint the commit messages this event introduces
         env:
           PR_BASE: ${{ github.event.pull_request.base.sha }}
+          PR_BASE_REF: ${{ github.event.pull_request.base.ref }}
           PUSH_BEFORE: ${{ github.event.before }}
         run: |
           set -euo pipefail
           zero=0000000000000000000000000000000000000000
-          if [ -n "${PR_BASE:-}" ]; then
+          # A pull request's base sha can be older than its target's tip, and
+          # HEAD merges into the current tip, so anchor on the current tip when
+          # the target branch can be read: only the pull request's own commits.
+          if [ -n "${PR_BASE_REF:-}" ] \
+               && git rev-parse -q --verify "refs/remotes/origin/${PR_BASE_REF}^{commit}" >/dev/null; then
+            range="$(git merge-base "refs/remotes/origin/${PR_BASE_REF}" HEAD)..HEAD"
+          elif [ -n "${PR_BASE:-}" ]; then
             range="$(git merge-base "$PR_BASE" HEAD)..HEAD"
           elif [ -n "${PUSH_BEFORE:-}" ] && [ "$PUSH_BEFORE" != "$zero" ] \
                && git cat-file -e "${PUSH_BEFORE}^{commit}" 2>/dev/null; then
@@ -316,6 +323,7 @@ jobs:
         env:
           PUSH_BEFORE: ${{ github.event.before }}
           PR_BASE: ${{ github.event.pull_request.base.sha }}
+          PR_BASE_REF: ${{ github.event.pull_request.base.ref }}
           DEFAULT_BRANCH: ${{ github.event.repository.default_branch }}
         run: |
           set -uo pipefail

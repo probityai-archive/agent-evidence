@@ -31,6 +31,7 @@ bounded scan, which is a bound and never a pass.
 Read from the environment, because that is the shape the event arrives in:
 
     PR_BASE         base sha of a pull request, when the event is one
+    PR_BASE_REF     the branch a pull request targets, when the event is one
     PUSH_BEFORE     sha the remote held before the push; all-zero on creation
     DEFAULT_BRANCH  the repository's default branch name
 
@@ -110,6 +111,7 @@ def choose(
     default_branch: str,
     resolve=_resolve,
     count=_count,
+    pr_base_ref: str = "",
 ) -> tuple[list[str], str]:
     """The scanner's arguments, and one line saying why they were chosen.
 
@@ -117,6 +119,21 @@ def choose(
     repository shaped to order.
     """
     if pr_base and resolve(pr_base):
+        # The event's base sha is the target's tip when the pull request was
+        # last based, not when it was last pushed, and HEAD is the merge of the
+        # pull request into the target's CURRENT tip. So `base..HEAD` also reads
+        # every commit the target gained since, and a pull request was refused
+        # for a defect in the target's own history (agent-evidence #49 on
+        # 2026-10-25: two hits in a main commit it did not contain). What the
+        # pull request adds is what the target's current tip does not have.
+        tip = _default_branch_tip(pr_base_ref, resolve)
+        if tip:
+            reached = count(f"{tip}..HEAD")
+            if reached > 0:
+                return (
+                    ["--range", f"{tip}..HEAD"],
+                    f"pull request, the {reached} commit(s) it adds to {pr_base_ref}",
+                )
         return ["--range", f"{pr_base}..HEAD"], "pull request, from its base"
 
     if push_before and not ZERO_SHA.match(push_before) and resolve(push_before):
@@ -163,7 +180,22 @@ def _table_cases() -> int:
 
     checks = [
         (
-            "a pull request scans from its base",
+            "a pull request scans what it adds to its target's current tip",
+            choose("aaa", "", "main", resolve, count_of(3), "main")[0],
+            ["--range", "mmm..HEAD"],
+        ),
+        (
+            "a pull request whose target cannot be read scans from its base",
+            choose("aaa", "", "main", resolve, count_of(3), "nope")[0],
+            ["--range", "aaa..HEAD"],
+        ),
+        (
+            "a pull request adding nothing to its target scans from its base",
+            choose("aaa", "", "main", resolve, count_of(0), "main")[0],
+            ["--range", "aaa..HEAD"],
+        ),
+        (
+            "a pull request event without a target name scans from its base",
             choose("aaa", "", "main", resolve, count_of(3))[0],
             ["--range", "aaa..HEAD"],
         ),
@@ -361,6 +393,7 @@ def main(argv: list[str]) -> int:
         os.environ.get("PR_BASE", ""),
         os.environ.get("PUSH_BEFORE", ""),
         os.environ.get("DEFAULT_BRANCH", ""),
+        pr_base_ref=os.environ.get("PR_BASE_REF", ""),
     )
     if not rev_args:
         print("push-scan-range: could not decide a range", file=sys.stderr)
