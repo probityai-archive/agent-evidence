@@ -25,7 +25,8 @@ We maintain the comparison code and credit the case, code and runs separately.
 <details>
 <summary>Run it and inspect the exact fields, source and results</summary>
 
-The illustration has 16 author-created fixtures and 56 passing tests.
+The illustration was qualified on 9 October with 16 author-created fixtures and 56 passing tests.
+A 17th fixture, added on 24 October, pins a refused approval with no matching audit record; 57 tests pass.
 It compares supplied records; it does not authenticate their source or verify
 that an audit collection is complete.
 
@@ -46,6 +47,6 @@ Read the [input contract](examples/approved-sql/docs/INPUT-CONTRACT.md),
 [source map](examples/approved-sql/SOURCE-MAP.md),
 [design decisions](examples/approved-sql/docs/architecture/DESIGN_DECISIONS.md)
 and [retained check record](examples/approved-sql/QUALIFICATION.json).
-[Claims P-83 and P-84](claims.html) bind the source and measured scope.
+[Claims P-83, P-84 and P-114](claims.html) bind the source and measured scope.
 
 </details>

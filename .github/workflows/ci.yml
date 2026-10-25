@@ -2,7 +2,7 @@ name: ci
 
 # One entry point for every pull request and every push to main. The changes
 # job asks scripts/workspace.py which areas a change touches (crates/<name>,
-# packages/<name>, vectors, site); each area's checks run only when needed, and
+# packages/<name>, actions, vectors, site); each area's checks run only when needed, and
 # `ci-ok` is the one required check. An imported area adds its job here and to
 # the `needs` of `ci-ok`.
 
@@ -107,6 +107,12 @@ jobs:
     if: fromJSON(needs.changes.outputs.areas)['packages/admission']
     uses: ./.github/workflows/package-admission.yml
 
+  actions-admission:
+    needs: changes
+    # The Action runs the admission rules, so a change to them re-checks it too.
+    if: fromJSON(needs.changes.outputs.areas)['actions'] || fromJSON(needs.changes.outputs.areas)['packages/admission']
+    uses: ./.github/workflows/actions-admission.yml
+
   package-vocabulary:
     needs: changes
     if: fromJSON(needs.changes.outputs.areas)['packages/vocabulary']
@@ -114,7 +120,7 @@ jobs:
 
   ci-ok:
     if: always()
-    needs: [changes, repository, crate-dsse, crate-jcs-admit, package-admission, package-vocabulary]
+    needs: [changes, repository, crate-dsse, crate-jcs-admit, package-admission, actions-admission, package-vocabulary]
     runs-on: ubuntu-24.04
     timeout-minutes: 5
     steps:

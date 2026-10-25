@@ -40,11 +40,11 @@ See the [package guide](https://github.com/probityai/agent-evidence/blob/main/pa
 
 ## Quick start
 
-For Kubernetes, pin the policies to a commit and evaluate the sample statement with OPA:
+For Kubernetes, pin the policies to a release tag and evaluate the sample statement with OPA:
 
 ```bash
-git clone https://github.com/probityai/agent-evidence/tree/main/packages/admission && cd agent-evidence-admission
-git checkout 1ded5b8d1ae4d13b8a2c3b61fc18f6a2d9d40119
+git clone --depth 1 --branch agent-evidence-admission-v0.1.2 https://github.com/probityai/agent-evidence
+cd agent-evidence/packages/admission
 opa eval -f raw -d rego/execution_evidence.rego \
   -I 'count(data.sigstore.errors)' < samples/adversarial-execution-evidence.pass.statement.json
 ```
@@ -84,6 +84,7 @@ setting with no safe default.
 | --- | --- |
 | [Start a project](https://github.com/new?template_name=evidence-starter&template_owner=probityai) | a template with the evidence packages pinned and the conformance Action in CI |
 | <a name="verify-the-claim-in-four-commands"></a><a name="what-is-here"></a><a name="why-the-rails-are-published"></a><a name="the-trust-ceiling-stated-before-you-rely-on-any-of-it"></a><a name="the-profile-registry"></a><a name="the-adversarial-ratchet"></a><a name="running-the-conformance-harness"></a><a name="continuous-integration"></a><a name="citation-and-provenance"></a>[Design, trust ceiling and evidence](https://github.com/probityai/agent-evidence/blob/main/packages/admission/docs/DESIGN.md) | the file map, the trust ceiling, how each obligation's disposition is measured, and how to re-run the measurement |
+| [The agent-evidence Action](https://github.com/probityai/agent-evidence/blob/main/docs/ACTION.md) | run these policies and the digest checker in a GitHub workflow, pinned to a release |
 | [Consumer policy](https://github.com/probityai/agent-evidence/blob/main/packages/admission/docs/CONSUMER-POLICY.md) | the pins, what each one decides, and what an absent value means |
 | [Agent change admission](https://github.com/probityai/agent-evidence/blob/main/packages/admission/docs/AGENT-CHANGE-ADMISSION.md) | admit an agent harness version only on a signed decision that admitted it, on OPA, Kyverno CEL and policy-controller |
 | [Verifier isolation](https://github.com/probityai/agent-evidence/blob/main/packages/admission/docs/VERIFIER-ISOLATION.md) | refuse a done verdict whose verifier left one of the nine reward-tampering vectors of terminal-bench issue 2086 open, on OPA, Kyverno CEL and CUE (<!-- vi-enforced -->enforced: `cue` 0 of 9, `kyverno-cel` 9 of 9, `rego` 9 of 9<!-- /vi-enforced -->) |
