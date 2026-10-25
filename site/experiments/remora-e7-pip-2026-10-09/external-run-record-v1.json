@@ -1,6 +1,6 @@
 {
   "claim_ceiling_repeated": true,
-  "command": "/home/sgilda/.claude_tmp/claude-1000/-home-sgilda-Documents-probity/94c7499f-a255-4f30-8b2b-4f3d026b3643/scratchpad/pv/bin/python /home/sgilda/.claude_tmp/claude-1000/-home-sgilda-Documents-probity/94c7499f-a255-4f30-8b2b-4f3d026b3643/scratchpad/pv/bin/agent-evidence-vectors-remora-e7 --output /home/sgilda/.claude_tmp/claude-1000/-home-sgilda-Documents-probity/94c7499f-a255-4f30-8b2b-4f3d026b3643/scratchpad/e7pip --operator EXTERNAL --run-ref https://github.com/darklordVirtual/REMORA-research/issues/707",
+  "command": "<env>/bin/python <env>/bin/agent-evidence-vectors-remora-e7 --output e7pip --operator EXTERNAL --run-ref https://github.com/darklordVirtual/REMORA-research/issues/707",
   "consumed_revision": "e4fe474f488c3047b346abb01cbfd77ab447ad69",
   "contract_id": "runtime-surface-e7-v0.1",
   "environment": "Python 3.13.15 on Linux-7.0.0-34-generic-x86_64-with-glibc2.39",

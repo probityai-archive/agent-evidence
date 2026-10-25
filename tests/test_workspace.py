@@ -22,23 +22,26 @@ def repo(tmp_path: Path) -> Path:
     (tmp_path / "crates" / "dsse" / "npm").mkdir()
     (tmp_path / "crates" / "dsse" / "npm" / "package.json").write_text('{"name": "dsse", "version": "0.1.0"}\n')
     (tmp_path / "vectors").mkdir()
+    (tmp_path / "actions").mkdir()
+    (tmp_path / "actions" / "VERSION").write_text("0.1.0\n")
     (tmp_path / "release.toml").write_text(
         '[[unit]]\nprefix = "dsse"\nname = "dsse"\nregistry = "crates.io"\ndirectory = "crates/dsse"\n\n'
         '[[unit]]\nprefix = "agent-evidence-vocabulary"\nname = "agent-evidence-vocabulary"\n'
         'registry = "pypi"\ndirectory = "packages/vocab"\n\n'
         '[[unit]]\nprefix = "jcs-admit"\nname = "jcs-admit"\nregistry = "crates.io"\n'
         'directory = "crates/jcs-admit"\n\n'
-        '[[unit]]\nprefix = "dsse-npm"\nname = "dsse"\nregistry = "npm"\ndirectory = "crates/dsse/npm"\n')
+        '[[unit]]\nprefix = "dsse-npm"\nname = "dsse"\nregistry = "npm"\ndirectory = "crates/dsse/npm"\n\n'
+        '[[unit]]\nprefix = "action"\nname = "agent-evidence"\nregistry = "github-actions"\ndirectory = "actions"\n')
     return tmp_path
 
 
 def test_areas_are_the_directories_with_their_own_checks(repo: Path) -> None:
-    assert workspace.areas(repo) == ["crates/dsse", "packages/vocab", "vectors"]
+    assert workspace.areas(repo) == ["actions", "crates/dsse", "packages/vocab", "vectors"]
 
 
 def test_a_change_inside_an_area_selects_only_that_area(repo: Path) -> None:
     got = workspace.changed(["crates/dsse/src/lib.rs"], repo)
-    assert got == {"crates/dsse": True, "packages/vocab": False, "vectors": False}
+    assert got == {"actions": False, "crates/dsse": True, "packages/vocab": False, "vectors": False}
 
 
 def test_documentation_outside_areas_selects_nothing(repo: Path) -> None:
@@ -66,7 +69,19 @@ def test_an_npm_tag_resolves_to_its_unit_and_not_the_crate(repo: Path) -> None:
     assert got["prefix"] == "dsse-npm" and got["registry"] == "npm" and got["version"] == "0.1.0"
 
 
+def test_an_action_tag_resolves_to_its_version_file(repo: Path) -> None:
+    got = workspace.release_target("action-v0.1.0", repo)
+    assert got["registry"] == "github-actions" and got["directory"] == "actions" and got["version"] == "0.1.0"
+
+
+def test_the_action_tag_resolves_in_this_repository() -> None:
+    version = (workspace.ROOT / "actions" / "VERSION").read_text().strip()
+    got = workspace.release_target(f"action-v{version}")
+    assert got["name"] == "agent-evidence" and (workspace.ROOT / "action.yml").is_file()
+
+
 @pytest.mark.parametrize("tag, message", [
+    ("action-v0.1.1", "does not match"),
     ("dsse-v0.1.5", "does not match"),
     ("dsse-0.1.4", "is not <prefix>-v"),
     ("dsse-npm-v0.1.4", "does not match"),

@@ -6,6 +6,7 @@
 | --- | --- | --- |
 | `crates/<name>/` | one Rust crate each: `dsse`, `jcs-admit` (with its Python binding in `crates/jcs-admit/python/`) | Cargo, from inside the crate directory |
 | `packages/<name>/` | one Python distribution each | uv, as members of the root uv workspace |
+| `actions/` | the code behind the root `action.yml`, the one Action of this repository ([ACTION.md](ACTION.md)) | nothing to build; `run.py` uses the standard library |
 | `vectors/` | the conformance corpora and their harness | uv |
 | `site/` | the conformance board and the pages that serve the published identifiers | the site's own build |
 | `pages/` | the Pages site of this repository, `https://probityai.github.io/agent-evidence/`: the pages the persistent identifiers under `https://w3id.org/agent-evidence/` redirect to ([predicate-pages.md](predicate-pages.md)) | `scripts/build_predicate_pages.py`, deployed by `pages.yml` |
@@ -30,5 +31,6 @@ Each part has its own version line. A published GitHub release whose tag is `<pr
 | `agent-evidence-vectors-v` | PyPI | the vectors distribution |
 | `agent-evidence-vocabulary-v` | PyPI | the vocabulary distribution |
 | `agent-evidence-admission-v` | PyPI | the admission distribution |
+| `action-v` | none | the root `action.yml`: the release is the Action's version and its Marketplace listing |
 
 `release.toml` lists the parts that have arrived. The workflow refuses a tag whose part is not listed, whose version differs from the part's manifest, or whose commit is not on `main`. Publishing uses registry trusted publishing from the GitHub environments `crates-io` and `pypi`; no registry token is stored.

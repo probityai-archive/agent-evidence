@@ -32,5 +32,7 @@ All five match the 2026-10-02 run in `../remora-e7-2026-10-02/`. `runtime_capabi
 
 | File | sha256 |
 |---|---|
-| external-run-record-v1.json | 5d737978e1eb5889b927b2062a6e77548145cc45f71927ad9659e8571b0b0b2f |
-| report.json | e9a20d62d3b57e5927dcd1f9f1ca4388efc9465894e23c647677114b7790e920 |
+| external-run-record-v1.json | 60c3488b1901f75cd4190bee5256ed06ffa671413513e6a86bcfa3c90a4a6819 |
+| report.json | 894b4ba56f2c55eccbece39a8d2b870ef898483da919915272dc178d75f4b39e |
+
+The recorded `command` names the Python environment as `<env>` and gives paths relative to the working directory. The files first published carried the runner's absolute paths; they were replaced on 2026-10-23, and the digests above are of the files as they stand.
