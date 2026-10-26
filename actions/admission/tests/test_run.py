@@ -64,10 +64,47 @@ def test_opa_pin_is_the_one_the_admission_ci_and_its_advisory_gate_use() -> None
     assert run.PINS["opa"]["assets"]["Linux-X64"] == {"file": "opa_linux_amd64_static", "sha256": sha}
 
 
-def test_checker_pin_is_the_current_admission_release() -> None:
+def _version_key(version: str) -> tuple[int, ...]:
+    assert re.fullmatch(r"\d+(\.\d+)*", version), f"not a plain release version: {version}"
+    return tuple(int(part) for part in version.split("."))
+
+
+def pin_is_a_published_release_not_ahead(requirement: str, name: str, version: str) -> bool:
+    """A checker pin names the package and a version no newer than the package's own.
+
+    The pin carries the wheel's SHA-256, which exists only after the release is published,
+    so a release commit that bumps the package cannot also move the pin. The pin therefore
+    trails the package by one release and follows in the next change. That the pinned
+    version is on PyPI under that hash is proved by the Action's self-test, which installs
+    the wheel from PyPI by hash.
+    """
+    match = re.fullmatch(r"(?P<name>[A-Za-z0-9._-]+)==(?P<version>\d+(\.\d+)*)", requirement)
+    if match is None or match["name"] != name:
+        return False
+    return _version_key(match["version"]) <= _version_key(version)
+
+
+def test_checker_pin_is_a_published_admission_release() -> None:
     project = tomllib.loads((ROOT / "packages" / "admission" / "python" / "pyproject.toml").read_text())["project"]
-    assert run.PINS["checker"]["requirement"] == f"{project['name']}=={project['version']}"
+    assert pin_is_a_published_release_not_ahead(run.PINS["checker"]["requirement"], project["name"], project["version"])
     assert re.fullmatch(r"[0-9a-f]{64}", run.PINS["checker"]["sha256"])
+
+
+@pytest.mark.parametrize(
+    ("requirement", "expected"),
+    [
+        ("agent-evidence-admission==0.2.0", True),
+        ("agent-evidence-admission==0.1.2", True),
+        ("agent-evidence-admission==0.1.10", True),
+        ("agent-evidence-admission==0.2.1", False),
+        ("agent-evidence-admission==0.10.0", False),
+        ("agent-evidence-admission>=0.1.2", False),
+        ("agent-evidence-vectors==0.1.0", False),
+        ("agent-evidence-admission", False),
+    ],
+)
+def test_the_pin_may_trail_the_package_but_never_lead_it(requirement: str, expected: bool) -> None:
+    assert pin_is_a_published_release_not_ahead(requirement, "agent-evidence-admission", "0.2.0") is expected
 
 
 @pytest.mark.parametrize("name", sorted(run.PINS["rules"]))
