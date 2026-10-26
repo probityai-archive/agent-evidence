@@ -27,6 +27,7 @@ import json
 import re
 import urllib.parse
 from dataclasses import dataclass, field
+from typing import Any
 
 CLIENTS = ("claude-code", "cursor", "windsurf", "registry")
 SCHEMA = "https://static.modelcontextprotocol.io/schemas/2025-09-29/server.schema.json"
@@ -91,7 +92,7 @@ def _text(entry: dict, name: str, where: str) -> str:
 def _stdio(entry: dict, where: str) -> tuple[str, ...]:
     stdio = entry["stdio"]
     if not isinstance(stdio, dict):
-        raise ValueError(f"{where}.stdio: must be an object")
+        raise TypeError(f"{where}.stdio: must be an object")
     command = _text(stdio, "command", f"{where}.stdio")
     args = stdio.get("args", [])
     if not isinstance(args, list) or not all(isinstance(a, str) and a for a in args):
@@ -105,7 +106,7 @@ def _stdio(entry: dict, where: str) -> tuple[str, ...]:
 def _remote(entry: dict, where: str) -> tuple[str, str]:
     remote = entry["remote"]
     if not isinstance(remote, dict):
-        raise ValueError(f"{where}.remote: must be an object")
+        raise TypeError(f"{where}.remote: must be an object")
     url = _text(remote, "url", f"{where}.remote")
     parsed = urllib.parse.urlsplit(url)
     if parsed.scheme != "https" or not parsed.hostname:
@@ -121,7 +122,7 @@ def _remote(entry: dict, where: str) -> tuple[str, str]:
 def _server(entry: object, index: int) -> Server:
     where = f"admitted[{index}]"
     if not isinstance(entry, dict):
-        raise ValueError(f"{where}: must be an object")
+        raise TypeError(f"{where}: must be an object")
     name = _text(entry, "name", where)
     if not _NAME.match(name):
         raise ValueError(f"{where}: name must be a registry name such as io.github.owner/server")
@@ -139,11 +140,11 @@ def _server(entry: object, index: int) -> Server:
         raise ValueError(f"{where}: package must be an object with string registryType and identifier")
     if ("stdio" in entry) == ("remote" in entry):
         raise ValueError(f"{where}: give exactly one of stdio and remote")
-    common = {"name": name, "version": version, "description": _text(entry, "description", where), "digest": digest, "key": key, "package": package}
+    description = _text(entry, "description", where)
     if "stdio" in entry:
-        return Server(command=_stdio(entry, where), **common)
+        return Server(name=name, version=version, description=description, digest=digest, key=key, package=package, command=_stdio(entry, where))
     url, kind = _remote(entry, where)
-    return Server(url=url, remote_type=kind, **common)
+    return Server(name=name, version=version, description=description, digest=digest, key=key, package=package, url=url, remote_type=kind)
 
 
 def parse_admit_list(document: object) -> list[Server]:
@@ -172,7 +173,7 @@ def _label(server: Server) -> str:
 
 
 def _claude_code(servers: list[Server], result: Result) -> None:
-    allowed = []
+    allowed: list[dict[str, Any]] = []
     for server in servers:
         if server.stdio:
             allowed.append({"serverCommand": list(server.command)})
@@ -224,7 +225,7 @@ def _windsurf(servers: list[Server], result: Result) -> None:
 
 
 def _registry_entry(server: Server) -> dict:
-    body = {"$schema": SCHEMA, "name": server.name, "description": server.description, "version": server.version}
+    body: dict[str, Any] = {"$schema": SCHEMA, "name": server.name, "description": server.description, "version": server.version}
     if server.stdio:
         package = {"registryType": server.package["registryType"], "identifier": server.package["identifier"], "version": server.version, "transport": {"type": "stdio"}}
         body["packages"] = [package]

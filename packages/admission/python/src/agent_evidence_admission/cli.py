@@ -30,7 +30,8 @@ from .coverage_check import (
 )
 from .digest_check import check as digest_check
 from .digest_check import parse_document, read_source
-from .generate import CLIENTS, format_report as format_generate_report, generate, parse_admit_list
+from .generate import CLIENTS, generate, parse_admit_list
+from .generate import format_report as format_generate_report
 
 
 def _parser() -> argparse.ArgumentParser:
@@ -97,7 +98,7 @@ def _run_coverage(args: argparse.Namespace) -> int:
 def _run_generate(args: argparse.Namespace) -> int:
     try:
         servers = parse_admit_list(json.loads(read_source(args.admit_list)))
-    except (OSError, ValueError) as error:
+    except (OSError, TypeError, ValueError) as error:
         print(f"ERROR could not read: {error}", file=sys.stderr)
         return 2
     result = generate(servers, tuple(dict.fromkeys(args.client or CLIENTS)))

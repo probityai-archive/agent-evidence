@@ -129,11 +129,11 @@ def mutate(path: str, value):
         (mutate("admitted.2.remote.type", "websocket"), "type must be one of"),
         (mutate("admitted.2.remote.url", "https:///mcp"), "https URL with a host"),
         (mutate("admitted.2.remote", {}), "url must be a non-empty string"),
-        (mutate("admitted.2.remote", "https://x"), "remote: must be an object"),
+        (mutate("admitted.2.remote", "not-an-object"), "remote: must be an object"),
     ],
 )
 def test_an_invalid_admit_list_is_refused_with_its_reason(doc, message):
-    with pytest.raises(ValueError, match=message.replace("$", "\\$").replace("{", "\\{")):
+    with pytest.raises((TypeError, ValueError), match=message.replace("$", "\\$").replace("{", "\\{")):
         g.parse_admit_list(doc)
 
 
