@@ -65,6 +65,8 @@ ALLOWED_HOSTS = frozenset(
         "cue-lang.org",
         # the CycloneDX schema namespace the digest check parses BOMs under
         "cyclonedx.org",
+        # the SPDX 3 context and license namespace the coverage check parses
+        "spdx.org",
         # kubernetes api groups and schema hosts that appear in manifests
         "kubernetes.io",
         "apps.kubernetes.io",
