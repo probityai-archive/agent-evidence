@@ -52,7 +52,7 @@ def check_wheel_metadata(archive, info: str, root: Path, project: dict, package:
     require(archive.read(info + "/top_level.txt") == (package + "\n").encode(), "wheel top-level packages")
     wheel = BytesParser().parsebytes(archive.read(info + "/WHEEL"))
     require(not wheel.defects, "WHEEL metadata syntax")
-    expected_wheel = {"Wheel-Version": "1.0", "Generator": "setuptools (84.0.0)",
+    expected_wheel = {"Wheel-Version": "1.0", "Generator": "setuptools (84.2.1)",
                       "Root-Is-Purelib": "true", "Tag": "py3-none-any"}
     require(set(wheel.keys()) == set(expected_wheel), "WHEEL field population")
     for key, value in expected_wheel.items():

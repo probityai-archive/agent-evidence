@@ -77,7 +77,7 @@ the installed data outside the checkout, rebuilds from the source archive and
 checks that installed consumer too. The artifact retains source and package
 hashes, installation reports and consumer results.
 
-The release-tool lock selects setuptools 84.0.0. The source backend requires
+The release-tool lock selects setuptools 84.2.1. The source backend requires
 setuptools 77.0.3 or later for SPDX license metadata and both license files, so
 compatible build environments do not have to use that exact release toolchain.
 
