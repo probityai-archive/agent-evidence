@@ -1,7 +1,7 @@
 {
   "checker": {
-    "requirement": "agent-evidence-admission==0.1.2",
-    "sha256": "68abfca0d0fd1696b69154bdcaa7308d80413d454de2bbcc2c9ae8cf135116f3"
+    "requirement": "agent-evidence-admission==0.2.0",
+    "sha256": "954cccefb99a05ae68c8843d37b7d66b2335fd6c09a893b1cd58b468cbc086c0"
   },
   "opa": {
     "version": "v1.18.0",
