@@ -11,12 +11,12 @@ members = [
 
 [[package]]
 name = "agent-evidence-admission"
-version = "0.1.2"
+version = "0.2.0"
 source = { editable = "packages/admission/python" }
 
 [[package]]
 name = "agent-evidence-vocabulary"
-version = "0.6.0"
+version = "0.8.0"
 source = { editable = "packages/vocabulary" }
 
 [[package]]
@@ -26,6 +26,7 @@ source = { virtual = "." }
 
 [package.dev-dependencies]
 dev = [
+    { name = "packaging" },
     { name = "pytest" },
     { name = "ruff" },
 ]
@@ -34,6 +35,7 @@ dev = [
 
 [package.metadata.requires-dev]
 dev = [
+    { name = "packaging", specifier = "==26.3" },
     { name = "pytest", specifier = "==9.1.1" },
     { name = "ruff", specifier = "==0.17.1" },
 ]
