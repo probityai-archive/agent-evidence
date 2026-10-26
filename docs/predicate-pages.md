@@ -23,3 +23,16 @@ python3 scripts/check_predicate_pages.py
 The build writes each page's SHA-256 to `pages/predicate/v1/PAGES.sha256`, and the check (run by the `repository` job and before every deploy) refuses a page whose bytes differ from its pin, a page whose canonical link is not its type URI, and a link to a host outside its list. A page changes only when its specification changes, and the pin moves in the same commit.
 
 Whatever later serves the Pages site of this repository must keep serving `pages/` at the same paths, because the w3id rules point there.
+
+## Vocabulary term URIs
+
+Every term of `packages/vocabulary/vocabulary.yaml` has the URI `https://w3id.org/agent-evidence/vocab/v1/<term>`, and each registered value is that URI with the value as its fragment, for example `https://w3id.org/agent-evidence/vocab/v1/observation_vantage#substrate`. The page behind each one is generated, never edited:
+
+```sh
+cd packages/vocabulary && python3 scripts/gen_registry_index.py && cd ../..
+python3 scripts/build_vocabulary_pages.py
+```
+
+The first command writes `packages/vocabulary/registry.json`, which carries the SHA-256 of the exact `vocabulary.yaml` bytes (the `registryDigest` a record carries); the second writes `pages/vocab/v1/` and publishes those bytes at `pages/vocab/v1/registry/sha256-<hex>.yaml`.
+
+`w3id/agent-evidence.htaccess` is the copy, kept here, of `ids/agent-evidence/.htaccess` in perma-id/w3id.org. `scripts/check_uris_resolve.py` applies it to every predicate type URI, term URI and value URI, and fails when one does not land on a page and anchor under `pages/`; the repository job runs it on every pull request. `--network` (the `uris-network` workflow) also compares the copy with the live rules and requests every identifier, so a rule added to the copy and not yet merged upstream shows there.
