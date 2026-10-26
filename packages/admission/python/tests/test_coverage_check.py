@@ -43,7 +43,12 @@ def test_the_manifest_holds_both_polarities_and_every_failing_status():
 
 def test_every_document_in_the_directory_is_used_by_a_case():
     used = {c["document"] for c in CASES}
-    assert {p.name for p in VECTORS.glob("*.json")} - {"manifest.json"} == used
+    documents = {p.name for p in VECTORS.glob("*.json") if not p.name.startswith("required-")}
+    assert documents - {"manifest.json"} == used
+
+
+def test_the_required_list_the_action_self_test_uses_names_six_cyclonedx_classes():
+    assert len(cc.parse_required((VECTORS / "required-cyclonedx.json").read_text(), "cyclonedx")) == 6
 
 
 def test_text_report_names_each_class_and_the_verdict(capsys):

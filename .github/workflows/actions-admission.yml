@@ -94,8 +94,25 @@ jobs:
         with:
           check: policy
           statement: packages/admission/samples/adversarial-execution-evidence.pass.statement.json
+      - name: coverage, every required class accounted for
+        id: coverage-pass
+        uses: ./
+        with:
+          check: coverage
+          document: packages/admission/python/vectors/coverage/cdx-2.0-proposed.json
+          required: packages/admission/python/vectors/coverage/required-cyclonedx.json
+      - name: coverage, a required class the document never states
+        id: coverage-fail
+        continue-on-error: true
+        uses: ./
+        with:
+          check: coverage
+          document: packages/admission/python/vectors/coverage/cdx-1.6-baseline.json
+          required: packages/admission/python/vectors/coverage/required-cyclonedx.json
       - name: each call admitted or refused as it should
         env:
+          COVERAGE_PASS: ${{ steps.coverage-pass.outcome }}/${{ steps.coverage-pass.outputs.result }}/${{ steps.coverage-pass.outputs.refusals }}
+          COVERAGE_FAIL: ${{ steps.coverage-fail.outcome }}/${{ steps.coverage-fail.outputs.result }}/${{ steps.coverage-fail.outputs.refusals }}
           DIGEST_PASS: ${{ steps.digest-pass.outcome }}/${{ steps.digest-pass.outputs.result }}/${{ steps.digest-pass.outputs.refusals }}
           DIGEST_FAIL: ${{ steps.digest-fail.outcome }}/${{ steps.digest-fail.outputs.result }}/${{ steps.digest-fail.outputs.refusals }}
           POLICY_PASS: ${{ steps.policy-pass.outcome }}/${{ steps.policy-pass.outputs.result }}/${{ steps.policy-pass.outputs.refusals }}
@@ -107,3 +124,5 @@ jobs:
           test "$DIGEST_FAIL" = "failure/refused/1"
           test "$POLICY_PASS" = "success/admitted/0"
           test "$POLICY_FAIL" = "failure/refused/1"
+          test "$COVERAGE_PASS" = "success/admitted/0"
+          test "$COVERAGE_FAIL" = "failure/refused/4"

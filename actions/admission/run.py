@@ -4,10 +4,12 @@
     python3 run.py install-checker <venv-dir>
     python3 run.py digest --python <py> --document <path> --artifact <path> [--artifact ...]
     python3 run.py policy --opa <opa> --rules <name> --statement <path> [--statement ...] [--pins <path>]
+    python3 run.py coverage --document <path> --required <path>
 
 `digest` runs the published agent-evidence-admission checker once per artifact. `policy`
 evaluates every statement against one rule set of packages/admission/rego in a single opa
-call. Both write `result` (`admitted` or `refused`) and `refusals` (a count) to
+call. `coverage` runs the checker's coverage-check from this checkout's own source (standard
+library only, so there is nothing to install) and reports one row per required class. Both write `result` (`admitted` or `refused`) and `refusals` (a count) to
 GITHUB_OUTPUT and a table to GITHUB_STEP_SUMMARY when those are set, and exit 0 when
 everything is admitted, 1 when anything is refused, 2 when an input could not be read or a
 tool failed. Every tool is pinned in pins.json by version and SHA-256. Standard library
@@ -30,6 +32,7 @@ from pathlib import Path
 HERE = Path(__file__).resolve().parent
 PINS = json.loads((HERE / "pins.json").read_text())
 REGO_DIR = HERE.parents[1] / "packages" / "admission" / "rego"
+CHECKER_SRC = HERE.parents[1] / "packages" / "admission" / "python" / "src"
 NO_REASON = "refused: isCompliant is false and the rules named no reason in errors"
 CONTRADICTION = "refused: isCompliant is true but the rules also named errors"
 
@@ -92,6 +95,22 @@ def check_digests(python: str, document: str, artifacts: list[str]) -> list[Row]
             raise SetupError(f"digest-check {artifact}: exit {done.returncode}: {line}")
         rows.append(Row(artifact, done.returncode == 0, [] if done.returncode == 0 else [line]))
     return rows
+
+
+def check_coverage(document: str, required: str) -> list[Row]:
+    """Run coverage-check from this checkout; one row per required class, refused when it fails."""
+    env = {**os.environ, "PYTHONPATH": str(CHECKER_SRC)}
+    done = subprocess.run([sys.executable, "-m", "agent_evidence_admission.cli", "coverage-check", document,
+                           "--required", required, "--json"], check=False, capture_output=True, text=True, env=env)
+    if done.returncode not in (0, 1):
+        raise SetupError(f"coverage-check {document}: exit {done.returncode}: {(done.stderr or done.stdout).strip()}")
+    try:
+        classes = json.loads(done.stdout)["classes"]
+    except (KeyError, ValueError) as error:
+        raise SetupError(f"coverage-check printed no report: {done.stdout[:2000]}") from error
+    failing = {"MISSING", "DOUBLE", "NO-REASON", "NOT-COMPLETE"}
+    return [Row(f"{c['class']} {c['status']}", c["status"] not in failing,
+                [c["detail"]] if c["status"] in failing else []) for c in classes]
 
 
 def _read_json(path: str) -> object:
@@ -188,6 +207,9 @@ def _parser() -> argparse.ArgumentParser:
     digest.add_argument("--python", required=True)
     digest.add_argument("--document", required=True)
     digest.add_argument("--artifact", action="append", required=True)
+    coverage = commands.add_parser("coverage")
+    coverage.add_argument("--document", required=True)
+    coverage.add_argument("--required", required=True)
     policy = commands.add_parser("policy")
     policy.add_argument("--opa", required=True)
     policy.add_argument("--rules", required=True)
@@ -208,6 +230,8 @@ def main(argv: list[str] | None = None) -> int:
             return 0
         if args.command == "digest":
             return report("digest check", check_digests(args.python, args.document, _paths(args.artifact)))
+        if args.command == "coverage":
+            return report("coverage check", check_coverage(args.document, args.required))
         return report(f"{args.rules} rules",
                       check_policy(args.opa, args.rules, _paths(args.statement), args.pins or None))
     except (SetupError, OSError, subprocess.CalledProcessError) as error:

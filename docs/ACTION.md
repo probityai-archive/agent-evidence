@@ -76,3 +76,22 @@ The step fails when any subject is refused, and writes a table of each subject, 
 ## Checks and releases
 
 [.github/workflows/actions-admission.yml](../.github/workflows/actions-admission.yml) runs the Action's logic against every vector this repository holds for the three rule sets, then calls the Action as `uses: ./` on each pinned runner. A release tag is `action-v<version>`, the version in [actions/VERSION](../actions/VERSION); the release workflow re-runs those checks on the tagged commit. When a new `agent-evidence-admission` or OPA version is pinned, the tests fail until `pins.json` matches it, and the change ships as a new Action release.
+
+## `check: coverage`
+
+Checks that a CycloneDX BOM or SPDX 3 document accounts for every class a buyer requires. Each required class comes back `ASSESSED`, `INCOMPLETE`, `NOT-ASSESSED` (with the reason `unknown` or `withheld`), `COVERED-ELSEWHERE` (a CycloneDX BOM-Link or an SPDX import), or one of the refusals `MISSING`, `DOUBLE` (two entries select the class) and `NO-REASON` (not assessed, with neither a reason nor a covering reference). It reads the formats as published (CycloneDX 1.6 compositions, SPDX 3.0.1 relationship completeness) and the fields proposed in [CycloneDX/specification#1159](https://github.com/CycloneDX/specification/issues/1159) and [spdx/spdx-3-model#1105](https://github.com/spdx/spdx-3-model/issues/1105) when they are present. It needs no pinned tool: it runs from the tagged commit's own source.
+
+| input | meaning |
+| --- | --- |
+| `document` | the CycloneDX JSON BOM or SPDX 3 JSON-LD document |
+| `required` | a file listing the required classes: a JSON array, or an object with `required`, `cyclonedx` and `spdx` lists |
+
+```yaml
+- uses: probityai/agent-evidence@action-v0.1.0
+  with:
+    check: coverage
+    document: sbom.cdx.json
+    required: tender/required-classes.json
+```
+
+The same check runs as a command, `agent-evidence-admission coverage-check sbom.cdx.json --required tender/required-classes.json`, and its [positive and negative vectors](../packages/admission/python/vectors/coverage/manifest.json) are the conformance cases for it.

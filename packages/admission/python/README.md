@@ -53,6 +53,10 @@ PASS log4j-core-2.26.1.jar has sha512:..., named in bom.json
 
 It exits 1 with `FAIL digest-mismatch` when the bytes differ, or `FAIL no-digest-named` when the document names no digest at all, and 2 when the document or the artifact could not be read. Plain http URLs are refused.
 
+## Coverage check
+
+`agent-evidence-admission coverage-check bom.json --require library,service,machine-learning-model` reports, for each class a buyer requires, whether a CycloneDX BOM or an SPDX 3 document assessed it, marked it not assessed with a reason (`unknown` or `withheld`), points at a covering document, or says nothing. It exits 1 on a missing or doubly selected class and on a not-assessed entry with no reason and no covering reference. `--required` reads the list from a file, `--json` prints the report. The [vectors](vectors/coverage/manifest.json) are its positive and negative cases.
+
 ## Status
 
 Version 0.1.2. The Kubernetes admission policies (Rego, Kyverno, policy-controller) live in the same repository; see the [repository README](https://github.com/probityai/agent-evidence/tree/main/packages/admission#readme).

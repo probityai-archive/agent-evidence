@@ -254,3 +254,27 @@ def test_digest_main_exit_codes(checker: str, tmp_path: Path) -> None:
     assert run.main([*base, str(tmp_path / "one")]) == 0
     assert run.main([*base, f"{tmp_path / 'one'}\n{tmp_path / 'other'}"]) == 1
     assert run.main([*base, str(tmp_path / "missing")]) == 2
+
+
+COVERAGE_VECTORS = ROOT / "packages" / "admission" / "python" / "vectors" / "coverage"
+
+
+def test_coverage_reports_one_row_per_required_class_and_refuses_a_missing_one(tmp_path: Path) -> None:
+    document = str(COVERAGE_VECTORS / "cdx-1.6-baseline.json")
+    required = _write(tmp_path / "required.json", ["library", "service", "machine-learning-model"])
+    rows = run.check_coverage(document, required)
+    assert [(r.subject, r.admitted) for r in rows] == [
+        ("library ASSESSED", True), ("service COVERED-ELSEWHERE", True), ("machine-learning-model MISSING", False)]
+    assert rows[2].reasons == ["no entry and no member"]
+
+
+def test_coverage_main_exit_codes(tmp_path: Path) -> None:
+    document = str(COVERAGE_VECTORS / "spdx-coverage-proposed.json")
+    base = ["coverage", "--document", document, "--required"]
+    assert run.main([*base, _write(tmp_path / "ok.json", ["library", "model", "data", "application"])]) == 0
+    assert run.main([*base, _write(tmp_path / "missing.json", ["library", "tooling"])]) == 1
+    assert run.main([*base, str(tmp_path / "absent.json")]) == 2
+
+
+def test_coverage_runs_the_checker_of_this_checkout_without_an_installed_package() -> None:
+    assert (run.CHECKER_SRC / "agent_evidence_admission" / "coverage_check.py").is_file()
