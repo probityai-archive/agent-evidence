@@ -27,10 +27,12 @@ def check(wheel: Path, sdist: Path, source_root: Path | None = None) -> None:
             and project["license-files"] == ["LICENSE", "LICENSE-CC0"], "released registry grants")
     data = (root / "vocabulary.yaml").read_bytes()
     require(yaml.safe_load(data)["meta"]["version"] == project["version"], "registry and package version")
-    require(hashlib.sha256(data).hexdigest() == "b0d69754d54a647d18758ab7e46c2d51430be41c07d3f1906e8c56fe45bd37e9",
-            "released v0.7.0 registry digest")
+    require(hashlib.sha256(data).hexdigest() == "7c0df368fe869d2ac8e17558d833fa9969df6751be9d57492f47c10c54170161",
+            "registry digest")
     source = {"agent_evidence_vocabulary/__init__.py": root / "__init__.py",
-              "agent_evidence_vocabulary/vocabulary.yaml": root / "vocabulary.yaml"}
+              "agent_evidence_vocabulary/vocabulary.yaml": root / "vocabulary.yaml",
+              "agent_evidence_vocabulary/registry.json": root / "registry.json",
+              "agent_evidence_vocabulary/registry.py": root / "registry.py"}
     with ZipFile(wheel) as archive:
         names = archive.namelist()
         require(len(names) == len(set(names)), "duplicate wheel member")
@@ -63,8 +65,8 @@ def check(wheel: Path, sdist: Path, source_root: Path | None = None) -> None:
                 value = base64.urlsafe_b64encode(hashlib.sha256(raw).digest()).rstrip(b"=").decode()
                 require(digest == "sha256=" + value and size == str(len(raw)), "RECORD bytes: " + name)
     expected = {"__init__.py", "vocabulary.yaml", "pyproject.toml", "README.md", "LICENSE", "LICENSE-CC0",
-                "MANIFEST.in", "requirements.txt"}
-    records = {"./__init__.py", "./vocabulary.yaml"} if manifest["tool"]["setuptools"]["package-dir"][
+                "MANIFEST.in", "requirements.txt", "registry.json", "registry.py"}
+    records = {"./__init__.py", "./vocabulary.yaml", "./registry.json", "./registry.py"} if manifest["tool"]["setuptools"]["package-dir"][
         "agent_evidence_vocabulary"] == "." else set()
     check_source_archive(sdist, root, project, metadata, expected,
                          "agent_evidence_vocabulary.egg-info", "agent_evidence_vocabulary", records)

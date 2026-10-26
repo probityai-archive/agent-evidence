@@ -45,7 +45,7 @@ once it is pushed.
 
 The Python package is `agent-evidence-vocabulary` 0.7.0. It contains the exact
 `vocabulary.yaml` bytes from data release `v0.7.0`, with SHA-256
-`b0d69754d54a647d18758ab7e46c2d51430be41c07d3f1906e8c56fe45bd37e9`.
+`7c0df368fe869d2ac8e17558d833fa9969df6751be9d57492f47c10c54170161`.
 The repository keeps one copy of the YAML. The package maps that file directly
 into `agent_evidence_vocabulary`; no generated copy can drift from it.
 
