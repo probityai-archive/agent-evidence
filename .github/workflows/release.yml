@@ -25,6 +25,11 @@ name: release
 #                                          Marketplace version, and check-action
 #                                          re-runs its checks on the tagged commit
 #
+# Before any PyPI publish, family-pin-guard refuses a version that the newest
+# published release of another family distribution (scripts/family-packages.toml)
+# cannot be installed beside, and names the sibling and its pin. When it refuses,
+# release that sibling with a widened pin first (docs/LAYOUT.md, Releases).
+#
 # resolve refuses a tag whose unit is not in release.toml yet, whose directory
 # is missing, whose manifest carries another version, or whose commit is not on
 # main. Each publish job runs only for its own unit, so the job holding the
@@ -293,8 +298,17 @@ jobs:
     if: needs.resolve.outputs.prefix == 'jcs-admit-py'
     uses: ./.github/workflows/jcs-admit-python-build.yml
 
-  publish-jcs-admit-python:
+  family-pin-guard-jcs-admit:
     needs: [resolve, build-jcs-admit-python]
+    uses: ./.github/workflows/family-pin-guard.yml
+    with:
+      distribution: ${{ needs.resolve.outputs.name }}
+      version: ${{ needs.resolve.outputs.version }}
+      artifact: python-wheel-manylinux-x86_64
+      wheel-glob: "*.whl"
+
+  publish-jcs-admit-python:
+    needs: [resolve, build-jcs-admit-python, family-pin-guard-jcs-admit]
     if: needs.resolve.outputs.prefix == 'jcs-admit-py'
     runs-on: ubuntu-24.04
     timeout-minutes: 15
@@ -342,8 +356,17 @@ jobs:
       distribution: ${{ needs.resolve.outputs.name }}
       version: ${{ needs.resolve.outputs.version }}
 
-  publish-agent-evidence-vectors:
+  family-pin-guard:
     needs: [resolve, build-python]
+    uses: ./.github/workflows/family-pin-guard.yml
+    with:
+      distribution: ${{ needs.resolve.outputs.name }}
+      version: ${{ needs.resolve.outputs.version }}
+      artifact: python-dist-${{ needs.resolve.outputs.name }}
+      wheel-glob: "dist/*.whl"
+
+  publish-agent-evidence-vectors:
+    needs: [resolve, build-python, family-pin-guard]
     if: needs.resolve.outputs.prefix == 'agent-evidence-vectors'
     runs-on: ubuntu-24.04
     timeout-minutes: 15
@@ -368,7 +391,7 @@ jobs:
           packages-dir: release-artifacts/dist/
 
   publish-agent-evidence-vocabulary:
-    needs: [resolve, build-python]
+    needs: [resolve, build-python, family-pin-guard]
     if: needs.resolve.outputs.prefix == 'agent-evidence-vocabulary' || needs.resolve.outputs.prefix == 'agent-evidence-vocabulary-python'
     runs-on: ubuntu-24.04
     timeout-minutes: 15
@@ -393,7 +416,7 @@ jobs:
           packages-dir: release-artifacts/dist/
 
   publish-agent-evidence-admission:
-    needs: [resolve, build-python]
+    needs: [resolve, build-python, family-pin-guard]
     if: needs.resolve.outputs.prefix == 'agent-evidence-admission'
     runs-on: ubuntu-24.04
     timeout-minutes: 15

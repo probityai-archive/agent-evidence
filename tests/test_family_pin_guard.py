@@ -151,3 +151,17 @@ def test_the_family_list_names_are_canonical_and_unique():
     assert raw == [guard.canonicalize_name(n) for n in raw]
     assert len(raw) == len(set(raw))
 
+
+def test_every_pypi_publish_job_waits_for_a_guard_job():
+    lines = (ROOT / ".github" / "workflows" / "release.yml").read_text().splitlines()
+    publishers = {}
+    current = None
+    for line in lines:
+        if line.startswith("  ") and not line.startswith("   ") and line.rstrip().endswith(":"):
+            current = line.strip().rstrip(":")
+        elif current and line.startswith("    needs:"):
+            publishers[current] = line
+    pypi = ["publish-agent-evidence-vectors", "publish-agent-evidence-vocabulary",
+            "publish-agent-evidence-admission", "publish-jcs-admit-python"]
+    for job in pypi:
+        assert "family-pin-guard" in publishers[job], job
