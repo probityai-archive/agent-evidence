@@ -48,6 +48,11 @@ jobs:
 
       - run: python3 scripts/validate_crosswalks.py
 
+      - name: Hold registry.json to vocabulary.yaml and registry.py to the open value rule
+        run: |
+          python3 scripts/gen_registry_index.py --check
+          python3 scripts/test_open_enums.py
+
       - name: Run the contribution guide's own worked example through the validator
         run: |
           # CONTRIBUTING.md shows a filer a complete crosswalk and tells them to

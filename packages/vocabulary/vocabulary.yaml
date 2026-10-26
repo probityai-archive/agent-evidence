@@ -141,6 +141,39 @@ meta:
     one. scripts/check_opencre_links.py refuses any other shape, and any CRE URL
     anywhere else in this file, comments included.
 
+  term_uri_base: "https://w3id.org/agent-evidence/vocab/v1/"
+  term_uris: >
+    Every term has one URI: term_uri_base followed by the term's key, for
+    example https://w3id.org/agent-evidence/vocab/v1/observation_vantage. A
+    registered value of a term is that URI with the value as its fragment, for
+    example .../vocab/v1/observation_vantage#substrate. The URIs are made by
+    this rule and are not stored per term, so a term cannot carry a URI that
+    disagrees with its key. They are new in this revision; the predicate type
+    URIs under https://w3id.org/agent-evidence/predicate/v1/ are unchanged.
+    Each URI resolves to a generated page on the repository's Pages site, and
+    scripts/check_uris_resolve.py fails when one does not.
+  registry_digest: >
+    A record names the registry its producer used by carrying the SHA-256 of
+    this file's exact released bytes as registryDigest: {sha256: <hex>}. The
+    digest addresses the file, so a consumer can fetch the same bytes at
+    https://probityai.github.io/agent-evidence/vocab/v1/registry/sha256-<hex>.yaml
+    and check them. The file cannot carry its own digest; registry.json, which
+    scripts/gen_registry_index.py generates from it, carries it as
+    source_sha256.
+  open_value_rule: >
+    How a verifier treats a value it does not have registered. Three cases,
+    decided by the record's registryDigest. (1) The record names a registry
+    whose digest the verifier holds: the check is exact, and an unregistered
+    value makes the record malformed, as every term's own text says. (2) The
+    record carries no registryDigest: the same exact check, so records made
+    before this rule are judged as they always were. (3) The record names a
+    registry the verifier does not hold, normally a newer one: an unregistered
+    value is judged by the term's criticality. A critical term yields degraded
+    with the value preserved in the verifier's output, never a silent pass and
+    never a rejection that drops the evidence. An informational term ignores
+    the value and preserves it. Every term declares its criticality. A
+    verdict carried under result is the exception to case 3; verdict_classes
+    below says how it is judged.
 # external_instruments: public instruments a term below cites as the external
 # anchor for its own axis. A citation here is a CITATION and never a crosswalk
 # filing. A legislative proposal emits no signed records, so nothing in this
@@ -181,6 +214,7 @@ evidence_dimensions:
 
   observation_vantage:
     status: proposed
+    criticality: critical
     review_by: "2027-02-11"
     values: [substrate, artifact]
     definition: >
@@ -245,6 +279,7 @@ evidence_dimensions:
 
   observation_directness:
     status: proposed
+    criticality: critical
     review_by: "2027-02-11"
     values: [intercepted, reconstructed]
     definition: >
@@ -264,6 +299,7 @@ evidence_dimensions:
 
   witness_scope:
     status: proposed
+    criticality: critical
     review_by: "2027-02-11"
     values: [SELF, PEER, EXTERNAL]
     definition: >
@@ -298,6 +334,7 @@ evidence_dimensions:
 
   field_evidence_partition:
     status: proposed
+    criticality: critical
     review_by: "2027-02-11"
     values: [substrate_covered, producer_asserted]
     definition: >
@@ -316,6 +353,7 @@ evidence_dimensions:
 
   issuance_time_basis:
     status: proposed
+    criticality: critical
     review_by: "2027-02-11"
     values: [beacon_anchored, asserted]
     definition: >
@@ -332,6 +370,7 @@ evidence_dimensions:
 
   commitment_anchor:
     status: proposed
+    criticality: critical
     review_by: "2027-02-24"
     values: [anchored, asserted]
     definition: >
@@ -362,6 +401,7 @@ evidence_dimensions:
 
   anchor_time_rule:
     status: proposed
+    criticality: critical
     review_by: "2027-02-24"
     values: [header_time_plus_tolerance, later_median, height]
     definition: >
@@ -383,6 +423,7 @@ evidence_dimensions:
 
   attestation_tier:
     status: proposed
+    criticality: critical
     review_by: "2027-03-19"
     values: [voluntary, authoritative]
     definition: >
@@ -442,6 +483,7 @@ evidence_dimensions:
 
   origin_kind:
     status: proposed
+    criticality: critical
     review_by: "2027-03-19"
     values: [self, first-hand, third-party-control-plane, log-import]
     definition: >
@@ -551,6 +593,7 @@ evidence_dimensions:
 
   independence_basis:
     status: proposed
+    criticality: critical
     review_by: "2027-09-20"
     values: [independent_sources, subject_supplied, undeclared]
     definition: >
@@ -610,6 +653,7 @@ evidence_dimensions:
 
   party_role:
     status: proposed
+    criticality: critical
     review_by: "2027-09-20"
     values:
       - audited_provider
@@ -671,6 +715,7 @@ evidence_dimensions:
 
   control_relation:
     status: proposed
+    criticality: critical
     review_by: "2027-09-20"
     values: null
     definition: >
@@ -728,6 +773,7 @@ evidence_dimensions:
 
   evidence_origin_class:
     status: proposed
+    criticality: critical
     review_by: "2027-09-20"
     values: [document, database_or_it_system, interview, test]
     definition: >
@@ -777,6 +823,7 @@ evidence_dimensions:
 
   intent_binding:
     status: proposed
+    criticality: critical
     review_by: "2027-04-07"
     values: [committed_before_execution, asserted_after_execution]
     definition: >
@@ -809,6 +856,7 @@ posture_and_coverage:
 
   containment_posture:
     status: proposed
+    criticality: critical
     review_by: "2027-02-11"
     values:
       - no_network
@@ -837,6 +885,7 @@ posture_and_coverage:
 
   coverage_denominator:
     status: proposed
+    criticality: critical
     review_by: "2027-02-11"
     values: null
     definition: >
@@ -861,6 +910,7 @@ posture_and_coverage:
 
   does_not_assert:
     status: proposed
+    criticality: critical
     review_by: "2027-02-11"
     values: null
     definition: >
@@ -878,6 +928,7 @@ posture_and_coverage:
 
   claim_subject:
     status: proposed
+    criticality: critical
     review_by: "2027-04-07"
     values: [tool, agent, organization]
     value_definitions:
@@ -910,6 +961,7 @@ posture_and_coverage:
 
   base_state_resolution:
     status: proposed
+    criticality: critical
     review_by: "2027-03-19"
     values: [supplied, authority_recorded, empty_tree]
     definition: >
@@ -974,6 +1026,7 @@ posture_and_coverage:
 
   set_sufficiency:
     status: proposed
+    criticality: critical
     review_by: "2027-09-20"
     values: [sufficient, insufficient, not_assessed]
     definition: >
@@ -1024,6 +1077,7 @@ posture_and_coverage:
 
   material_change_trigger:
     status: proposed
+    criticality: critical
     review_by: "2027-09-20"
     values: null
     definition: >
@@ -1081,6 +1135,7 @@ outcome_lattice:
 
   result:
     status: proposed
+    criticality: critical
     review_by: "2027-02-11"
     values: [fail, degraded, pass_indirect, pass]
     definition: >
@@ -1093,6 +1148,26 @@ outcome_lattice:
     source_path: "predicate.result"
     issuers_in_production: []
 
+# verdict_classes: an open set of verdict codes under the closed result lattice.
+# Added so that a new verdict code does not make every deployed verifier reject
+# the record that carries it: the parent says what an older verifier must do.
+verdict_classes:
+  parent_term: result
+  rule: >
+    A verdict is carried as {class: <code>, parent: <value of result>}. The
+    parents are the four values of result and are closed: a parent outside
+    them makes the record malformed under every case of open_value_rule. A
+    class equal to its parent is the parent itself. A registered child code
+    must carry the parent registered for it, or the record is malformed. A
+    child code the verifier does not have registered is accepted with its
+    parent's meaning, and the code is preserved in the verifier's output,
+    when the record names a registry the verifier does not hold (case 3 of
+    open_value_rule); under cases 1 and 2 it makes the record malformed. A
+    child is never read as stronger than its parent, so an unknown child under
+    fail is a fail. Each child's URI is the result term's URI with the code as
+    its fragment.
+  children: {}
+
 # record_lifecycle: how a published record says that one of its own values
 # changed after publication. A derived value that automated consumers gate on is
 # not prose: revising it with only a last-updated date to signal the change breaks
@@ -1104,6 +1179,7 @@ record_lifecycle:
 
   revision_reason:
     status: proposed
+    criticality: informational
     review_by: "2027-04-07"
     values:
       - declaration_added
@@ -1147,6 +1223,7 @@ change_admission:
 
   admission_decision:
     status: proposed
+    criticality: critical
     review_by: "2027-04-11"
     values: [admitted, rejected]
     definition: >
@@ -1171,6 +1248,7 @@ change_admission:
 
   admission_gate:
     status: proposed
+    criticality: critical
     review_by: "2027-04-11"
     values: [replay, heldout, no_regression, benign_twins, overfit_lint, authority]
     value_definitions:
@@ -1205,6 +1283,7 @@ change_admission:
 
   evaluation_mode:
     status: proposed
+    criticality: critical
     review_by: "2027-04-11"
     values: [FRESH, RECORDED, CACHED]
     value_definitions:
@@ -1225,6 +1304,7 @@ change_admission:
 
   replay_coverage:
     status: proposed
+    criticality: critical
     review_by: "2027-04-11"
     values: [exhaustive, partial]
     definition: >
@@ -1247,6 +1327,7 @@ change_admission:
 
   replay_snapshot:
     status: proposed
+    criticality: critical
     review_by: "2027-04-11"
     values: null
     definition: >
@@ -1262,6 +1343,7 @@ change_admission:
 
   authority_change:
     status: proposed
+    criticality: critical
     review_by: "2027-04-11"
     values: [none, human_approved]
     definition: >
@@ -1302,6 +1384,7 @@ done_verification:
 
   done_contract:
     status: proposed
+    criticality: critical
     review_by: "2027-04-17"
     values: null
     definition: >
@@ -1325,6 +1408,7 @@ done_verification:
 
   done_receipt:
     status: proposed
+    criticality: critical
     review_by: "2027-04-17"
     values: null
     definition: >
@@ -1347,6 +1431,7 @@ done_verification:
 
   acceptance_observed:
     status: proposed
+    criticality: critical
     review_by: "2027-04-17"
     values: [supported, contradicted, not_established]
     value_definitions:
@@ -1378,6 +1463,7 @@ done_verification:
 
   protected_path:
     status: proposed
+    criticality: critical
     review_by: "2027-04-17"
     values: null
     definition: >
@@ -1402,6 +1488,7 @@ done_verification:
 
   claimed_tool_output:
     status: proposed
+    criticality: informational
     review_by: "2027-04-17"
     values: null
     definition: >
@@ -1421,6 +1508,7 @@ done_verification:
 
   observed_tool_output:
     status: proposed
+    criticality: critical
     review_by: "2027-04-17"
     values: null
     definition: >
@@ -1445,6 +1533,7 @@ done_verification:
 
   stop_decision:
     status: proposed
+    criticality: critical
     review_by: "2027-04-17"
     values: [continue, replan, escalate, stop]
     value_definitions:
@@ -1469,6 +1558,7 @@ done_verification:
 
   inconclusive_verdict:
     status: proposed
+    criticality: critical
     review_by: "2027-04-17"
     values: null
     definition: >
@@ -1560,7 +1650,7 @@ crosswalk_evidence_states:
 # does not contest ground it does not claim.
 out_of_scope:
   - "Agent identity, reputation, or wallet-bound scoring of any kind. This registry describes claims about an execution, never a scored assessment of an actor over time."
-  - "Renaming or reinterpreting a live signed envelope's own type/format field. A verifier MUST reject an unregistered enum value for a known field; the wire bytes of that field are never renamed by this registry."
+  - "Renaming or reinterpreting a live signed envelope's own type/format field. A verifier MUST reject an unregistered enum value for a known field when the record names a registry the verifier holds or names none (meta.open_value_rule cases 1 and 2); the wire bytes of that field are never renamed by this registry."
   - "Policy thresholds. This registry's outcome_lattice term is a recomputable minimum, never a pass/fail threshold a consumer's own policy applies on top."
 
 # reserved: terms that are not live, kept here so a decision is not silently

@@ -33,4 +33,4 @@ packages = ["agent_evidence_vocabulary"]
 package-dir = {"agent_evidence_vocabulary" = "."}
 
 [tool.setuptools.package-data]
-agent_evidence_vocabulary = ["vocabulary.yaml"]
+agent_evidence_vocabulary = ["vocabulary.yaml", "registry.json"]
