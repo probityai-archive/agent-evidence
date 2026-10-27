@@ -26,13 +26,40 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 PACKAGE = ROOT / "packages" / "vocabulary"
 OUT = ROOT / "pages" / "vocab" / "v1"
+PAGES_BASE = "https://probityai.github.io/agent-evidence/vocab/v1/"
 _SPEC = importlib.util.spec_from_file_location("build_predicate_pages", ROOT / "scripts" / "build_predicate_pages.py")
 _predicate = importlib.util.module_from_spec(_SPEC)
 _SPEC.loader.exec_module(_predicate)
 SOURCE_URL = "https://github.com/probityai/agent-evidence/blob/main/packages/vocabulary/vocabulary.yaml"
+CONTEXT = {"skos": "http://www.w3.org/2004/02/skos/core#", "owl": "http://www.w3.org/2002/07/owl#",
+           "rdfs": "http://www.w3.org/2000/01/rdf-schema#"}
 
 
-def _term_page(name: str, term: dict, children: dict) -> str:
+def _jsonld(data: dict) -> str:
+    """``data`` as a JSON-LD script element; ``<\\/`` keeps a definition from closing the element."""
+    text = json.dumps({"@context": CONTEXT, **data}, indent=1, sort_keys=True, ensure_ascii=False)
+    return '\n<script type="application/ld+json">\n' + text.replace("</", "<\\/") + "\n</script>"
+
+
+def term_graph(name: str, term: dict, base: str, children: dict) -> dict:
+    """The SKOS description of one term: a concept in the scheme. A registered value is a value OF the term,
+    not a narrower kind of it, so it is tied to the term by rdfs:isDefinedBy and never by skos:narrower."""
+    values = [{"@id": f"{term['uri']}#{value}", "@type": "skos:Concept", "skos:notation": value,
+               "rdfs:isDefinedBy": {"@id": term["uri"]}, "skos:inScheme": {"@id": base},
+                 **({"skos:definition": term["value_definitions"][value]}
+                    if value in term["value_definitions"] else {})}
+                for value in term["values"] or []]
+    values += [{"@id": child["uri"], "@type": "skos:Concept", "skos:notation": code,
+                "rdfs:isDefinedBy": {"@id": term["uri"]}, "skos:broader": {"@id": f"{term['uri']}#{child['parent']}"},
+                "skos:inScheme": {"@id": base}}
+               for code, child in sorted(children.items())]
+    graph = {"@id": term["uri"], "@type": "skos:Concept", "skos:notation": name, "skos:prefLabel": name,
+             "skos:definition": term["definition"], "skos:inScheme": {"@id": base},
+             "skos:topConceptOf": {"@id": base}}
+    return {"@graph": [graph, *values]}
+
+
+def _term_page(name: str, term: dict, base: str, children: dict) -> str:
     e = html.escape
     parts = [f"<h1><code>{e(name)}</code></h1>",
              f'<p>Term URI: <a href="{term["uri"]}">{term["uri"]}</a></p>',
@@ -50,10 +77,12 @@ def _term_page(name: str, term: dict, children: dict) -> str:
         for code, child in sorted(children.items()):
             parts.append(f'<li id="{e(code)}"><code>{e(child["uri"])}</code>, parent <code>{e(child["parent"])}</code></li>')
         parts.append("</ul>")
-    footer = (f'Generated from <a href="{SOURCE_URL}">vocabulary.yaml</a>. The term URI does not change once a '
-              "signed record carries it.")
+    footer = (f'Generated from <a href="{SOURCE_URL}">vocabulary.yaml</a>. This page describes the current '
+              "registry. A record is read against the registry its registryDigest names, named on "
+              f'<a href="{PAGES_BASE}">the term listing</a>. The term URI does not change once a signed record carries it.')
     return _predicate._page(f"{name}: Agent Evidence vocabulary", term["uri"],
-                            f"The {name} term of the Agent Evidence vocabulary.", "\n".join(parts), footer)
+                            f"The {name} term of the Agent Evidence vocabulary.", "\n".join(parts), footer,
+                            _jsonld(term_graph(name, term, base, children)))
 
 
 def render(index: dict) -> dict[str, str]:
@@ -65,15 +94,18 @@ def render(index: dict) -> dict[str, str]:
     rows = []
     for name in sorted(index["terms"]):
         term = index["terms"][name]
-        pages[f"{name}/index.html"] = _term_page(name, term, children if name == parent_term else {})
+        pages[f"{name}/index.html"] = _term_page(name, term, base, children if name == parent_term else {})
         rows.append(f'<li><a href="{name}/"><code>{term["uri"]}</code></a> ({html.escape(term["criticality"])})</li>')
     digest = index["source_sha256"]
     listing = (f"<h1>Vocabulary terms, version 1</h1>\n<p>Registry version {html.escape(index['version'])}, "
                f'registryDigest <a href="registry/sha256-{digest}.yaml"><code>{digest}</code></a>.</p>\n'
                "<ul>\n" + "\n".join(rows) + "\n</ul>")
+    scheme = {"@id": base, "@type": "skos:ConceptScheme", "skos:prefLabel": "Agent Evidence vocabulary",
+              "owl:versionInfo": index["version"], "rdfs:seeAlso": {"@id": f"{PAGES_BASE}registry/sha256-{digest}.yaml"},
+              "skos:hasTopConcept": [{"@id": index["terms"][name]["uri"]} for name in sorted(index["terms"])]}
     pages["index.html"] = _predicate._page("Agent Evidence vocabulary terms", base,
                                            "The terms of the Agent Evidence vocabulary.", listing,
-                                           "Agent Evidence vocabulary terms.")
+                                           "Agent Evidence vocabulary terms.", _jsonld(scheme))
     return pages
 
 
@@ -101,8 +133,12 @@ def main(argv: list[str] | None = None) -> int:
             return 1
         print(f"vocabulary pages ok ({len(pages)} pages)")
         return 0
-    for path in extra:
-        (OUT / path).unlink()
+    if extra:
+        # A term URI, once published, stays resolvable: older records carry it.
+        for path in extra:
+            print(f"pages/vocab/v1/{path}: an issued term lost its page; keep the term (deprecated) instead",
+                  file=sys.stderr)
+        return 1
     for path, text in pages.items():
         (OUT / path).parent.mkdir(parents=True, exist_ok=True)
         (OUT / path).write_text(text, encoding="utf-8")

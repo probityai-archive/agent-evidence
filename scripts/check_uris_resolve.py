@@ -18,6 +18,7 @@ w3id.org merge before the live service follows it.
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
 import re
 import sys
@@ -30,6 +31,7 @@ W3ID = "https://w3id.org/agent-evidence/"
 PAGES_BASE = "https://probityai.github.io/agent-evidence/"
 RULES = ROOT / "w3id" / "agent-evidence.htaccess"
 LIVE_RULES = "https://raw.githubusercontent.com/perma-id/w3id.org/master/ids/agent-evidence/.htaccess"
+RESERVED = {"registry"}
 RULE = re.compile(r"^RewriteRule\s+(\S+)\s+(\S+)\s+\[R=302,L\]\s*$")
 
 
@@ -60,12 +62,15 @@ def identifiers(pages: Path, index: dict) -> list[str]:
         uris.append(term["uri"])
         uris += [f"{term['uri']}#{value}" for value in term["values"] or []]
     uris += [child["uri"] for child in index["verdict_classes"]["children"].values()]
+    snapshots = pages / "vocab" / "v1" / "registry"
+    uris += [index["term_uri_base"] + "registry/" + f.name for f in sorted(snapshots.glob("sha256-*.yaml"))]
     return uris
 
 
 def check(pages: Path, index: dict, table: list[tuple[re.Pattern, str]]) -> list[str]:
     """Every identifier that does not land on a page (and anchor) under ``pages``."""
-    failures = []
+    failures = [f"{name}: reserved for the registry snapshots, never a term key"
+                for name in index["terms"] if name in RESERVED]
     for uri in identifiers(pages, index):
         target = rewrite(uri, table)
         if target is None or not target.startswith(PAGES_BASE):
@@ -73,6 +78,10 @@ def check(pages: Path, index: dict, table: list[tuple[re.Pattern, str]]) -> list
             continue
         rel = target.removeprefix(PAGES_BASE)
         page = pages / (rel + "index.html" if rel == "" or rel.endswith("/") else rel)
+        if page.suffix == ".yaml" and page.is_file():
+            if "sha256-" + hashlib.sha256(page.read_bytes()).hexdigest() + ".yaml" != page.name:
+                failures.append(f"{uri}: {page.name} does not hash to its name")
+            continue
         if not page.is_file():
             failures.append(f"{uri}: {target} has no page at {page.relative_to(pages.parent)}")
             continue

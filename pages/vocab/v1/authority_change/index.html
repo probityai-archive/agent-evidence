@@ -6,6 +6,52 @@
 <title>authority_change: Agent Evidence vocabulary</title>
 <meta name="description" content="The authority_change term of the Agent Evidence vocabulary.">
 <link rel="canonical" href="https://w3id.org/agent-evidence/vocab/v1/authority_change">
+<script type="application/ld+json">
+{
+ "@context": {
+  "owl": "http://www.w3.org/2002/07/owl#",
+  "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+  "skos": "http://www.w3.org/2004/02/skos/core#"
+ },
+ "@graph": [
+  {
+   "@id": "https://w3id.org/agent-evidence/vocab/v1/authority_change",
+   "@type": "skos:Concept",
+   "skos:definition": "Whether a candidate harness grants authority its parent lacked, meaning a tool outside the parent's allowlist, a removed or altered guard or procedure, or a rewritten system prompt: none, or human_approved when a human-signed approval names the exact candidate digest. A candidate that grants authority without such an approval fails the authority gate. This is an enforced policy about who may widen a harness, not a proof that the harness is safe.",
+   "skos:inScheme": {
+    "@id": "https://w3id.org/agent-evidence/vocab/v1/"
+   },
+   "skos:notation": "authority_change",
+   "skos:prefLabel": "authority_change",
+   "skos:topConceptOf": {
+    "@id": "https://w3id.org/agent-evidence/vocab/v1/"
+   }
+  },
+  {
+   "@id": "https://w3id.org/agent-evidence/vocab/v1/authority_change#none",
+   "@type": "skos:Concept",
+   "rdfs:isDefinedBy": {
+    "@id": "https://w3id.org/agent-evidence/vocab/v1/authority_change"
+   },
+   "skos:inScheme": {
+    "@id": "https://w3id.org/agent-evidence/vocab/v1/"
+   },
+   "skos:notation": "none"
+  },
+  {
+   "@id": "https://w3id.org/agent-evidence/vocab/v1/authority_change#human_approved",
+   "@type": "skos:Concept",
+   "rdfs:isDefinedBy": {
+    "@id": "https://w3id.org/agent-evidence/vocab/v1/authority_change"
+   },
+   "skos:inScheme": {
+    "@id": "https://w3id.org/agent-evidence/vocab/v1/"
+   },
+   "skos:notation": "human_approved"
+  }
+ ]
+}
+</script>
 <style>
 :root{color-scheme:light dark;--page:#f6f8fb;--surface:#fff;--ink:#14202e;--body:#33404f;--link:#1f4fd1;--rule:#cfd8e3;font-family:system-ui,sans-serif;color:var(--ink);background:var(--page)}
 @media (prefers-color-scheme:dark){:root{--page:#10151b;--surface:#18202a;--ink:#e8edf3;--body:#c3ccd6;--link:#8fb0ff;--rule:#2c3846}}
@@ -34,6 +80,6 @@ th,td{border:1px solid var(--rule);padding:.4rem .6rem;text-align:left;vertical-
 <li id="human_approved"><code>https://w3id.org/agent-evidence/vocab/v1/authority_change#human_approved</code></li>
 </ul>
 </main>
-<footer><div class="shell">Generated from <a href="https://github.com/probityai/agent-evidence/blob/main/packages/vocabulary/vocabulary.yaml">vocabulary.yaml</a>. The term URI does not change once a signed record carries it.</div></footer>
+<footer><div class="shell">Generated from <a href="https://github.com/probityai/agent-evidence/blob/main/packages/vocabulary/vocabulary.yaml">vocabulary.yaml</a>. This page describes the current registry. A record is read against the registry its registryDigest names, named on <a href="https://probityai.github.io/agent-evidence/vocab/v1/">the term listing</a>. The term URI does not change once a signed record carries it.</div></footer>
 </body>
 </html>
