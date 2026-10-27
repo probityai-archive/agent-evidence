@@ -42,7 +42,8 @@ table{border-collapse:collapse;display:block;overflow-x:auto}
 th,td{border:1px solid var(--rule);padding:.4rem .6rem;text-align:left;vertical-align:top}"""
 
 
-def _page(title: str, canonical: str, description: str, body: str, footer: str) -> str:
+def _page(title: str, canonical: str, description: str, body: str, footer: str, head: str = "") -> str:
+    """One page. ``head`` is extra markup for the end of <head>, each element on its own line."""
     return f"""<!doctype html>
 <html lang="en">
 <head>
@@ -50,7 +51,7 @@ def _page(title: str, canonical: str, description: str, body: str, footer: str) 
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{html.escape(title)}</title>
 <meta name="description" content="{html.escape(description)}">
-<link rel="canonical" href="{canonical}">
+<link rel="canonical" href="{canonical}">{head}
 <style>
 {STYLE}
 </style>

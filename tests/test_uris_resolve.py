@@ -41,7 +41,10 @@ def test_every_term_and_value_is_an_identifier() -> None:
     found = set(uris.identifiers(_ROOT / "pages", INDEX))
     assert "https://w3id.org/agent-evidence/vocab/v1/observation_vantage#substrate" in found
     assert "https://w3id.org/agent-evidence/predicate/v1/done-receipt" in found
-    assert len([u for u in found if "/vocab/v1/" in u and "#" not in u]) == len(INDEX["terms"]) + 1
+    terms = [u for u in found if "/vocab/v1/" in u and "#" not in u and "/registry/" not in u]
+    assert len(terms) == len(INDEX["terms"]) + 1
+    digest = INDEX["source_sha256"]
+    assert f"https://w3id.org/agent-evidence/vocab/v1/registry/sha256-{digest}.yaml" in found
 
 
 def test_a_missing_term_page_fails(pages: Path) -> None:
@@ -71,3 +74,40 @@ def test_the_rules_rewrite_like_w3id() -> None:
     assert uris.rewrite("https://w3id.org/agent-evidence/vocab/v1/result#fail", TABLE) == \
         "https://probityai.github.io/agent-evidence/vocab/v1/result/"
     assert uris.rewrite("https://w3id.org/agent-evidence/other", TABLE) is None
+
+
+def _jsonld(page: Path) -> dict:
+    text = page.read_text(encoding="utf-8")
+    start = text.index('<script type="application/ld+json">') + len('<script type="application/ld+json">')
+    return json.loads(text[start:text.index("</script>", start)])
+
+
+def test_every_term_page_carries_absolute_jsonld_for_the_term_and_each_value() -> None:
+    for name, term in INDEX["terms"].items():
+        data = _jsonld(_ROOT / "pages" / "vocab" / "v1" / name / "index.html")
+        ids = {node["@id"] for node in data["@graph"]}
+        assert ids == {term["uri"], *(f"{term['uri']}#{v}" for v in term["values"] or [])} | (
+            {c["uri"] for c in INDEX["verdict_classes"]["children"].values()}
+            if name == INDEX["verdict_classes"]["parent_term"] else set())
+        assert all(i.startswith("https://w3id.org/agent-evidence/vocab/v1/") for i in ids)
+        assert not any("skos:narrower" in node for node in data["@graph"])
+
+
+def test_a_term_key_may_not_take_the_reserved_registry_path() -> None:
+    index = json.loads(json.dumps(INDEX))
+    index["terms"]["registry"] = dict(next(iter(index["terms"].values())), uri=index["term_uri_base"] + "registry")
+    assert any("reserved" in f for f in uris.check(_ROOT / "pages", index, TABLE))
+
+
+def test_a_snapshot_whose_bytes_do_not_match_its_name_fails(pages: Path) -> None:
+    snapshot = next((pages / "vocab" / "v1" / "registry").glob("sha256-*.yaml"))
+    snapshot.write_bytes(snapshot.read_bytes() + b"\n")
+    assert any("does not hash to its name" in f for f in uris.check(pages, INDEX, TABLE))
+
+
+def test_the_builder_refuses_to_drop_an_issued_term(monkeypatch: pytest.MonkeyPatch, pages: Path) -> None:
+    (pages / "vocab" / "v1" / "retired_term").mkdir()
+    (pages / "vocab" / "v1" / "retired_term" / "index.html").write_text("issued", encoding="utf-8")
+    monkeypatch.setattr(vocab_pages, "OUT", pages / "vocab" / "v1")
+    assert vocab_pages.main([]) == 1
+    assert (pages / "vocab" / "v1" / "retired_term" / "index.html").is_file()

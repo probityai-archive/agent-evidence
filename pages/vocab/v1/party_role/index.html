@@ -6,6 +6,85 @@
 <title>party_role: Agent Evidence vocabulary</title>
 <meta name="description" content="The party_role term of the Agent Evidence vocabulary.">
 <link rel="canonical" href="https://w3id.org/agent-evidence/vocab/v1/party_role">
+<script type="application/ld+json">
+{
+ "@context": {
+  "owl": "http://www.w3.org/2002/07/owl#",
+  "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+  "skos": "http://www.w3.org/2004/02/skos/core#"
+ },
+ "@graph": [
+  {
+   "@id": "https://w3id.org/agent-evidence/vocab/v1/party_role",
+   "@type": "skos:Concept",
+   "skos:definition": "The role a named party holds with respect to one evidence set: the party the evidence is about (audited_provider), the party that assessed it (auditing_organisation), the party that decides admission on the strength of it (evaluating_authority), a peer party entitled to object to that decision without having seen the system (reviewing_authority), and the party that publishes the resulting entry and its withdrawal (registry_operator). The five spellings are borrowed verbatim in sense from the instrument cited below, because a role vocabulary is worth nothing if each reader translates it. One party MAY hold two roles in one exchange and a record declaring that MUST say so by carrying the party twice; a verifier MUST NOT read two roles as two parties. A record declaring independence between two roles held by one party is malformed, and that is the whole reason the roles are enumerated.",
+   "skos:inScheme": {
+    "@id": "https://w3id.org/agent-evidence/vocab/v1/"
+   },
+   "skos:notation": "party_role",
+   "skos:prefLabel": "party_role",
+   "skos:topConceptOf": {
+    "@id": "https://w3id.org/agent-evidence/vocab/v1/"
+   }
+  },
+  {
+   "@id": "https://w3id.org/agent-evidence/vocab/v1/party_role#audited_provider",
+   "@type": "skos:Concept",
+   "rdfs:isDefinedBy": {
+    "@id": "https://w3id.org/agent-evidence/vocab/v1/party_role"
+   },
+   "skos:inScheme": {
+    "@id": "https://w3id.org/agent-evidence/vocab/v1/"
+   },
+   "skos:notation": "audited_provider"
+  },
+  {
+   "@id": "https://w3id.org/agent-evidence/vocab/v1/party_role#auditing_organisation",
+   "@type": "skos:Concept",
+   "rdfs:isDefinedBy": {
+    "@id": "https://w3id.org/agent-evidence/vocab/v1/party_role"
+   },
+   "skos:inScheme": {
+    "@id": "https://w3id.org/agent-evidence/vocab/v1/"
+   },
+   "skos:notation": "auditing_organisation"
+  },
+  {
+   "@id": "https://w3id.org/agent-evidence/vocab/v1/party_role#evaluating_authority",
+   "@type": "skos:Concept",
+   "rdfs:isDefinedBy": {
+    "@id": "https://w3id.org/agent-evidence/vocab/v1/party_role"
+   },
+   "skos:inScheme": {
+    "@id": "https://w3id.org/agent-evidence/vocab/v1/"
+   },
+   "skos:notation": "evaluating_authority"
+  },
+  {
+   "@id": "https://w3id.org/agent-evidence/vocab/v1/party_role#reviewing_authority",
+   "@type": "skos:Concept",
+   "rdfs:isDefinedBy": {
+    "@id": "https://w3id.org/agent-evidence/vocab/v1/party_role"
+   },
+   "skos:inScheme": {
+    "@id": "https://w3id.org/agent-evidence/vocab/v1/"
+   },
+   "skos:notation": "reviewing_authority"
+  },
+  {
+   "@id": "https://w3id.org/agent-evidence/vocab/v1/party_role#registry_operator",
+   "@type": "skos:Concept",
+   "rdfs:isDefinedBy": {
+    "@id": "https://w3id.org/agent-evidence/vocab/v1/party_role"
+   },
+   "skos:inScheme": {
+    "@id": "https://w3id.org/agent-evidence/vocab/v1/"
+   },
+   "skos:notation": "registry_operator"
+  }
+ ]
+}
+</script>
 <style>
 :root{color-scheme:light dark;--page:#f6f8fb;--surface:#fff;--ink:#14202e;--body:#33404f;--link:#1f4fd1;--rule:#cfd8e3;font-family:system-ui,sans-serif;color:var(--ink);background:var(--page)}
 @media (prefers-color-scheme:dark){:root{--page:#10151b;--surface:#18202a;--ink:#e8edf3;--body:#c3ccd6;--link:#8fb0ff;--rule:#2c3846}}
@@ -37,6 +116,6 @@ th,td{border:1px solid var(--rule);padding:.4rem .6rem;text-align:left;vertical-
 <li id="registry_operator"><code>https://w3id.org/agent-evidence/vocab/v1/party_role#registry_operator</code></li>
 </ul>
 </main>
-<footer><div class="shell">Generated from <a href="https://github.com/probityai/agent-evidence/blob/main/packages/vocabulary/vocabulary.yaml">vocabulary.yaml</a>. The term URI does not change once a signed record carries it.</div></footer>
+<footer><div class="shell">Generated from <a href="https://github.com/probityai/agent-evidence/blob/main/packages/vocabulary/vocabulary.yaml">vocabulary.yaml</a>. This page describes the current registry. A record is read against the registry its registryDigest names, named on <a href="https://probityai.github.io/agent-evidence/vocab/v1/">the term listing</a>. The term URI does not change once a signed record carries it.</div></footer>
 </body>
 </html>
