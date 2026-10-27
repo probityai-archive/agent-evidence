@@ -1,5 +1,5 @@
---- /home/sgilda/.claude_tmp/claude-1000/-home-sgilda-Documents-probity-crusoe/aa4032e4-36e4-4cc4-b031-d3381dd0f64a/scratchpad/read_corpus.py.orig	2026-10-26 23:57:50.564657459 -0400
-+++ read_corpus.py	2026-10-27 00:00:54.130306836 -0400
+--- a/read_corpus.py
++++ b/read_corpus.py
 @@ -19,7 +19,9 @@
  from cryptography.hazmat.backends.openssl.backend import backend
  from cryptography.hazmat.primitives.asymmetric.ed25519 import Ed25519PublicKey

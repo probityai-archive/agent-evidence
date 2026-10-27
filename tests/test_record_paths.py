@@ -61,7 +61,7 @@ def test_relativize_rewrites_under_the_root_and_refuses_outside(tmp_path: Path) 
 
 # Recorded CI logs and frozen reports keep the scratch directories their runs used,
 # so the scan allows /tmp. Every other root is refused in every published record.
-RECORD_SUFFIXES = (".json", ".jsonl", ".log", ".txt", ".stderr", ".stdout", ".xml")
+RECORD_SUFFIXES = (".diff", ".json", ".jsonl", ".log", ".txt", ".stderr", ".stdout", ".xml")
 
 
 def _tracked_records() -> list[Path]:
