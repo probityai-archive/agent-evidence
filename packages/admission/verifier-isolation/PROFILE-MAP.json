@@ -2,14 +2,16 @@
   "cross_rail": {
     "admitted": 3,
     "agree": {
-      "cue": 49,
-      "cue-policy-controller": 41,
-      "kyverno-cel": 49
+      "cue": 56,
+      "cue-policy-controller": 46,
+      "kyverno-cel": 56
     },
     "policy_controller_gap": [
       "report-missing",
       "vi1-trusted-tree-undeclared",
       "vi2-groups-undeclared",
+      "vi2-replay-parent-env-undeclared",
+      "vi2-replay-parent-unrecorded",
       "vi3-result-dir-undeclared",
       "vi4-skipped-undeclared",
       "vi7-worker-evidence-undeclared",
@@ -17,8 +19,8 @@
       "vi9-loader-safe-undeclared"
     ],
     "reference": "rego under the pins an engine gives it: the signature checked, and the contract pin the vector carries",
-    "refused": 46,
-    "vectors": 49
+    "refused": 53,
+    "vectors": 56
   },
   "family": "verifier-isolation",
   "rails": {
@@ -41,17 +43,20 @@
         "vi-2": {
           "disposition": "unreachable",
           "obstruction": "absent-member-not-denied",
-          "refused_as_policy_controller_reads_it": 7,
-          "refused_by_cue_vet": 9,
+          "refused_as_policy_controller_reads_it": 12,
+          "refused_by_cue_vet": 16,
           "rules": [
             "vi-2:assertions_not_in_parent",
+            "vi-2:replay_parent_environment_not_scrubbed",
+            "vi-2:replay_parent_not_contained",
+            "vi-2:replay_parent_shares_verifier_uid",
             "vi-2:trusted_python_not_isolated",
             "vi-2:worker_not_unprivileged",
             "vi-2:worker_supplementary_groups_kept"
           ],
-          "rules_deleted": 4,
+          "rules_deleted": 7,
           "rules_surviving": 0,
-          "vectors_opening": 9
+          "vectors_opening": 16
         },
         "vi-3": {
           "disposition": "unreachable",
@@ -170,13 +175,16 @@
           "disposition": "enforced",
           "rules": [
             "vi-2:assertions_not_in_parent",
+            "vi-2:replay_parent_environment_not_scrubbed",
+            "vi-2:replay_parent_not_contained",
+            "vi-2:replay_parent_shares_verifier_uid",
             "vi-2:trusted_python_not_isolated",
             "vi-2:worker_not_unprivileged",
             "vi-2:worker_supplementary_groups_kept"
           ],
-          "rules_deleted": 4,
+          "rules_deleted": 7,
           "rules_surviving": 0,
-          "vectors_opening": 9
+          "vectors_opening": 16
         },
         "vi-3": {
           "disposition": "enforced",
@@ -282,14 +290,17 @@
           "name": "Patch",
           "rules": [
             "vi-2:assertions_not_in_parent",
+            "vi-2:replay_parent_environment_not_scrubbed",
+            "vi-2:replay_parent_not_contained",
+            "vi-2:replay_parent_shares_verifier_uid",
             "vi-2:trusted_python_not_isolated",
             "vi-2:worker_not_unprivileged",
             "vi-2:worker_supplementary_groups_kept"
           ],
-          "rules_deleted": 4,
+          "rules_deleted": 7,
           "rules_surviving": 0,
           "vector": "V2",
-          "vectors_opening": 9
+          "vectors_opening": 16
         },
         "vi-3": {
           "disposition": "enforced",
@@ -404,7 +415,7 @@
       }
     }
   },
-  "vectors": 49,
+  "vectors": 56,
   "verdicts": {
     "cue": {
       "baseline-admitted": "admit",
@@ -423,6 +434,13 @@
       "vi2-groups-kept": "refuse",
       "vi2-groups-undeclared": "refuse",
       "vi2-python-not-isolated": "refuse",
+      "vi2-replay-parent-claims-container-as-verifier": "refuse",
+      "vi2-replay-parent-env-undeclared": "refuse",
+      "vi2-replay-parent-on-host": "refuse",
+      "vi2-replay-parent-root": "refuse",
+      "vi2-replay-parent-runtime-socket": "refuse",
+      "vi2-replay-parent-unrecorded": "refuse",
+      "vi2-replay-parent-unverified": "refuse",
       "vi2-worker-is-root": "refuse",
       "vi2-worker-is-verifier": "refuse",
       "vi2-worker-uid-string": "refuse",
@@ -474,6 +492,13 @@
       "vi2-groups-kept": "refuse",
       "vi2-groups-undeclared": "admit",
       "vi2-python-not-isolated": "refuse",
+      "vi2-replay-parent-claims-container-as-verifier": "refuse",
+      "vi2-replay-parent-env-undeclared": "admit",
+      "vi2-replay-parent-on-host": "refuse",
+      "vi2-replay-parent-root": "refuse",
+      "vi2-replay-parent-runtime-socket": "refuse",
+      "vi2-replay-parent-unrecorded": "admit",
+      "vi2-replay-parent-unverified": "refuse",
       "vi2-worker-is-root": "refuse",
       "vi2-worker-is-verifier": "refuse",
       "vi2-worker-uid-string": "refuse",
@@ -525,6 +550,13 @@
       "vi2-groups-kept": "refuse",
       "vi2-groups-undeclared": "refuse",
       "vi2-python-not-isolated": "refuse",
+      "vi2-replay-parent-claims-container-as-verifier": "refuse",
+      "vi2-replay-parent-env-undeclared": "refuse",
+      "vi2-replay-parent-on-host": "refuse",
+      "vi2-replay-parent-root": "refuse",
+      "vi2-replay-parent-runtime-socket": "refuse",
+      "vi2-replay-parent-unrecorded": "refuse",
+      "vi2-replay-parent-unverified": "refuse",
       "vi2-worker-is-root": "refuse",
       "vi2-worker-is-verifier": "refuse",
       "vi2-worker-uid-string": "refuse",
@@ -576,6 +608,13 @@
       "vi2-groups-kept": "refuse",
       "vi2-groups-undeclared": "refuse",
       "vi2-python-not-isolated": "refuse",
+      "vi2-replay-parent-claims-container-as-verifier": "refuse",
+      "vi2-replay-parent-env-undeclared": "refuse",
+      "vi2-replay-parent-on-host": "refuse",
+      "vi2-replay-parent-root": "refuse",
+      "vi2-replay-parent-runtime-socket": "refuse",
+      "vi2-replay-parent-unrecorded": "refuse",
+      "vi2-replay-parent-unverified": "refuse",
       "vi2-worker-is-root": "refuse",
       "vi2-worker-is-verifier": "refuse",
       "vi2-worker-uid-string": "refuse",
