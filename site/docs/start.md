@@ -328,9 +328,9 @@ Component ID: `verify`.
 
 Checks supplied evidence bytes through claim-specific offline adapters. Its README links to source-pinned installation and checked task recipes.
 
-Released. [Reviewed guide and source](https://github.com/probityai/probity-verify/blob/db28cc76e5f5aa6932d5122d9c6241ef7adb7fee/README.md)
+Released. [Reviewed guide and source](https://github.com/probityai/probity/blob/08a27efd567a754ce72a4c789e23f28924f49754/packages/probity-verify/README.md)
 
-Python package: registry release [0.1.1](https://pypi.org/project/probity-verify/0.1.1/), source [`db28cc76e5f5`](https://github.com/probityai/probity-verify/tree/db28cc76e5f5aa6932d5122d9c6241ef7adb7fee), read 2026-10-15. The released wheel adds packaged sample inputs. The reviewed guide deliberately retains its earlier source recipe; historical 0.1.0 builder provenance remains separate.
+Python package: registry release [0.1.1](https://pypi.org/project/probity-verify/0.1.1/), source [`db28cc76e5f5`](https://github.com/probityai/probity/tree/db28cc76e5f5aa6932d5122d9c6241ef7adb7fee), read 2026-10-15. The released wheel adds packaged sample inputs. The reviewed guide deliberately retains its earlier source recipe; historical 0.1.0 builder provenance remains separate.
 
 <div>
 
@@ -341,7 +341,7 @@ probity-verify / recorded package release 0.1.1
 
 <p class="distribution-actions">
 
-<a href="https://github.com/probityai/probity-verify/blob/db28cc76e5f5aa6932d5122d9c6241ef7adb7fee/README.md#quick-start">Install</a> <a href="https://pypi.org/project/probity-verify/0.1.1/#files">Download release files</a> <a href="https://pypi.org/project/probity-verify/0.1.1/">Registry release</a> <a href="https://pepy.tech/projects/probity-verify">Download statistics</a>
+<a href="https://github.com/probityai/probity/blob/08a27efd567a754ce72a4c789e23f28924f49754/packages/probity-verify/README.md#quick-start">Install</a> <a href="https://pypi.org/project/probity-verify/0.1.1/#files">Download release files</a> <a href="https://pypi.org/project/probity-verify/0.1.1/">Registry release</a> <a href="https://pepy.tech/projects/probity-verify">Download statistics</a>
 </p>
 
 <p class="distribution-badges">

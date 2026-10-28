@@ -83,7 +83,7 @@
       "packages": [
         "probity-verify"
       ],
-      "docs_url": "https://github.com/probityai/probity-verify/blob/db28cc76e5f5aa6932d5122d9c6241ef7adb7fee/README.md",
+      "docs_url": "https://github.com/probityai/probity/blob/08a27efd567a754ce72a4c789e23f28924f49754/packages/probity-verify/README.md",
       "relationships": []
     },
     {
@@ -350,12 +350,12 @@
       "status": "released",
       "publication": "public",
       "reviewed": true,
-      "full_name": "probityai/probity-verify",
-      "url": "https://github.com/probityai/probity-verify",
+      "full_name": "probityai/probity",
+      "url": "https://github.com/probityai/probity",
       "source": {
         "repository": "repo-verify",
-        "commit": "db28cc76e5f5aa6932d5122d9c6241ef7adb7fee",
-        "url": "https://github.com/probityai/probity-verify/blob/db28cc76e5f5aa6932d5122d9c6241ef7adb7fee/README.md"
+        "commit": "08a27efd567a754ce72a4c789e23f28924f49754",
+        "url": "https://github.com/probityai/probity/blob/08a27efd567a754ce72a4c789e23f28924f49754/packages/probity-verify/README.md"
       }
     },
     {

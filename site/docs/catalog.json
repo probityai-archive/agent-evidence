@@ -118,7 +118,7 @@
     },
     {
       "display_name": "Probity Verify",
-      "docs_url": "https://github.com/probityai/probity-verify/blob/db28cc76e5f5aa6932d5122d9c6241ef7adb7fee/README.md",
+      "docs_url": "https://github.com/probityai/probity/blob/08a27efd567a754ce72a4c789e23f28924f49754/packages/probity-verify/README.md",
       "id": "verify",
       "packages": [
         "probity-verify"
@@ -336,14 +336,14 @@
       "display_name": "Probity Verify",
       "id": "repo-verify",
       "source": {
-        "commit": "db28cc76e5f5aa6932d5122d9c6241ef7adb7fee",
+        "commit": "08a27efd567a754ce72a4c789e23f28924f49754",
         "repository": "repo-verify",
-        "url": "https://github.com/probityai/probity-verify/blob/db28cc76e5f5aa6932d5122d9c6241ef7adb7fee/README.md"
+        "url": "https://github.com/probityai/probity/blob/08a27efd567a754ce72a4c789e23f28924f49754/packages/probity-verify/README.md"
       },
       "status": "released",
       "summary": "Checks supplied evidence bytes through claim-specific offline adapters. Its README links to source-pinned installation and checked task recipes.",
       "task": "Install a pinned verifier and check an evidence claim",
-      "url": "https://github.com/probityai/probity-verify"
+      "url": "https://github.com/probityai/probity"
     },
     {
       "display_name": "Probity Vocabulary",

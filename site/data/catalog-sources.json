@@ -614,5 +614,13 @@
     "blob_sha": "f0ead82d191acc02da800cdf06b4919aef87e416",
     "url": "https://github.com/probityai/probity/blob/e2164379c19cf17a00356dfbdf625a998272ac58/packages/ratchet/probity-ratchet-cases/README.md",
     "read_at": "2026-10-20T01:36:00Z"
+  },
+  {
+    "repository": "probityai/probity",
+    "path": "packages/probity-verify/README.md",
+    "commit": "08a27efd567a754ce72a4c789e23f28924f49754",
+    "blob_sha": "875d0c348e2656d0468e485a6cb25a5ce6f2884e",
+    "url": "https://github.com/probityai/probity/blob/08a27efd567a754ce72a4c789e23f28924f49754/packages/probity-verify/README.md",
+    "read_at": "2026-10-28T08:22:19Z"
   }
 ]
