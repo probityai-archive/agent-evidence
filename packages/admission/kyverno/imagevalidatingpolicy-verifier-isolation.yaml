@@ -100,6 +100,10 @@ spec:
       expression: >-
         has(variables.report.verifier) && type(variables.report.verifier) == map
           ? variables.report.verifier : {}
+    - name: replayParent
+      expression: >-
+        has(variables.verifier.replay_parent) && type(variables.verifier.replay_parent) == map
+          ? variables.verifier.replay_parent : {}
     - name: result
       expression: >-
         has(variables.report.result) && type(variables.report.result) == map
@@ -189,6 +193,25 @@ spec:
     - expression: >-
         has(variables.verifier.python_isolated) && variables.verifier.python_isolated == true
       message: "vi-2:trusted_python_not_isolated"
+    - expression: >-
+        has(variables.replayParent.runtime)
+        && type(variables.replayParent.runtime) == string
+        && variables.replayParent.runtime in ["docker", "podman"]
+      message: "vi-2:replay_parent_not_contained"
+    - expression: >-
+        has(variables.replayParent.uid)
+        && (type(variables.replayParent.uid) == int || type(variables.replayParent.uid) == double)
+        && has(variables.verifier.uid)
+        && (type(variables.verifier.uid) == int || type(variables.verifier.uid) == double)
+        && double(variables.replayParent.uid) != 0.0
+        && double(variables.replayParent.uid) != double(variables.verifier.uid)
+      message: "vi-2:replay_parent_shares_verifier_uid"
+    - expression: >-
+        has(variables.replayParent.env)
+        && type(variables.replayParent.env) == list
+        && variables.replayParent.env.all(name, type(name) == string
+             && name in ["HOME", "LANG", "LC_ALL", "PATH", "PYTEST_DISABLE_PLUGIN_AUTOLOAD", "PYTHONDONTWRITEBYTECODE", "PYTHONHASHSEED", "PYTHONNOUSERSITE", "TMPDIR", "TZ"])
+      message: "vi-2:replay_parent_environment_not_scrubbed"
 
     # -- vi-3  V3 Reward ----------------------------------------------------------
     # A mode with group and other bits clear: `700`, `0700` and `600` pass, `770` and `777` do not.

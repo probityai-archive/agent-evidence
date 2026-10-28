@@ -68,6 +68,20 @@ test_vi2_groups_undeclared if holds("vi2-groups-undeclared")
 
 test_vi2_python_not_isolated if holds("vi2-python-not-isolated")
 
+test_vi2_replay_parent_claims_container_as_verifier if holds("vi2-replay-parent-claims-container-as-verifier")
+
+test_vi2_replay_parent_env_undeclared if holds("vi2-replay-parent-env-undeclared")
+
+test_vi2_replay_parent_on_host if holds("vi2-replay-parent-on-host")
+
+test_vi2_replay_parent_root if holds("vi2-replay-parent-root")
+
+test_vi2_replay_parent_runtime_socket if holds("vi2-replay-parent-runtime-socket")
+
+test_vi2_replay_parent_unrecorded if holds("vi2-replay-parent-unrecorded")
+
+test_vi2_replay_parent_unverified if holds("vi2-replay-parent-unverified")
+
 test_vi2_worker_is_root if holds("vi2-worker-is-root")
 
 test_vi2_worker_is_verifier if holds("vi2-worker-is-verifier")
@@ -151,6 +165,13 @@ tested := {
 	"vi2-groups-kept",
 	"vi2-groups-undeclared",
 	"vi2-python-not-isolated",
+	"vi2-replay-parent-claims-container-as-verifier",
+	"vi2-replay-parent-env-undeclared",
+	"vi2-replay-parent-on-host",
+	"vi2-replay-parent-root",
+	"vi2-replay-parent-runtime-socket",
+	"vi2-replay-parent-unrecorded",
+	"vi2-replay-parent-unverified",
 	"vi2-worker-is-root",
 	"vi2-worker-is-verifier",
 	"vi2-worker-uid-string",

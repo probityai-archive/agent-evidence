@@ -60,6 +60,19 @@
               "verifier": {
                 "assertions_in_parent": true,
                 "python_isolated": true,
+                "replay_parent": {
+                  "env": [
+                    "HOME",
+                    "LANG",
+                    "PATH",
+                    "PYTEST_DISABLE_PLUGIN_AUTOLOAD",
+                    "PYTHONDONTWRITEBYTECODE",
+                    "PYTHONHASHSEED",
+                    "PYTHONNOUSERSITE"
+                  ],
+                  "runtime": "docker",
+                  "uid": 65534
+                },
                 "uid": 0
               },
               "worker": {
@@ -143,6 +156,19 @@
               "verifier": {
                 "assertions_in_parent": true,
                 "python_isolated": true,
+                "replay_parent": {
+                  "env": [
+                    "HOME",
+                    "LANG",
+                    "PATH",
+                    "PYTEST_DISABLE_PLUGIN_AUTOLOAD",
+                    "PYTHONDONTWRITEBYTECODE",
+                    "PYTHONHASHSEED",
+                    "PYTHONNOUSERSITE"
+                  ],
+                  "runtime": "docker",
+                  "uid": 65534
+                },
                 "uid": 0
               },
               "worker": {
@@ -229,6 +255,19 @@
               "verifier": {
                 "assertions_in_parent": true,
                 "python_isolated": true,
+                "replay_parent": {
+                  "env": [
+                    "HOME",
+                    "LANG",
+                    "PATH",
+                    "PYTEST_DISABLE_PLUGIN_AUTOLOAD",
+                    "PYTHONDONTWRITEBYTECODE",
+                    "PYTHONHASHSEED",
+                    "PYTHONNOUSERSITE"
+                  ],
+                  "runtime": "docker",
+                  "uid": 65534
+                },
                 "uid": 0
               },
               "worker": {
@@ -313,6 +352,19 @@
               "verifier": {
                 "assertions_in_parent": true,
                 "python_isolated": true,
+                "replay_parent": {
+                  "env": [
+                    "HOME",
+                    "LANG",
+                    "PATH",
+                    "PYTEST_DISABLE_PLUGIN_AUTOLOAD",
+                    "PYTHONDONTWRITEBYTECODE",
+                    "PYTHONHASHSEED",
+                    "PYTHONNOUSERSITE"
+                  ],
+                  "runtime": "docker",
+                  "uid": 65534
+                },
                 "uid": 0
               },
               "worker": {
@@ -398,6 +450,19 @@
               "verifier": {
                 "assertions_in_parent": true,
                 "python_isolated": true,
+                "replay_parent": {
+                  "env": [
+                    "HOME",
+                    "LANG",
+                    "PATH",
+                    "PYTEST_DISABLE_PLUGIN_AUTOLOAD",
+                    "PYTHONDONTWRITEBYTECODE",
+                    "PYTHONHASHSEED",
+                    "PYTHONNOUSERSITE"
+                  ],
+                  "runtime": "docker",
+                  "uid": 65534
+                },
                 "uid": 0
               },
               "worker": {
@@ -452,6 +517,9 @@
           "vi-1:excluded_names_not_reset",
           "vi-1:trusted_tree_not_reset_to_contract",
           "vi-2:assertions_not_in_parent",
+          "vi-2:replay_parent_environment_not_scrubbed",
+          "vi-2:replay_parent_not_contained",
+          "vi-2:replay_parent_shares_verifier_uid",
           "vi-2:trusted_python_not_isolated",
           "vi-2:worker_not_unprivileged",
           "vi-2:worker_supplementary_groups_kept",
@@ -534,6 +602,19 @@
               "verifier": {
                 "assertions_in_parent": true,
                 "python_isolated": true,
+                "replay_parent": {
+                  "env": [
+                    "HOME",
+                    "LANG",
+                    "PATH",
+                    "PYTEST_DISABLE_PLUGIN_AUTOLOAD",
+                    "PYTHONDONTWRITEBYTECODE",
+                    "PYTHONHASHSEED",
+                    "PYTHONNOUSERSITE"
+                  ],
+                  "runtime": "docker",
+                  "uid": 65534
+                },
                 "uid": 0
               },
               "worker": {
@@ -619,6 +700,19 @@
               "verifier": {
                 "assertions_in_parent": true,
                 "python_isolated": true,
+                "replay_parent": {
+                  "env": [
+                    "HOME",
+                    "LANG",
+                    "PATH",
+                    "PYTEST_DISABLE_PLUGIN_AUTOLOAD",
+                    "PYTHONDONTWRITEBYTECODE",
+                    "PYTHONHASHSEED",
+                    "PYTHONNOUSERSITE"
+                  ],
+                  "runtime": "docker",
+                  "uid": 65534
+                },
                 "uid": 0
               },
               "worker": {
@@ -704,6 +798,19 @@
               "verifier": {
                 "assertions_in_parent": true,
                 "python_isolated": true,
+                "replay_parent": {
+                  "env": [
+                    "HOME",
+                    "LANG",
+                    "PATH",
+                    "PYTEST_DISABLE_PLUGIN_AUTOLOAD",
+                    "PYTHONDONTWRITEBYTECODE",
+                    "PYTHONHASHSEED",
+                    "PYTHONNOUSERSITE"
+                  ],
+                  "runtime": "docker",
+                  "uid": 65534
+                },
                 "uid": 0
               },
               "worker": {
@@ -789,6 +896,19 @@
               "verifier": {
                 "assertions_in_parent": true,
                 "python_isolated": true,
+                "replay_parent": {
+                  "env": [
+                    "HOME",
+                    "LANG",
+                    "PATH",
+                    "PYTEST_DISABLE_PLUGIN_AUTOLOAD",
+                    "PYTHONDONTWRITEBYTECODE",
+                    "PYTHONHASHSEED",
+                    "PYTHONNOUSERSITE"
+                  ],
+                  "runtime": "docker",
+                  "uid": 65534
+                },
                 "uid": 0
               },
               "worker": {
@@ -873,6 +993,19 @@
               "verifier": {
                 "assertions_in_parent": true,
                 "python_isolated": true,
+                "replay_parent": {
+                  "env": [
+                    "HOME",
+                    "LANG",
+                    "PATH",
+                    "PYTEST_DISABLE_PLUGIN_AUTOLOAD",
+                    "PYTHONDONTWRITEBYTECODE",
+                    "PYTHONHASHSEED",
+                    "PYTHONNOUSERSITE"
+                  ],
+                  "runtime": "docker",
+                  "uid": 65534
+                },
                 "uid": 0
               },
               "worker": {
@@ -958,6 +1091,19 @@
               "verifier": {
                 "assertions_in_parent": false,
                 "python_isolated": true,
+                "replay_parent": {
+                  "env": [
+                    "HOME",
+                    "LANG",
+                    "PATH",
+                    "PYTEST_DISABLE_PLUGIN_AUTOLOAD",
+                    "PYTHONDONTWRITEBYTECODE",
+                    "PYTHONHASHSEED",
+                    "PYTHONNOUSERSITE"
+                  ],
+                  "runtime": "docker",
+                  "uid": 65534
+                },
                 "uid": 0
               },
               "worker": {
@@ -1043,6 +1189,19 @@
               "verifier": {
                 "assertions_in_parent": "true",
                 "python_isolated": true,
+                "replay_parent": {
+                  "env": [
+                    "HOME",
+                    "LANG",
+                    "PATH",
+                    "PYTEST_DISABLE_PLUGIN_AUTOLOAD",
+                    "PYTHONDONTWRITEBYTECODE",
+                    "PYTHONHASHSEED",
+                    "PYTHONNOUSERSITE"
+                  ],
+                  "runtime": "docker",
+                  "uid": 65534
+                },
                 "uid": 0
               },
               "worker": {
@@ -1128,6 +1287,19 @@
               "verifier": {
                 "assertions_in_parent": true,
                 "python_isolated": true,
+                "replay_parent": {
+                  "env": [
+                    "HOME",
+                    "LANG",
+                    "PATH",
+                    "PYTEST_DISABLE_PLUGIN_AUTOLOAD",
+                    "PYTHONDONTWRITEBYTECODE",
+                    "PYTHONHASHSEED",
+                    "PYTHONNOUSERSITE"
+                  ],
+                  "runtime": "docker",
+                  "uid": 65534
+                },
                 "uid": 0
               },
               "worker": {
@@ -1215,6 +1387,19 @@
               "verifier": {
                 "assertions_in_parent": true,
                 "python_isolated": true,
+                "replay_parent": {
+                  "env": [
+                    "HOME",
+                    "LANG",
+                    "PATH",
+                    "PYTEST_DISABLE_PLUGIN_AUTOLOAD",
+                    "PYTHONDONTWRITEBYTECODE",
+                    "PYTHONHASHSEED",
+                    "PYTHONNOUSERSITE"
+                  ],
+                  "runtime": "docker",
+                  "uid": 65534
+                },
                 "uid": 0
               },
               "worker": {
@@ -1299,6 +1484,19 @@
               "verifier": {
                 "assertions_in_parent": true,
                 "python_isolated": false,
+                "replay_parent": {
+                  "env": [
+                    "HOME",
+                    "LANG",
+                    "PATH",
+                    "PYTEST_DISABLE_PLUGIN_AUTOLOAD",
+                    "PYTHONDONTWRITEBYTECODE",
+                    "PYTHONHASHSEED",
+                    "PYTHONNOUSERSITE"
+                  ],
+                  "runtime": "docker",
+                  "uid": 65534
+                },
                 "uid": 0
               },
               "worker": {
@@ -1323,6 +1521,674 @@
         "opens": "vi-2",
         "reasons": [
           "vi-2:trusted_python_not_isolated"
+        ]
+      },
+      "vi2-replay-parent-claims-container-as-verifier": {
+        "consumer": {
+          "signature_verified_upstream": true
+        },
+        "description": "the record names a container, but the parent measured the verifier's own uid",
+        "input": {
+          "_type": "https://in-toto.io/Statement/v1",
+          "predicate": {
+            "contract_sha256": "3b49e09409ac5b3864afddc64e5ef211be3eb673f11027ec9ffff2b7076d0340",
+            "verifier_isolation": {
+              "contract_sha256": "3b49e09409ac5b3864afddc64e5ef211be3eb673f11027ec9ffff2b7076d0340",
+              "evidence_from_worker": [],
+              "loaders": [
+                {
+                  "name": "json",
+                  "safe": true
+                },
+                {
+                  "name": "torch.load weights_only",
+                  "safe": true
+                }
+              ],
+              "processes": {
+                "killed_step": 41,
+                "remaining": 0,
+                "result_read_step": 44,
+                "worker_killed": true
+              },
+              "reference": {
+                "dir_mode": "0700",
+                "inside_artifact_dir": false
+              },
+              "result": {
+                "dir_mode": "0700",
+                "files_read": [
+                  "reward.txt"
+                ],
+                "precleared": true,
+                "written_by": "verifier"
+              },
+              "staging": {
+                "destination_removed_first": true,
+                "nofollow": true,
+                "special_files_rejected": true
+              },
+              "tests": {
+                "collected": 12,
+                "exit_status_alone_accepted": false,
+                "expected": 12,
+                "skipped": 0
+              },
+              "trusted_tree": {
+                "excluded_names_reset": true,
+                "expected_sha256": "366cc5efa92f50813db2a11d5b6e8f400d13d8d4234a8efb4c10456b6fbb07e9",
+                "measured_sha256": "366cc5efa92f50813db2a11d5b6e8f400d13d8d4234a8efb4c10456b6fbb07e9"
+              },
+              "verifier": {
+                "assertions_in_parent": true,
+                "python_isolated": true,
+                "replay_parent": {
+                  "env": [
+                    "HOME",
+                    "LANG",
+                    "PATH",
+                    "PYTEST_DISABLE_PLUGIN_AUTOLOAD",
+                    "PYTHONDONTWRITEBYTECODE",
+                    "PYTHONHASHSEED",
+                    "PYTHONNOUSERSITE"
+                  ],
+                  "runtime": "docker",
+                  "uid": 0
+                },
+                "uid": 0
+              },
+              "worker": {
+                "env_scrubbed": true,
+                "scratch_copy": true,
+                "supplementary_groups": [],
+                "uid": 65534
+              }
+            }
+          },
+          "predicateType": "https://probityai.github.io/probity/predicate/v1/done-receipt",
+          "subject": [
+            {
+              "digest": {
+                "sha256": "bc5acb48b583572f8e915d3628be22a59dd973368be006e344abac780922c892"
+              },
+              "name": "final-tree"
+            }
+          ]
+        },
+        "name": "vi2-replay-parent-claims-container-as-verifier",
+        "opens": "vi-2",
+        "reasons": [
+          "vi-2:replay_parent_shares_verifier_uid"
+        ]
+      },
+      "vi2-replay-parent-env-undeclared": {
+        "consumer": {
+          "signature_verified_upstream": true
+        },
+        "description": "no statement about the parent's environment",
+        "input": {
+          "_type": "https://in-toto.io/Statement/v1",
+          "predicate": {
+            "contract_sha256": "3b49e09409ac5b3864afddc64e5ef211be3eb673f11027ec9ffff2b7076d0340",
+            "verifier_isolation": {
+              "contract_sha256": "3b49e09409ac5b3864afddc64e5ef211be3eb673f11027ec9ffff2b7076d0340",
+              "evidence_from_worker": [],
+              "loaders": [
+                {
+                  "name": "json",
+                  "safe": true
+                },
+                {
+                  "name": "torch.load weights_only",
+                  "safe": true
+                }
+              ],
+              "processes": {
+                "killed_step": 41,
+                "remaining": 0,
+                "result_read_step": 44,
+                "worker_killed": true
+              },
+              "reference": {
+                "dir_mode": "0700",
+                "inside_artifact_dir": false
+              },
+              "result": {
+                "dir_mode": "0700",
+                "files_read": [
+                  "reward.txt"
+                ],
+                "precleared": true,
+                "written_by": "verifier"
+              },
+              "staging": {
+                "destination_removed_first": true,
+                "nofollow": true,
+                "special_files_rejected": true
+              },
+              "tests": {
+                "collected": 12,
+                "exit_status_alone_accepted": false,
+                "expected": 12,
+                "skipped": 0
+              },
+              "trusted_tree": {
+                "excluded_names_reset": true,
+                "expected_sha256": "366cc5efa92f50813db2a11d5b6e8f400d13d8d4234a8efb4c10456b6fbb07e9",
+                "measured_sha256": "366cc5efa92f50813db2a11d5b6e8f400d13d8d4234a8efb4c10456b6fbb07e9"
+              },
+              "verifier": {
+                "assertions_in_parent": true,
+                "python_isolated": true,
+                "replay_parent": {
+                  "runtime": "docker",
+                  "uid": 65534
+                },
+                "uid": 0
+              },
+              "worker": {
+                "env_scrubbed": true,
+                "scratch_copy": true,
+                "supplementary_groups": [],
+                "uid": 65534
+              }
+            }
+          },
+          "predicateType": "https://probityai.github.io/probity/predicate/v1/done-receipt",
+          "subject": [
+            {
+              "digest": {
+                "sha256": "bc5acb48b583572f8e915d3628be22a59dd973368be006e344abac780922c892"
+              },
+              "name": "final-tree"
+            }
+          ]
+        },
+        "name": "vi2-replay-parent-env-undeclared",
+        "opens": "vi-2",
+        "reasons": [
+          "vi-2:replay_parent_environment_not_scrubbed"
+        ]
+      },
+      "vi2-replay-parent-on-host": {
+        "consumer": {
+          "signature_verified_upstream": true
+        },
+        "description": "the parent that ran the sealed tests ran on the verifier host, as the verifier's uid",
+        "input": {
+          "_type": "https://in-toto.io/Statement/v1",
+          "predicate": {
+            "contract_sha256": "3b49e09409ac5b3864afddc64e5ef211be3eb673f11027ec9ffff2b7076d0340",
+            "verifier_isolation": {
+              "contract_sha256": "3b49e09409ac5b3864afddc64e5ef211be3eb673f11027ec9ffff2b7076d0340",
+              "evidence_from_worker": [],
+              "loaders": [
+                {
+                  "name": "json",
+                  "safe": true
+                },
+                {
+                  "name": "torch.load weights_only",
+                  "safe": true
+                }
+              ],
+              "processes": {
+                "killed_step": 41,
+                "remaining": 0,
+                "result_read_step": 44,
+                "worker_killed": true
+              },
+              "reference": {
+                "dir_mode": "0700",
+                "inside_artifact_dir": false
+              },
+              "result": {
+                "dir_mode": "0700",
+                "files_read": [
+                  "reward.txt"
+                ],
+                "precleared": true,
+                "written_by": "verifier"
+              },
+              "staging": {
+                "destination_removed_first": true,
+                "nofollow": true,
+                "special_files_rejected": true
+              },
+              "tests": {
+                "collected": 12,
+                "exit_status_alone_accepted": false,
+                "expected": 12,
+                "skipped": 0
+              },
+              "trusted_tree": {
+                "excluded_names_reset": true,
+                "expected_sha256": "366cc5efa92f50813db2a11d5b6e8f400d13d8d4234a8efb4c10456b6fbb07e9",
+                "measured_sha256": "366cc5efa92f50813db2a11d5b6e8f400d13d8d4234a8efb4c10456b6fbb07e9"
+              },
+              "verifier": {
+                "assertions_in_parent": true,
+                "python_isolated": true,
+                "replay_parent": {
+                  "env": [
+                    "HOME",
+                    "LANG",
+                    "PATH",
+                    "PYTEST_DISABLE_PLUGIN_AUTOLOAD",
+                    "PYTHONDONTWRITEBYTECODE",
+                    "PYTHONHASHSEED",
+                    "PYTHONNOUSERSITE"
+                  ],
+                  "runtime": "host",
+                  "uid": 0
+                },
+                "uid": 0
+              },
+              "worker": {
+                "env_scrubbed": true,
+                "scratch_copy": true,
+                "supplementary_groups": [],
+                "uid": 65534
+              }
+            }
+          },
+          "predicateType": "https://probityai.github.io/probity/predicate/v1/done-receipt",
+          "subject": [
+            {
+              "digest": {
+                "sha256": "bc5acb48b583572f8e915d3628be22a59dd973368be006e344abac780922c892"
+              },
+              "name": "final-tree"
+            }
+          ]
+        },
+        "name": "vi2-replay-parent-on-host",
+        "opens": "vi-2",
+        "reasons": [
+          "vi-2:replay_parent_not_contained",
+          "vi-2:replay_parent_shares_verifier_uid"
+        ]
+      },
+      "vi2-replay-parent-root": {
+        "consumer": {
+          "signature_verified_upstream": true
+        },
+        "description": "the parent ran as uid 0",
+        "input": {
+          "_type": "https://in-toto.io/Statement/v1",
+          "predicate": {
+            "contract_sha256": "3b49e09409ac5b3864afddc64e5ef211be3eb673f11027ec9ffff2b7076d0340",
+            "verifier_isolation": {
+              "contract_sha256": "3b49e09409ac5b3864afddc64e5ef211be3eb673f11027ec9ffff2b7076d0340",
+              "evidence_from_worker": [],
+              "loaders": [
+                {
+                  "name": "json",
+                  "safe": true
+                },
+                {
+                  "name": "torch.load weights_only",
+                  "safe": true
+                }
+              ],
+              "processes": {
+                "killed_step": 41,
+                "remaining": 0,
+                "result_read_step": 44,
+                "worker_killed": true
+              },
+              "reference": {
+                "dir_mode": "0700",
+                "inside_artifact_dir": false
+              },
+              "result": {
+                "dir_mode": "0700",
+                "files_read": [
+                  "reward.txt"
+                ],
+                "precleared": true,
+                "written_by": "verifier"
+              },
+              "staging": {
+                "destination_removed_first": true,
+                "nofollow": true,
+                "special_files_rejected": true
+              },
+              "tests": {
+                "collected": 12,
+                "exit_status_alone_accepted": false,
+                "expected": 12,
+                "skipped": 0
+              },
+              "trusted_tree": {
+                "excluded_names_reset": true,
+                "expected_sha256": "366cc5efa92f50813db2a11d5b6e8f400d13d8d4234a8efb4c10456b6fbb07e9",
+                "measured_sha256": "366cc5efa92f50813db2a11d5b6e8f400d13d8d4234a8efb4c10456b6fbb07e9"
+              },
+              "verifier": {
+                "assertions_in_parent": true,
+                "python_isolated": true,
+                "replay_parent": {
+                  "env": [
+                    "HOME",
+                    "LANG",
+                    "PATH",
+                    "PYTEST_DISABLE_PLUGIN_AUTOLOAD",
+                    "PYTHONDONTWRITEBYTECODE",
+                    "PYTHONHASHSEED",
+                    "PYTHONNOUSERSITE"
+                  ],
+                  "runtime": "docker",
+                  "uid": 0
+                },
+                "uid": 1000
+              },
+              "worker": {
+                "env_scrubbed": true,
+                "scratch_copy": true,
+                "supplementary_groups": [],
+                "uid": 65534
+              }
+            }
+          },
+          "predicateType": "https://probityai.github.io/probity/predicate/v1/done-receipt",
+          "subject": [
+            {
+              "digest": {
+                "sha256": "bc5acb48b583572f8e915d3628be22a59dd973368be006e344abac780922c892"
+              },
+              "name": "final-tree"
+            }
+          ]
+        },
+        "name": "vi2-replay-parent-root",
+        "opens": "vi-2",
+        "reasons": [
+          "vi-2:replay_parent_shares_verifier_uid"
+        ]
+      },
+      "vi2-replay-parent-runtime-socket": {
+        "consumer": {
+          "signature_verified_upstream": true
+        },
+        "description": "the parent's environment names the container runtime",
+        "input": {
+          "_type": "https://in-toto.io/Statement/v1",
+          "predicate": {
+            "contract_sha256": "3b49e09409ac5b3864afddc64e5ef211be3eb673f11027ec9ffff2b7076d0340",
+            "verifier_isolation": {
+              "contract_sha256": "3b49e09409ac5b3864afddc64e5ef211be3eb673f11027ec9ffff2b7076d0340",
+              "evidence_from_worker": [],
+              "loaders": [
+                {
+                  "name": "json",
+                  "safe": true
+                },
+                {
+                  "name": "torch.load weights_only",
+                  "safe": true
+                }
+              ],
+              "processes": {
+                "killed_step": 41,
+                "remaining": 0,
+                "result_read_step": 44,
+                "worker_killed": true
+              },
+              "reference": {
+                "dir_mode": "0700",
+                "inside_artifact_dir": false
+              },
+              "result": {
+                "dir_mode": "0700",
+                "files_read": [
+                  "reward.txt"
+                ],
+                "precleared": true,
+                "written_by": "verifier"
+              },
+              "staging": {
+                "destination_removed_first": true,
+                "nofollow": true,
+                "special_files_rejected": true
+              },
+              "tests": {
+                "collected": 12,
+                "exit_status_alone_accepted": false,
+                "expected": 12,
+                "skipped": 0
+              },
+              "trusted_tree": {
+                "excluded_names_reset": true,
+                "expected_sha256": "366cc5efa92f50813db2a11d5b6e8f400d13d8d4234a8efb4c10456b6fbb07e9",
+                "measured_sha256": "366cc5efa92f50813db2a11d5b6e8f400d13d8d4234a8efb4c10456b6fbb07e9"
+              },
+              "verifier": {
+                "assertions_in_parent": true,
+                "python_isolated": true,
+                "replay_parent": {
+                  "env": [
+                    "HOME",
+                    "LANG",
+                    "PATH",
+                    "PYTEST_DISABLE_PLUGIN_AUTOLOAD",
+                    "PYTHONDONTWRITEBYTECODE",
+                    "PYTHONHASHSEED",
+                    "PYTHONNOUSERSITE",
+                    "DOCKER_HOST"
+                  ],
+                  "runtime": "docker",
+                  "uid": 65534
+                },
+                "uid": 0
+              },
+              "worker": {
+                "env_scrubbed": true,
+                "scratch_copy": true,
+                "supplementary_groups": [],
+                "uid": 65534
+              }
+            }
+          },
+          "predicateType": "https://probityai.github.io/probity/predicate/v1/done-receipt",
+          "subject": [
+            {
+              "digest": {
+                "sha256": "bc5acb48b583572f8e915d3628be22a59dd973368be006e344abac780922c892"
+              },
+              "name": "final-tree"
+            }
+          ]
+        },
+        "name": "vi2-replay-parent-runtime-socket",
+        "opens": "vi-2",
+        "reasons": [
+          "vi-2:replay_parent_environment_not_scrubbed"
+        ]
+      },
+      "vi2-replay-parent-unrecorded": {
+        "consumer": {
+          "signature_verified_upstream": true
+        },
+        "description": "no statement about where the parent ran",
+        "input": {
+          "_type": "https://in-toto.io/Statement/v1",
+          "predicate": {
+            "contract_sha256": "3b49e09409ac5b3864afddc64e5ef211be3eb673f11027ec9ffff2b7076d0340",
+            "verifier_isolation": {
+              "contract_sha256": "3b49e09409ac5b3864afddc64e5ef211be3eb673f11027ec9ffff2b7076d0340",
+              "evidence_from_worker": [],
+              "loaders": [
+                {
+                  "name": "json",
+                  "safe": true
+                },
+                {
+                  "name": "torch.load weights_only",
+                  "safe": true
+                }
+              ],
+              "processes": {
+                "killed_step": 41,
+                "remaining": 0,
+                "result_read_step": 44,
+                "worker_killed": true
+              },
+              "reference": {
+                "dir_mode": "0700",
+                "inside_artifact_dir": false
+              },
+              "result": {
+                "dir_mode": "0700",
+                "files_read": [
+                  "reward.txt"
+                ],
+                "precleared": true,
+                "written_by": "verifier"
+              },
+              "staging": {
+                "destination_removed_first": true,
+                "nofollow": true,
+                "special_files_rejected": true
+              },
+              "tests": {
+                "collected": 12,
+                "exit_status_alone_accepted": false,
+                "expected": 12,
+                "skipped": 0
+              },
+              "trusted_tree": {
+                "excluded_names_reset": true,
+                "expected_sha256": "366cc5efa92f50813db2a11d5b6e8f400d13d8d4234a8efb4c10456b6fbb07e9",
+                "measured_sha256": "366cc5efa92f50813db2a11d5b6e8f400d13d8d4234a8efb4c10456b6fbb07e9"
+              },
+              "verifier": {
+                "assertions_in_parent": true,
+                "python_isolated": true,
+                "uid": 0
+              },
+              "worker": {
+                "env_scrubbed": true,
+                "scratch_copy": true,
+                "supplementary_groups": [],
+                "uid": 65534
+              }
+            }
+          },
+          "predicateType": "https://probityai.github.io/probity/predicate/v1/done-receipt",
+          "subject": [
+            {
+              "digest": {
+                "sha256": "bc5acb48b583572f8e915d3628be22a59dd973368be006e344abac780922c892"
+              },
+              "name": "final-tree"
+            }
+          ]
+        },
+        "name": "vi2-replay-parent-unrecorded",
+        "opens": "vi-2",
+        "reasons": [
+          "vi-2:replay_parent_environment_not_scrubbed",
+          "vi-2:replay_parent_not_contained",
+          "vi-2:replay_parent_shares_verifier_uid"
+        ]
+      },
+      "vi2-replay-parent-unverified": {
+        "consumer": {
+          "signature_verified_upstream": true
+        },
+        "description": "the parent never reported the host name of the container it was launched in",
+        "input": {
+          "_type": "https://in-toto.io/Statement/v1",
+          "predicate": {
+            "contract_sha256": "3b49e09409ac5b3864afddc64e5ef211be3eb673f11027ec9ffff2b7076d0340",
+            "verifier_isolation": {
+              "contract_sha256": "3b49e09409ac5b3864afddc64e5ef211be3eb673f11027ec9ffff2b7076d0340",
+              "evidence_from_worker": [],
+              "loaders": [
+                {
+                  "name": "json",
+                  "safe": true
+                },
+                {
+                  "name": "torch.load weights_only",
+                  "safe": true
+                }
+              ],
+              "processes": {
+                "killed_step": 41,
+                "remaining": 0,
+                "result_read_step": 44,
+                "worker_killed": true
+              },
+              "reference": {
+                "dir_mode": "0700",
+                "inside_artifact_dir": false
+              },
+              "result": {
+                "dir_mode": "0700",
+                "files_read": [
+                  "reward.txt"
+                ],
+                "precleared": true,
+                "written_by": "verifier"
+              },
+              "staging": {
+                "destination_removed_first": true,
+                "nofollow": true,
+                "special_files_rejected": true
+              },
+              "tests": {
+                "collected": 12,
+                "exit_status_alone_accepted": false,
+                "expected": 12,
+                "skipped": 0
+              },
+              "trusted_tree": {
+                "excluded_names_reset": true,
+                "expected_sha256": "366cc5efa92f50813db2a11d5b6e8f400d13d8d4234a8efb4c10456b6fbb07e9",
+                "measured_sha256": "366cc5efa92f50813db2a11d5b6e8f400d13d8d4234a8efb4c10456b6fbb07e9"
+              },
+              "verifier": {
+                "assertions_in_parent": true,
+                "python_isolated": true,
+                "replay_parent": {
+                  "env": [
+                    "HOME",
+                    "LANG",
+                    "PATH",
+                    "PYTEST_DISABLE_PLUGIN_AUTOLOAD",
+                    "PYTHONDONTWRITEBYTECODE",
+                    "PYTHONHASHSEED",
+                    "PYTHONNOUSERSITE"
+                  ],
+                  "runtime": "unverified",
+                  "uid": 65534
+                },
+                "uid": 0
+              },
+              "worker": {
+                "env_scrubbed": true,
+                "scratch_copy": true,
+                "supplementary_groups": [],
+                "uid": 65534
+              }
+            }
+          },
+          "predicateType": "https://probityai.github.io/probity/predicate/v1/done-receipt",
+          "subject": [
+            {
+              "digest": {
+                "sha256": "bc5acb48b583572f8e915d3628be22a59dd973368be006e344abac780922c892"
+              },
+              "name": "final-tree"
+            }
+          ]
+        },
+        "name": "vi2-replay-parent-unverified",
+        "opens": "vi-2",
+        "reasons": [
+          "vi-2:replay_parent_not_contained"
         ]
       },
       "vi2-worker-is-root": {
@@ -1384,6 +2250,19 @@
               "verifier": {
                 "assertions_in_parent": true,
                 "python_isolated": true,
+                "replay_parent": {
+                  "env": [
+                    "HOME",
+                    "LANG",
+                    "PATH",
+                    "PYTEST_DISABLE_PLUGIN_AUTOLOAD",
+                    "PYTHONDONTWRITEBYTECODE",
+                    "PYTHONHASHSEED",
+                    "PYTHONNOUSERSITE"
+                  ],
+                  "runtime": "docker",
+                  "uid": 65534
+                },
                 "uid": 0
               },
               "worker": {
@@ -1469,6 +2348,19 @@
               "verifier": {
                 "assertions_in_parent": true,
                 "python_isolated": true,
+                "replay_parent": {
+                  "env": [
+                    "HOME",
+                    "LANG",
+                    "PATH",
+                    "PYTEST_DISABLE_PLUGIN_AUTOLOAD",
+                    "PYTHONDONTWRITEBYTECODE",
+                    "PYTHONHASHSEED",
+                    "PYTHONNOUSERSITE"
+                  ],
+                  "runtime": "docker",
+                  "uid": 65534
+                },
                 "uid": 1000
               },
               "worker": {
@@ -1554,6 +2446,19 @@
               "verifier": {
                 "assertions_in_parent": true,
                 "python_isolated": true,
+                "replay_parent": {
+                  "env": [
+                    "HOME",
+                    "LANG",
+                    "PATH",
+                    "PYTEST_DISABLE_PLUGIN_AUTOLOAD",
+                    "PYTHONDONTWRITEBYTECODE",
+                    "PYTHONHASHSEED",
+                    "PYTHONNOUSERSITE"
+                  ],
+                  "runtime": "docker",
+                  "uid": 65534
+                },
                 "uid": 0
               },
               "worker": {
@@ -1637,6 +2542,19 @@
               "verifier": {
                 "assertions_in_parent": true,
                 "python_isolated": true,
+                "replay_parent": {
+                  "env": [
+                    "HOME",
+                    "LANG",
+                    "PATH",
+                    "PYTEST_DISABLE_PLUGIN_AUTOLOAD",
+                    "PYTHONDONTWRITEBYTECODE",
+                    "PYTHONHASHSEED",
+                    "PYTHONNOUSERSITE"
+                  ],
+                  "runtime": "docker",
+                  "uid": 65534
+                },
                 "uid": 0
               },
               "worker": {
@@ -1722,6 +2640,19 @@
               "verifier": {
                 "assertions_in_parent": true,
                 "python_isolated": true,
+                "replay_parent": {
+                  "env": [
+                    "HOME",
+                    "LANG",
+                    "PATH",
+                    "PYTEST_DISABLE_PLUGIN_AUTOLOAD",
+                    "PYTHONDONTWRITEBYTECODE",
+                    "PYTHONHASHSEED",
+                    "PYTHONNOUSERSITE"
+                  ],
+                  "runtime": "docker",
+                  "uid": 65534
+                },
                 "uid": 0
               },
               "worker": {
@@ -1807,6 +2738,19 @@
               "verifier": {
                 "assertions_in_parent": true,
                 "python_isolated": true,
+                "replay_parent": {
+                  "env": [
+                    "HOME",
+                    "LANG",
+                    "PATH",
+                    "PYTEST_DISABLE_PLUGIN_AUTOLOAD",
+                    "PYTHONDONTWRITEBYTECODE",
+                    "PYTHONHASHSEED",
+                    "PYTHONNOUSERSITE"
+                  ],
+                  "runtime": "docker",
+                  "uid": 65534
+                },
                 "uid": 0
               },
               "worker": {
@@ -1892,6 +2836,19 @@
               "verifier": {
                 "assertions_in_parent": true,
                 "python_isolated": true,
+                "replay_parent": {
+                  "env": [
+                    "HOME",
+                    "LANG",
+                    "PATH",
+                    "PYTEST_DISABLE_PLUGIN_AUTOLOAD",
+                    "PYTHONDONTWRITEBYTECODE",
+                    "PYTHONHASHSEED",
+                    "PYTHONNOUSERSITE"
+                  ],
+                  "runtime": "docker",
+                  "uid": 65534
+                },
                 "uid": 0
               },
               "worker": {
@@ -1976,6 +2933,19 @@
               "verifier": {
                 "assertions_in_parent": true,
                 "python_isolated": true,
+                "replay_parent": {
+                  "env": [
+                    "HOME",
+                    "LANG",
+                    "PATH",
+                    "PYTEST_DISABLE_PLUGIN_AUTOLOAD",
+                    "PYTHONDONTWRITEBYTECODE",
+                    "PYTHONHASHSEED",
+                    "PYTHONNOUSERSITE"
+                  ],
+                  "runtime": "docker",
+                  "uid": 65534
+                },
                 "uid": 0
               },
               "worker": {
@@ -2062,6 +3032,19 @@
               "verifier": {
                 "assertions_in_parent": true,
                 "python_isolated": true,
+                "replay_parent": {
+                  "env": [
+                    "HOME",
+                    "LANG",
+                    "PATH",
+                    "PYTEST_DISABLE_PLUGIN_AUTOLOAD",
+                    "PYTHONDONTWRITEBYTECODE",
+                    "PYTHONHASHSEED",
+                    "PYTHONNOUSERSITE"
+                  ],
+                  "runtime": "docker",
+                  "uid": 65534
+                },
                 "uid": 0
               },
               "worker": {
@@ -2147,6 +3130,19 @@
               "verifier": {
                 "assertions_in_parent": true,
                 "python_isolated": true,
+                "replay_parent": {
+                  "env": [
+                    "HOME",
+                    "LANG",
+                    "PATH",
+                    "PYTEST_DISABLE_PLUGIN_AUTOLOAD",
+                    "PYTHONDONTWRITEBYTECODE",
+                    "PYTHONHASHSEED",
+                    "PYTHONNOUSERSITE"
+                  ],
+                  "runtime": "docker",
+                  "uid": 65534
+                },
                 "uid": 0
               },
               "worker": {
@@ -2232,6 +3228,19 @@
               "verifier": {
                 "assertions_in_parent": true,
                 "python_isolated": true,
+                "replay_parent": {
+                  "env": [
+                    "HOME",
+                    "LANG",
+                    "PATH",
+                    "PYTEST_DISABLE_PLUGIN_AUTOLOAD",
+                    "PYTHONDONTWRITEBYTECODE",
+                    "PYTHONHASHSEED",
+                    "PYTHONNOUSERSITE"
+                  ],
+                  "runtime": "docker",
+                  "uid": 65534
+                },
                 "uid": 0
               },
               "worker": {
@@ -2317,6 +3326,19 @@
               "verifier": {
                 "assertions_in_parent": true,
                 "python_isolated": true,
+                "replay_parent": {
+                  "env": [
+                    "HOME",
+                    "LANG",
+                    "PATH",
+                    "PYTEST_DISABLE_PLUGIN_AUTOLOAD",
+                    "PYTHONDONTWRITEBYTECODE",
+                    "PYTHONHASHSEED",
+                    "PYTHONNOUSERSITE"
+                  ],
+                  "runtime": "docker",
+                  "uid": 65534
+                },
                 "uid": 0
               },
               "worker": {
@@ -2402,6 +3424,19 @@
               "verifier": {
                 "assertions_in_parent": true,
                 "python_isolated": true,
+                "replay_parent": {
+                  "env": [
+                    "HOME",
+                    "LANG",
+                    "PATH",
+                    "PYTEST_DISABLE_PLUGIN_AUTOLOAD",
+                    "PYTHONDONTWRITEBYTECODE",
+                    "PYTHONHASHSEED",
+                    "PYTHONNOUSERSITE"
+                  ],
+                  "runtime": "docker",
+                  "uid": 65534
+                },
                 "uid": 0
               },
               "worker": {
@@ -2487,6 +3522,19 @@
               "verifier": {
                 "assertions_in_parent": true,
                 "python_isolated": true,
+                "replay_parent": {
+                  "env": [
+                    "HOME",
+                    "LANG",
+                    "PATH",
+                    "PYTEST_DISABLE_PLUGIN_AUTOLOAD",
+                    "PYTHONDONTWRITEBYTECODE",
+                    "PYTHONHASHSEED",
+                    "PYTHONNOUSERSITE"
+                  ],
+                  "runtime": "docker",
+                  "uid": 65534
+                },
                 "uid": 0
               },
               "worker": {
@@ -2571,6 +3619,19 @@
               "verifier": {
                 "assertions_in_parent": true,
                 "python_isolated": true,
+                "replay_parent": {
+                  "env": [
+                    "HOME",
+                    "LANG",
+                    "PATH",
+                    "PYTEST_DISABLE_PLUGIN_AUTOLOAD",
+                    "PYTHONDONTWRITEBYTECODE",
+                    "PYTHONHASHSEED",
+                    "PYTHONNOUSERSITE"
+                  ],
+                  "runtime": "docker",
+                  "uid": 65534
+                },
                 "uid": 0
               },
               "worker": {
@@ -2656,6 +3717,19 @@
               "verifier": {
                 "assertions_in_parent": true,
                 "python_isolated": true,
+                "replay_parent": {
+                  "env": [
+                    "HOME",
+                    "LANG",
+                    "PATH",
+                    "PYTEST_DISABLE_PLUGIN_AUTOLOAD",
+                    "PYTHONDONTWRITEBYTECODE",
+                    "PYTHONHASHSEED",
+                    "PYTHONNOUSERSITE"
+                  ],
+                  "runtime": "docker",
+                  "uid": 65534
+                },
                 "uid": 0
               },
               "worker": {
@@ -2741,6 +3815,19 @@
               "verifier": {
                 "assertions_in_parent": true,
                 "python_isolated": true,
+                "replay_parent": {
+                  "env": [
+                    "HOME",
+                    "LANG",
+                    "PATH",
+                    "PYTEST_DISABLE_PLUGIN_AUTOLOAD",
+                    "PYTHONDONTWRITEBYTECODE",
+                    "PYTHONHASHSEED",
+                    "PYTHONNOUSERSITE"
+                  ],
+                  "runtime": "docker",
+                  "uid": 65534
+                },
                 "uid": 0
               },
               "worker": {
@@ -2826,6 +3913,19 @@
               "verifier": {
                 "assertions_in_parent": true,
                 "python_isolated": true,
+                "replay_parent": {
+                  "env": [
+                    "HOME",
+                    "LANG",
+                    "PATH",
+                    "PYTEST_DISABLE_PLUGIN_AUTOLOAD",
+                    "PYTHONDONTWRITEBYTECODE",
+                    "PYTHONHASHSEED",
+                    "PYTHONNOUSERSITE"
+                  ],
+                  "runtime": "docker",
+                  "uid": 65534
+                },
                 "uid": 0
               },
               "worker": {
@@ -2911,6 +4011,19 @@
               "verifier": {
                 "assertions_in_parent": true,
                 "python_isolated": true,
+                "replay_parent": {
+                  "env": [
+                    "HOME",
+                    "LANG",
+                    "PATH",
+                    "PYTEST_DISABLE_PLUGIN_AUTOLOAD",
+                    "PYTHONDONTWRITEBYTECODE",
+                    "PYTHONHASHSEED",
+                    "PYTHONNOUSERSITE"
+                  ],
+                  "runtime": "docker",
+                  "uid": 65534
+                },
                 "uid": 0
               },
               "worker": {
@@ -2996,6 +4109,19 @@
               "verifier": {
                 "assertions_in_parent": true,
                 "python_isolated": true,
+                "replay_parent": {
+                  "env": [
+                    "HOME",
+                    "LANG",
+                    "PATH",
+                    "PYTEST_DISABLE_PLUGIN_AUTOLOAD",
+                    "PYTHONDONTWRITEBYTECODE",
+                    "PYTHONHASHSEED",
+                    "PYTHONNOUSERSITE"
+                  ],
+                  "runtime": "docker",
+                  "uid": 65534
+                },
                 "uid": 0
               },
               "worker": {
@@ -3081,6 +4207,19 @@
               "verifier": {
                 "assertions_in_parent": true,
                 "python_isolated": true,
+                "replay_parent": {
+                  "env": [
+                    "HOME",
+                    "LANG",
+                    "PATH",
+                    "PYTEST_DISABLE_PLUGIN_AUTOLOAD",
+                    "PYTHONDONTWRITEBYTECODE",
+                    "PYTHONHASHSEED",
+                    "PYTHONNOUSERSITE"
+                  ],
+                  "runtime": "docker",
+                  "uid": 65534
+                },
                 "uid": 0
               },
               "worker": {
@@ -3166,6 +4305,19 @@
               "verifier": {
                 "assertions_in_parent": true,
                 "python_isolated": true,
+                "replay_parent": {
+                  "env": [
+                    "HOME",
+                    "LANG",
+                    "PATH",
+                    "PYTEST_DISABLE_PLUGIN_AUTOLOAD",
+                    "PYTHONDONTWRITEBYTECODE",
+                    "PYTHONHASHSEED",
+                    "PYTHONNOUSERSITE"
+                  ],
+                  "runtime": "docker",
+                  "uid": 65534
+                },
                 "uid": 0
               },
               "worker": {
@@ -3251,6 +4403,19 @@
               "verifier": {
                 "assertions_in_parent": true,
                 "python_isolated": true,
+                "replay_parent": {
+                  "env": [
+                    "HOME",
+                    "LANG",
+                    "PATH",
+                    "PYTEST_DISABLE_PLUGIN_AUTOLOAD",
+                    "PYTHONDONTWRITEBYTECODE",
+                    "PYTHONHASHSEED",
+                    "PYTHONNOUSERSITE"
+                  ],
+                  "runtime": "docker",
+                  "uid": 65534
+                },
                 "uid": 0
               },
               "worker": {
@@ -3336,6 +4501,19 @@
               "verifier": {
                 "assertions_in_parent": true,
                 "python_isolated": true,
+                "replay_parent": {
+                  "env": [
+                    "HOME",
+                    "LANG",
+                    "PATH",
+                    "PYTEST_DISABLE_PLUGIN_AUTOLOAD",
+                    "PYTHONDONTWRITEBYTECODE",
+                    "PYTHONHASHSEED",
+                    "PYTHONNOUSERSITE"
+                  ],
+                  "runtime": "docker",
+                  "uid": 65534
+                },
                 "uid": 0
               },
               "worker": {
@@ -3423,6 +4601,19 @@
               "verifier": {
                 "assertions_in_parent": true,
                 "python_isolated": true,
+                "replay_parent": {
+                  "env": [
+                    "HOME",
+                    "LANG",
+                    "PATH",
+                    "PYTEST_DISABLE_PLUGIN_AUTOLOAD",
+                    "PYTHONDONTWRITEBYTECODE",
+                    "PYTHONHASHSEED",
+                    "PYTHONNOUSERSITE"
+                  ],
+                  "runtime": "docker",
+                  "uid": 65534
+                },
                 "uid": 0
               },
               "worker": {
@@ -3507,6 +4698,19 @@
               "verifier": {
                 "assertions_in_parent": true,
                 "python_isolated": true,
+                "replay_parent": {
+                  "env": [
+                    "HOME",
+                    "LANG",
+                    "PATH",
+                    "PYTEST_DISABLE_PLUGIN_AUTOLOAD",
+                    "PYTHONDONTWRITEBYTECODE",
+                    "PYTHONHASHSEED",
+                    "PYTHONNOUSERSITE"
+                  ],
+                  "runtime": "docker",
+                  "uid": 65534
+                },
                 "uid": 0
               },
               "worker": {
@@ -3592,6 +4796,19 @@
               "verifier": {
                 "assertions_in_parent": true,
                 "python_isolated": true,
+                "replay_parent": {
+                  "env": [
+                    "HOME",
+                    "LANG",
+                    "PATH",
+                    "PYTEST_DISABLE_PLUGIN_AUTOLOAD",
+                    "PYTHONDONTWRITEBYTECODE",
+                    "PYTHONHASHSEED",
+                    "PYTHONNOUSERSITE"
+                  ],
+                  "runtime": "docker",
+                  "uid": 65534
+                },
                 "uid": 0
               },
               "worker": {
@@ -3677,6 +4894,19 @@
               "verifier": {
                 "assertions_in_parent": true,
                 "python_isolated": true,
+                "replay_parent": {
+                  "env": [
+                    "HOME",
+                    "LANG",
+                    "PATH",
+                    "PYTEST_DISABLE_PLUGIN_AUTOLOAD",
+                    "PYTHONDONTWRITEBYTECODE",
+                    "PYTHONHASHSEED",
+                    "PYTHONNOUSERSITE"
+                  ],
+                  "runtime": "docker",
+                  "uid": 65534
+                },
                 "uid": 0
               },
               "worker": {
@@ -3761,6 +4991,19 @@
               "verifier": {
                 "assertions_in_parent": true,
                 "python_isolated": true,
+                "replay_parent": {
+                  "env": [
+                    "HOME",
+                    "LANG",
+                    "PATH",
+                    "PYTEST_DISABLE_PLUGIN_AUTOLOAD",
+                    "PYTHONDONTWRITEBYTECODE",
+                    "PYTHONHASHSEED",
+                    "PYTHONNOUSERSITE"
+                  ],
+                  "runtime": "docker",
+                  "uid": 65534
+                },
                 "uid": 0
               },
               "worker": {
@@ -3841,6 +5084,19 @@
               "verifier": {
                 "assertions_in_parent": true,
                 "python_isolated": true,
+                "replay_parent": {
+                  "env": [
+                    "HOME",
+                    "LANG",
+                    "PATH",
+                    "PYTEST_DISABLE_PLUGIN_AUTOLOAD",
+                    "PYTHONDONTWRITEBYTECODE",
+                    "PYTHONHASHSEED",
+                    "PYTHONNOUSERSITE"
+                  ],
+                  "runtime": "docker",
+                  "uid": 65534
+                },
                 "uid": 0
               },
               "worker": {
@@ -3917,6 +5173,19 @@
               "verifier": {
                 "assertions_in_parent": true,
                 "python_isolated": true,
+                "replay_parent": {
+                  "env": [
+                    "HOME",
+                    "LANG",
+                    "PATH",
+                    "PYTEST_DISABLE_PLUGIN_AUTOLOAD",
+                    "PYTHONDONTWRITEBYTECODE",
+                    "PYTHONHASHSEED",
+                    "PYTHONNOUSERSITE"
+                  ],
+                  "runtime": "docker",
+                  "uid": 65534
+                },
                 "uid": 0
               },
               "worker": {
@@ -3997,6 +5266,19 @@
               "verifier": {
                 "assertions_in_parent": true,
                 "python_isolated": true,
+                "replay_parent": {
+                  "env": [
+                    "HOME",
+                    "LANG",
+                    "PATH",
+                    "PYTEST_DISABLE_PLUGIN_AUTOLOAD",
+                    "PYTHONDONTWRITEBYTECODE",
+                    "PYTHONHASHSEED",
+                    "PYTHONNOUSERSITE"
+                  ],
+                  "runtime": "docker",
+                  "uid": 65534
+                },
                 "uid": 0
               },
               "worker": {
@@ -4082,6 +5364,19 @@
               "verifier": {
                 "assertions_in_parent": true,
                 "python_isolated": true,
+                "replay_parent": {
+                  "env": [
+                    "HOME",
+                    "LANG",
+                    "PATH",
+                    "PYTEST_DISABLE_PLUGIN_AUTOLOAD",
+                    "PYTHONDONTWRITEBYTECODE",
+                    "PYTHONHASHSEED",
+                    "PYTHONNOUSERSITE"
+                  ],
+                  "runtime": "docker",
+                  "uid": 65534
+                },
                 "uid": 0
               },
               "worker": {

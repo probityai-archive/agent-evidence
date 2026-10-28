@@ -68,6 +68,9 @@ spec:
               predicate: verifier_isolation!: worker!: supplementary_groups!: [] // rule: vi-2:worker_supplementary_groups_kept
               predicate: verifier_isolation!: verifier!: assertions_in_parent!: true // rule: vi-2:assertions_not_in_parent
               predicate: verifier_isolation!: verifier!: python_isolated!: true // rule: vi-2:trusted_python_not_isolated
+              predicate: verifier_isolation!: verifier!: replay_parent!: runtime!: "docker" | "podman" // rule: vi-2:replay_parent_not_contained
+              predicate: verifier_isolation!: verifier!: replay_parent!: uid!: number & !=0 & !=predicate.verifier_isolation.verifier.uid // rule: vi-2:replay_parent_shares_verifier_uid
+              predicate: verifier_isolation!: verifier!: replay_parent!: env!: [...("HOME" | "LANG" | "LC_ALL" | "PATH" | "PYTEST_DISABLE_PLUGIN_AUTOLOAD" | "PYTHONDONTWRITEBYTECODE" | "PYTHONHASHSEED" | "PYTHONNOUSERSITE" | "TMPDIR" | "TZ")] // rule: vi-2:replay_parent_environment_not_scrubbed
 
               // vi-3  V3 Reward
               predicate: verifier_isolation!: result!: dir_mode!: =~"^0?[0-7]00$" // rule: vi-3:result_dir_open_to_worker

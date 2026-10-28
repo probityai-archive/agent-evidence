@@ -28,7 +28,7 @@
       "id": "vi-2",
       "vector": "V2",
       "name": "Patch",
-      "closes": "Submitted code runs as an unprivileged uid other than the verifier's, with no supplementary groups; the assertions run in the trusted parent, under isolated Python.",
+      "closes": "Submitted code runs as an unprivileged uid other than the verifier's, with no supplementary groups; the assertions run in the trusted parent, under isolated Python; and that parent, which runs the task's own test code, runs in a container of its own, as a uid that is neither root nor the verifier's, with neutral environment names only.",
       "hardening": ["H2", "H4"]
     },
     {

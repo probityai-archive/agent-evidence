@@ -168,6 +168,49 @@ errors contains "vi-2:trusted_python_not_isolated" if {
 	not closed(verifier, "python_isolated")
 }
 
+# The parent that holds the assertions runs the task's own test code (its test files and
+# conftests), so it is held to the worker's isolation from the verifier as well: it runs in a
+# container of its own, as a uid that is neither root nor the verifier's, with an environment
+# of neutral names only. `verifier.replay_parent` is the parent's own measurement of where it
+# ran; a parent left on the verifier host reads `host`, or the verifier's uid, and is refused.
+replay_parent := p if {
+	p := object.get(verifier, "replay_parent", null)
+	is_object(p)
+} else := {}
+
+replay_parent_runtimes := {"docker", "podman"}
+
+replay_parent_env_names := {"HOME", "LANG", "LC_ALL", "PATH", "PYTEST_DISABLE_PLUGIN_AUTOLOAD", "PYTHONDONTWRITEBYTECODE", "PYTHONHASHSEED", "PYTHONNOUSERSITE", "TMPDIR", "TZ"}
+
+errors contains "vi-2:replay_parent_not_contained" if {
+	not replay_parent_runtimes[object.get(replay_parent, "runtime", null)]
+}
+
+errors contains "vi-2:replay_parent_shares_verifier_uid" if {
+	not replay_parent_own_uid
+}
+
+replay_parent_own_uid if {
+	p := object.get(replay_parent, "uid", null)
+	v := object.get(verifier, "uid", null)
+	is_number(p)
+	is_number(v)
+	p != 0
+	p != v
+}
+
+errors contains "vi-2:replay_parent_environment_not_scrubbed" if {
+	not replay_parent_env_scrubbed
+}
+
+replay_parent_env_scrubbed if {
+	names := object.get(replay_parent, "env", null)
+	is_array(names)
+	every name in names {
+		replay_parent_env_names[name]
+	}
+}
+
 # ---------------------------------------------------------------------------
 # vi-3  V3 Reward: the worker can neither write the result nor choose which file is read.
 # ---------------------------------------------------------------------------

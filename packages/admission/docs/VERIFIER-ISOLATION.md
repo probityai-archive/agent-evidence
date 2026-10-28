@@ -45,6 +45,9 @@ An in-toto Statement v1, after the engine's key authority verified its envelope.
 | `worker.uid`, `verifier.uid` | numbers, different, the worker's not 0 | `vi-2` |
 | `worker.supplementary_groups` | empty array | `vi-2` |
 | `verifier.assertions_in_parent`, `verifier.python_isolated` | `true` | `vi-2` |
+| `verifier.replay_parent.runtime` | `"docker"` or `"podman"`, as the parent measured it | `vi-2` |
+| `verifier.replay_parent.uid` | number, not 0, not `verifier.uid` | `vi-2` |
+| `verifier.replay_parent.env` | array of names, each one of `HOME`, `LANG`, `LC_ALL`, `PATH`, `PYTEST_DISABLE_PLUGIN_AUTOLOAD`, `PYTHONDONTWRITEBYTECODE`, `PYTHONHASHSEED`, `PYTHONNOUSERSITE`, `TMPDIR`, `TZ` | `vi-2` |
 | `result.dir_mode` | octal string with no group or other bits | `vi-3` |
 | `result.precleared`, `result.written_by`, `result.files_read` | `true`, `"verifier"`, an array of exactly one name | `vi-3` |
 | `tests.expected`, `tests.collected`, `tests.skipped`, `tests.exit_status_alone_accepted` | positive number, equal number, `0`, `false` | `vi-4` |
@@ -62,7 +65,7 @@ A fact that is absent, or of the wrong type, counts as open. A string `"true"` c
 | obligation | vector | hardening step | refusal reasons |
 |---|---|---|---|
 | `vi-1` | V1 Overwrite | none | `trusted_tree_not_reset_to_contract`, `excluded_names_not_reset` |
-| `vi-2` | V2 Patch | 2, 4 | `worker_not_unprivileged`, `worker_supplementary_groups_kept`, `assertions_not_in_parent`, `trusted_python_not_isolated` |
+| `vi-2` | V2 Patch | 2, 4 | `worker_not_unprivileged`, `worker_supplementary_groups_kept`, `assertions_not_in_parent`, `trusted_python_not_isolated`, `replay_parent_not_contained`, `replay_parent_shares_verifier_uid`, `replay_parent_environment_not_scrubbed` |
 | `vi-3` | V3 Reward | 1 | `result_dir_open_to_worker`, `result_not_precleared`, `result_not_written_by_verifier`, `result_source_ambiguous` |
 | `vi-4` | V4 Fail-open | 7 | `no_tests_expected`, `test_count_mismatch`, `tests_skipped`, `verdict_from_exit_status_alone` |
 | `vi-5` | V5 Sleeper | 5 | `worker_processes_not_killed`, `worker_processes_remain`, `result_read_before_kill` |
@@ -73,7 +76,7 @@ A fact that is absent, or of the wrong type, counts as open. A string `"true"` c
 
 Each reason is returned as `vi-N:<reason>`. Statement-level reasons are `signature_verification_undeclared`, `unsupported_statement_type`, `unsupported_predicate`, `isolation_report_missing`, `contract_digest_invalid` and `contract_digest_mismatch`.
 
-The issue's hardening steps do not close V2 where agent code is imported into the process that runs the assertions. `vi-2` asks for the issue's second pattern as well: the worker is unprivileged, and the assertions run in the parent.
+The issue's hardening steps do not close V2 where agent code is imported into the process that runs the assertions. `vi-2` asks for the issue's second pattern as well: the worker is unprivileged, and the assertions run in the parent. The parent then runs the task's own test code, so `vi-2` holds it to the same separation from the verifier: `verifier.replay_parent` is where the parent measured itself to run, and a parent on the verifier host (`runtime` `host`, `unverified` or absent), one that ran as root or as the verifier's own uid, or one whose environment carries any other name (a container runtime's `DOCKER_HOST`, a credential) is refused. The runtime is the verifier's claim; the uid is the parent's own measurement, so a record that names a container for a parent that ran on the host as the verifier still fails on its uid.
 
 ## Consumer pins
 
