@@ -2876,6 +2876,14 @@
 <td>Read <code>controls</code> in each record of <code>data/board-results.json</code></td>
 <td>The controls show the harness and adapter can tell a right answer from a wrong one on this corpus; they do not certify the adapter against other corpora</td>
 </tr>
+<tr data-read="2026-10-29">
+<td>B-06</td>
+<td>No row on the conformance board carries the Verified by Probity badge. A board score is our CI running an outside implementation against the pinned corpus; the badge is granted to a project, recorded in the grant ledger of agent-evidence-vectors, and re-checked at every release</td>
+<td><code>tools/gen_board.py</code>; <code>src/board.md</code>; the grant ledger <code>docs/badge-grants.json</code> and the page <code>docs/VERIFIED-BADGE.md</code> in agent-evidence-vectors</td>
+<td>2026-10-29 14:30 <span class="cadence">(does not expire)</span></td>
+<td>Read the Verified by Probity section of <code>src/board.md</code>; read <code>grants</code> in the ledger</td>
+<td>The board section states the rule and installs the pinned corpus. It does not list a grant, and a project can pass the board without holding the badge</td>
+</tr>
 </tbody>
 </table>
 </div>
