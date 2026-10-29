@@ -52,6 +52,7 @@ NAV = [
     ("lab", "Open Evidence Lab"),
     ("status", "Claim status"),
     ("runs", "Find a run"),
+    ("board", "Conformance board"),
     ("pilot", "Pilot status"),
     ("atlas", "Atlas"),
     ("essay", "Essay"),
