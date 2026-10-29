@@ -86,7 +86,7 @@ declared_scope = "pic_standard.canonical.canonicalize: PIC-CJSON/1.0, RFC 8785 a
   family = "jcs-rfc8785"
   adapter = "py"
   args = ["--repo", "{src}/sdk-python", "--module", "pic_standard.canonical", "--func", "canonicalize"]
-  deps = "site/board/deps/pic.txt"
+  deps = "board/deps/pic.txt"
 
 [[implementation]]
 id = "remora"
