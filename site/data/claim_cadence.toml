@@ -329,3 +329,10 @@ P-78 = "none"
 
 # Exact recorded native registry releases and byte/source bindings.
 "C-38" = "none"
+
+# The conformance board: B-01 counts rows and names the default-branch head, the rest are bound to pinned commits and one retained run.
+"B-01" = 7
+"B-02" = "none"
+"B-03" = "none"
+"B-04" = "none"
+"B-05" = "none"
