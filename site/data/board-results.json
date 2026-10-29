@@ -36,7 +36,7 @@
       ],
       "id": "aos-catalog",
       "repo": "aos-standard/catalog",
-      "run_url": "https://github.com/probityai/agent-evidence/actions/runs/40797970422",
+      "run_url": "https://github.com/probityai/agent-evidence/actions/runs/40802484844",
       "slot": "head",
       "source_sha": "5db6df1da260917a6f9740f5f07a7f35b7a7d48c"
     },
@@ -75,14 +75,14 @@
       ],
       "id": "aos-catalog",
       "repo": "aos-standard/catalog",
-      "run_url": "https://github.com/probityai/agent-evidence/actions/runs/40797970422",
+      "run_url": "https://github.com/probityai/agent-evidence/actions/runs/40802484844",
       "slot": "pinned",
       "source_sha": "9980aab3db85db18cb82d6168f9f3de7c9cd7886"
     },
     {
       "families": [
         {
-          "command": "site/board/node/node_modules/.bin/tsx site/board/adapters/node_adapter.mjs --file {src}/src/core/canonical-jcs.ts --func canonicalizeJCS",
+          "command": "tsx site/board/adapters/node_adapter.mjs --file {src}/src/core/canonical-jcs.ts --func canonicalizeJCS",
           "controls": {
             "ok": true,
             "reference": {
@@ -112,14 +112,14 @@
       ],
       "id": "aps",
       "repo": "aeoess/agent-passport-system",
-      "run_url": "https://github.com/probityai/agent-evidence/actions/runs/40797970422",
+      "run_url": "https://github.com/probityai/agent-evidence/actions/runs/40802484844",
       "slot": "head",
       "source_sha": "f95c9168187cbac0493099fe4a7cddaff653bf39"
     },
     {
       "families": [
         {
-          "command": "site/board/node/node_modules/.bin/tsx site/board/adapters/node_adapter.mjs --file {src}/src/core/canonical-jcs.ts --func canonicalizeJCS",
+          "command": "tsx site/board/adapters/node_adapter.mjs --file {src}/src/core/canonical-jcs.ts --func canonicalizeJCS",
           "controls": {
             "ok": true,
             "reference": {
@@ -149,14 +149,14 @@
       ],
       "id": "aps",
       "repo": "aeoess/agent-passport-system",
-      "run_url": "https://github.com/probityai/agent-evidence/actions/runs/40797970422",
+      "run_url": "https://github.com/probityai/agent-evidence/actions/runs/40802484844",
       "slot": "pinned",
       "source_sha": "f95c9168187cbac0493099fe4a7cddaff653bf39"
     },
     {
       "families": [
         {
-          "command": "{src}-env/bin/python site/board/adapters/py_adapter.py --file {src}/workers/hs-ledger/nenrin/a2a-conduct-walk/a2a_conduct_walk.py --func rfc8785",
+          "command": "python3 site/board/adapters/py_adapter.py --file {src}/workers/hs-ledger/nenrin/a2a-conduct-walk/a2a_conduct_walk.py --func rfc8785",
           "controls": {
             "ok": true,
             "reference": {
@@ -186,14 +186,14 @@
       ],
       "id": "horizon",
       "repo": "ogasurfproject-jpg/horizon-shield",
-      "run_url": "https://github.com/probityai/agent-evidence/actions/runs/40797970422",
+      "run_url": "https://github.com/probityai/agent-evidence/actions/runs/40802484844",
       "slot": "head",
       "source_sha": "5d6fce79849128051aca4a875fe532102e27ae28"
     },
     {
       "families": [
         {
-          "command": "{src}-env/bin/python site/board/adapters/py_adapter.py --file {src}/workers/hs-ledger/nenrin/a2a-conduct-walk/a2a_conduct_walk.py --func rfc8785",
+          "command": "python3 site/board/adapters/py_adapter.py --file {src}/workers/hs-ledger/nenrin/a2a-conduct-walk/a2a_conduct_walk.py --func rfc8785",
           "controls": {
             "ok": true,
             "reference": {
@@ -223,14 +223,14 @@
       ],
       "id": "horizon",
       "repo": "ogasurfproject-jpg/horizon-shield",
-      "run_url": "https://github.com/probityai/agent-evidence/actions/runs/40797970422",
+      "run_url": "https://github.com/probityai/agent-evidence/actions/runs/40802484844",
       "slot": "pinned",
       "source_sha": "175066c171504ebfe76ea5e34230bec8a8ece167"
     },
     {
       "families": [
         {
-          "command": "{src}-env/bin/python site/board/adapters/py_adapter.py --repo {src} --module app.signature --func canonicalize",
+          "command": "python3 site/board/adapters/py_adapter.py --repo {src} --module app.signature --func canonicalize",
           "controls": {
             "ok": true,
             "reference": {
@@ -260,14 +260,14 @@
       ],
       "id": "moltrust-aae",
       "repo": "MoltyCel/moltrust-api",
-      "run_url": "https://github.com/probityai/agent-evidence/actions/runs/40797970422",
+      "run_url": "https://github.com/probityai/agent-evidence/actions/runs/40802484844",
       "slot": "head",
       "source_sha": "1cd28477ebdfa7af52efbd1538472df0b77d4d04"
     },
     {
       "families": [
         {
-          "command": "{src}-env/bin/python site/board/adapters/py_adapter.py --repo {src} --module app.signature --func canonicalize",
+          "command": "python3 site/board/adapters/py_adapter.py --repo {src} --module app.signature --func canonicalize",
           "controls": {
             "ok": true,
             "reference": {
@@ -297,14 +297,14 @@
       ],
       "id": "moltrust-aae",
       "repo": "MoltyCel/moltrust-api",
-      "run_url": "https://github.com/probityai/agent-evidence/actions/runs/40797970422",
+      "run_url": "https://github.com/probityai/agent-evidence/actions/runs/40802484844",
       "slot": "pinned",
       "source_sha": "1cd28477ebdfa7af52efbd1538472df0b77d4d04"
     },
     {
       "families": [
         {
-          "command": "{src}-env/bin/python site/board/adapters/py_adapter.py --repo {src}/sdk-python --module pic_standard.canonical --func canonicalize",
+          "command": "python3 site/board/adapters/py_adapter.py --repo {src}/sdk-python --module pic_standard.canonical --func canonicalize",
           "controls": {
             "ok": true,
             "reference": {
@@ -334,14 +334,14 @@
       ],
       "id": "pic",
       "repo": "pic-standard/pic-standard",
-      "run_url": "https://github.com/probityai/agent-evidence/actions/runs/40797970422",
+      "run_url": "https://github.com/probityai/agent-evidence/actions/runs/40802484844",
       "slot": "head",
       "source_sha": "6856f36267a9feb56e8c3deb334e9293fc4258dd"
     },
     {
       "families": [
         {
-          "command": "{src}-env/bin/python site/board/adapters/py_adapter.py --repo {src}/sdk-python --module pic_standard.canonical --func canonicalize",
+          "command": "python3 site/board/adapters/py_adapter.py --repo {src}/sdk-python --module pic_standard.canonical --func canonicalize",
           "controls": {
             "ok": true,
             "reference": {
@@ -371,14 +371,14 @@
       ],
       "id": "pic",
       "repo": "pic-standard/pic-standard",
-      "run_url": "https://github.com/probityai/agent-evidence/actions/runs/40797970422",
+      "run_url": "https://github.com/probityai/agent-evidence/actions/runs/40802484844",
       "slot": "pinned",
       "source_sha": "6856f36267a9feb56e8c3deb334e9293fc4258dd"
     },
     {
       "families": [
         {
-          "command": "{src}-env/bin/python site/board/adapters/py_adapter.py --file {src}/integrations/horizon55/canon.py --func jcs",
+          "command": "python3 site/board/adapters/py_adapter.py --file {src}/integrations/horizon55/canon.py --func jcs",
           "controls": {
             "ok": true,
             "reference": {
@@ -484,14 +484,14 @@
       ],
       "id": "remora",
       "repo": "darklordVirtual/REMORA-research",
-      "run_url": "https://github.com/probityai/agent-evidence/actions/runs/40797970422",
+      "run_url": "https://github.com/probityai/agent-evidence/actions/runs/40802484844",
       "slot": "head",
       "source_sha": "76bebaafc0eabeef6efa49a35531a0f190b770e9"
     },
     {
       "families": [
         {
-          "command": "{src}-env/bin/python site/board/adapters/py_adapter.py --file {src}/integrations/horizon55/canon.py --func jcs",
+          "command": "python3 site/board/adapters/py_adapter.py --file {src}/integrations/horizon55/canon.py --func jcs",
           "controls": {
             "ok": true,
             "reference": {
@@ -597,7 +597,7 @@
       ],
       "id": "remora",
       "repo": "darklordVirtual/REMORA-research",
-      "run_url": "https://github.com/probityai/agent-evidence/actions/runs/40797970422",
+      "run_url": "https://github.com/probityai/agent-evidence/actions/runs/40802484844",
       "slot": "pinned",
       "source_sha": "76bebaafc0eabeef6efa49a35531a0f190b770e9"
     }

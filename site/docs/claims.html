@@ -2839,7 +2839,7 @@
 <tr data-read="2026-10-29" data-cadence-days="7">
 <td>B-01</td>
 <td>The conformance board scores six outside implementations: five on the RFC 8785 canonical-bytes corpus and one on the ANCHORS stream corpus, each at a pinned commit and at the head of its default branch. Two further implementations are listed as having no entry point that takes the corpus, and two are not scored</td>
-<td><a href="https://github.com/probityai/agent-evidence/blob/main/site/data/board.toml"><code>data/board.toml</code></a>; <a href="https://github.com/probityai/agent-evidence/actions/runs/40797970422">scoring run</a></td>
+<td><a href="https://github.com/probityai/agent-evidence/blob/main/site/data/board.toml"><code>data/board.toml</code></a>; <a href="https://github.com/probityai/agent-evidence/actions/runs/40802484844">scoring run</a></td>
 <td>2026-10-29 01:30 <span class="cadence">(7-day cadence)</span></td>
 <td><code>python3 tools/run_board.py --list</code>; count <code>status</code> values in <code>data/board.toml</code></td>
 <td>A count of rows on one board, not of the field. The head slot is the default-branch head on the day of the run</td>
@@ -2847,7 +2847,7 @@
 <tr data-read="2026-10-29">
 <td>B-02</td>
 <td>At their pinned commits MolTrust AAE, Agent Passport System, Horizon (conduct walk) and PIC each canonicalize all 53 vectors of <code>vectors-a2a-jcs-v01</code> as the corpus expects</td>
-<td><a href="https://github.com/probityai/agent-evidence/actions/runs/40797970422">scoring run</a>; <code>data/board-results.json</code></td>
+<td><a href="https://github.com/probityai/agent-evidence/actions/runs/40802484844">scoring run</a>; <code>data/board-results.json</code></td>
 <td>2026-10-29 01:30 <span class="cadence">(does not expire)</span></td>
 <td>Run <code>python3 tools/run_board.py --id ID --src CHECKOUT --out OUT</code> with the hash-locked <code>agent-evidence-vectors</code> 0.29.3 harness, as the workflow does</td>
 <td>One canonicalization function at one commit on 53 inputs. PIC’s frozen profile is its own declared difference from plain RFC 8785; the pass says the function agreed on every vector here, not that the product is conformant or secure</td>
@@ -2855,7 +2855,7 @@
 <tr data-read="2026-10-29">
 <td>B-03</td>
 <td>REMORA’s canonicalizer at its pinned commit passes 42 of 53 vectors. All 11 failures are refusals of an input that holds a floating-point number, which its own profile declares it refuses at parse time. Inside the float-free subset it passes 39 of 39</td>
-<td><a href="https://github.com/probityai/agent-evidence/actions/runs/40797970422">scoring run</a>; <code>data/board-results.json</code>; REMORA <code>integrations/horizon55/canon.py</code> at 76bebaaf</td>
+<td><a href="https://github.com/probityai/agent-evidence/actions/runs/40802484844">scoring run</a>; <code>data/board-results.json</code>; REMORA <code>integrations/horizon55/canon.py</code> at 76bebaaf</td>
 <td>2026-10-29 01:30 <span class="cadence">(does not expire)</span></td>
 <td>Read <code>declared_subset</code> in the REMORA record of <code>data/board-results.json</code>; run the adapter on one of the 11 failing inputs and read <code>unsupported_type: float</code></td>
 <td>The subset is REMORA’s declared scope, not a corpus category. The verdict stays fail on the full corpus</td>
@@ -2863,7 +2863,7 @@
 <tr data-read="2026-10-29">
 <td>B-04</td>
 <td>The AOS catalog verifier at its pinned commit agrees with 31 of the 34 members of the ANCHORS stream corpus. The three that differ sit under clauses the corpus marks proposed, because the verifier’s contract text leaves them open</td>
-<td><a href="https://github.com/probityai/agent-evidence/actions/runs/40797970422">scoring run</a>; <code>data/board-results.json</code>; the corpus <code>INDEX.md</code> in <code>agent-evidence-vectors</code> v0.29.3</td>
+<td><a href="https://github.com/probityai/agent-evidence/actions/runs/40802484844">scoring run</a>; <code>data/board-results.json</code>; the corpus <code>INDEX.md</code> in <code>agent-evidence-vectors</code> v0.29.3</td>
 <td>2026-10-29 01:30 <span class="cadence">(does not expire)</span></td>
 <td>Read the anchor-stream record in <code>data/board-results.json</code>; run <code>run_verifier.py --verifier anchors_verify.py</code> from the corpus at the v0.29.3 tag</td>
 <td>A difference on a proposed clause is a difference of contract, not a defect the verifier’s own text names. The corpus does not agree on every member with any published verifier tag</td>
@@ -2871,7 +2871,7 @@
 <tr data-read="2026-10-29">
 <td>B-05</td>
 <td>A verdict is kept only after the same adapter passes its controls: the reference canonicalizer passes 53 of 53, a deliberately wrong one fails exactly ten, and for the anchor stream the runner reproduces the corpus’s own recording of a published verifier tag on all 32 recorded members</td>
-<td><a href="https://github.com/probityai/agent-evidence/actions/runs/40797970422">scoring run</a>; <code>tools/run_board.py</code></td>
+<td><a href="https://github.com/probityai/agent-evidence/actions/runs/40802484844">scoring run</a>; <code>tools/run_board.py</code></td>
 <td>2026-10-29 01:30 <span class="cadence">(does not expire)</span></td>
 <td>Read <code>controls</code> in each record of <code>data/board-results.json</code></td>
 <td>The controls show the harness and adapter can tell a right answer from a wrong one on this corpus; they do not certify the adapter against other corpora</td>
