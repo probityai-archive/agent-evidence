@@ -68,6 +68,10 @@ cannot express exactly is refused for that client (exit 1), not widened. See
 [the guide](https://github.com/probityai/agent-evidence/blob/main/packages/admission/docs/CLIENT-ALLOWLISTS.md)
 and the [vectors](vectors/generate/manifest.json).
 
+## Conformance result records
+
+`agent-evidence-admission conformance run|replay|verify` runs a corpus against an implementation, signs the score as a DSSE-wrapped in-toto statement, files it in a public run registry, and checks records another party signed. `replay` turns the rows of the vectors' `docs/INDEPENDENT-RUNS.json` into records. See [the result format](https://github.com/probityai/agent-evidence/blob/main/packages/admission/docs/CONFORMANCE-RESULT.md).
+
 ## Status
 
 Version 0.2.0. The Kubernetes admission policies (Rego, Kyverno, policy-controller) live in the same repository; see the [repository README](https://github.com/probityai/agent-evidence/tree/main/packages/admission#readme).
