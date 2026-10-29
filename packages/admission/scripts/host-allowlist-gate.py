@@ -50,6 +50,10 @@ ALLOWED_HOSTS = frozenset(
         "raw.githubusercontent.com",
         "doi.org",
         "orcid.org",
+        # the pages the Agent Card requirements are read from, and the extension
+        # URI the Marketplace card format defines (docs/google-cloud-ready)
+        "cloud.google.com",
+        "docs.cloud.google.com",
         # the advisory database the engine gate resolves the pins against
         "api.osv.dev",
         # the engines
