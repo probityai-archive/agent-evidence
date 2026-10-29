@@ -12,6 +12,9 @@ reason and no covering reference, 2 when the document or the list could not be r
 client enforces natively; exit 0 when every server was rendered for every client asked for, 1 when
 a client could not express a server exactly (the other files are still written), 2 when the admit
 list could not be read or is invalid, or the files could not be written.
+
+``agent-evidence-admission conformance run|replay|verify``: sign, replay and check conformance
+result records; see ``conformance_cli``.
 """
 
 from __future__ import annotations
@@ -21,7 +24,7 @@ import json
 import sys
 from pathlib import Path
 
-from . import __version__
+from . import __version__, conformance_cli
 from .coverage_check import (
     check,
     detect_format,
@@ -62,6 +65,7 @@ def _parser() -> argparse.ArgumentParser:
     gen.add_argument("--out", required=True, help="directory to write the generated files into")
     gen.add_argument("--client", action="append", choices=CLIENTS, help="a client to generate for; repeat it; default every client")
     gen.add_argument("--json", action="store_true", help="print the report as JSON")
+    conformance_cli.add_parsers(commands)
     return parser
 
 
@@ -115,11 +119,23 @@ def _run_generate(args: argparse.Namespace) -> int:
     return 0 if result.ok else 1
 
 
-_COMMANDS = {"digest-check": _run_digest, "coverage-check": _run_coverage, "generate": _run_generate}
+_COMMANDS = {
+    "digest-check": _run_digest,
+    "coverage-check": _run_coverage,
+    "generate": _run_generate,
+    "conformance": conformance_cli.run,
+}
 
 
 def main(argv: list[str] | None = None) -> int:
-    args = _parser().parse_args(argv)
+    words = list(sys.argv[1:] if argv is None else argv)
+    tail: list[str] = []
+    if "--" in words:  # the implementation command of "conformance run" follows the first "--"
+        cut = words.index("--")
+        words, tail = words[:cut], words[cut + 1 :]
+    args = _parser().parse_args(words)
+    if tail and args.command == "conformance":
+        args.command_words = tail
     return _COMMANDS[args.command](args)
 
 
