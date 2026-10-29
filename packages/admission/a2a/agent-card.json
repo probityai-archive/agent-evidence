@@ -1,0 +1,44 @@
+{
+  "name": "Agent Evidence Verifier",
+  "protocolVersion": "1.0",
+  "description": "Checks evidence a party hands you about an AI agent: that an artifact has the digest its document names, that a bill of materials accounts for the classes you require, and that a conformance result record verifies under a key you pin. It reads public bytes only and keeps nothing.",
+  "url": "https://agent.example.org/a2a",
+  "preferredTransport": "JSONRPC",
+  "provider": {
+    "organization": "Sankalp Gilda",
+    "url": "https://github.com/probityai/agent-evidence/tree/main/packages/admission"
+  },
+  "version": "0.2.0",
+  "capabilities": {
+    "streaming": false,
+    "pushNotifications": false
+  },
+  "defaultInputModes": ["application/json"],
+  "defaultOutputModes": ["application/json"],
+  "skills": [
+    {
+      "id": "digest_check",
+      "name": "Artifact digest check",
+      "description": "Given a TEA, CycloneDX or in-toto document and the bytes of an artifact, reports whether the artifact has a digest the document names.",
+      "tags": ["supply-chain", "sbom", "in-toto", "verification"],
+      "examples": ["Does log4j-core-2.26.1.jar match the digest in bom.json?"]
+    },
+    {
+      "id": "coverage_check",
+      "name": "Bill of materials coverage check",
+      "description": "Given a CycloneDX or SPDX 3 document and a list of required component classes, reports which classes are assessed, withheld, covered elsewhere or missing.",
+      "tags": ["sbom", "cyclonedx", "spdx", "verification"],
+      "examples": ["Does this BOM account for library, service and machine-learning-model?"]
+    },
+    {
+      "id": "conformance_record_verify",
+      "name": "Conformance result record check",
+      "description": "Given a signed conformance result record and a pinned Ed25519 public key, reports whether the signature, the statement and the score fields verify.",
+      "tags": ["conformance", "dsse", "in-toto", "verification"],
+      "examples": ["Does this conformance record verify under the public key I pin?"]
+    }
+  ],
+  "supportsAuthenticatedExtendedCard": false,
+  "security": [],
+  "securitySchemes": {}
+}

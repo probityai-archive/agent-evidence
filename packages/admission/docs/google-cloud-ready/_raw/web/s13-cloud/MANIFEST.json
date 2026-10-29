@@ -1,0 +1,41 @@
+{
+  "captured_by": "curl -sSL",
+  "files": [
+    {
+      "path": "cloud_google_com_blog_products_ai-machine-learning_partner-built-agents-available-in-gemini-enterprise.html",
+      "source_url": "https://cloud.google.com/blog/products/ai-machine-learning/partner-built-agents-available-in-gemini-enterprise",
+      "captured_at": "2026-10-29T16:15:22Z",
+      "size": 336443,
+      "sha256": "412d8e9fbb18c45009683764443c821f9cf8ad4a03b7f6867f4619092575cf7e",
+      "text_extract": "cloud_google_com_blog_products_ai-machine-learning_partner-built-agents-available-in-gemini-enterprise.txt",
+      "text_sha256": "667dee19f97c37205389a801181c0cc98bba80c6c8ae05cb326e698e12505a86"
+    },
+    {
+      "path": "cloud_google_com_blog_topics_developers-practitioners_publish-agents-in-gemini-enterprise-and-google-cloud-marketplace.html",
+      "source_url": "https://cloud.google.com/blog/topics/developers-practitioners/publish-agents-in-gemini-enterprise-and-google-cloud-marketplace",
+      "captured_at": "2026-10-29T16:15:22Z",
+      "size": 317560,
+      "sha256": "6d702489b52e7a80a8de8b6770b9b02845cea4251d17abb07ec444155df613f9",
+      "text_extract": "cloud_google_com_blog_topics_developers-practitioners_publish-agents-in-gemini-enterprise-and-google-cloud-marketplace.txt",
+      "text_sha256": "69fbfc7641132ff4b14c5bce42d616bc6a70df942c9214ead4eff66c95c0fb8c"
+    },
+    {
+      "path": "cloud_google_com_gemini-enterprise_agents.html",
+      "source_url": "https://cloud.google.com/gemini-enterprise/agents",
+      "captured_at": "2026-10-29T16:15:22Z",
+      "size": 2118561,
+      "sha256": "977d4d5065127725ce8c39550bc87de044abdc08e78f4cb391ff8519b544cb36",
+      "text_extract": "cloud_google_com_gemini-enterprise_agents.txt",
+      "text_sha256": "18175865ecea171c7147142baa1761ebd9c345150575ebcbc3f11c42da48ce95"
+    },
+    {
+      "path": "docs_cloud_google_com_gemini-enterprise-agent-platform_machine-learning_ai-agent-ecosystem-partners.html",
+      "source_url": "https://docs.cloud.google.com/gemini-enterprise-agent-platform/machine-learning/ai-agent-ecosystem-partners",
+      "captured_at": "2026-10-29T16:15:22Z",
+      "size": 153177,
+      "sha256": "b435ce4a65c62d3e19417e880b2eb664b4c4e3ccf53a42db787b9875ff846b50",
+      "text_extract": "docs_cloud_google_com_gemini-enterprise-agent-platform_machine-learning_ai-agent-ecosystem-partners.txt",
+      "text_sha256": "5177b95f31dbe323c7343839cc9bd8eedf48b3ae35f529a3fb9af9076f295513"
+    }
+  ]
+}
