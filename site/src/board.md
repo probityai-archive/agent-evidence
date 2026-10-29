@@ -49,6 +49,17 @@ The board's publication rules hold these implementations out of the tables above
 | [Microsoft agent-governance-toolkit (AGT)](https://github.com/microsoft/agent-governance-toolkit) | [`1b680536`](https://github.com/microsoft/agent-governance-toolkit/commit/1b6805366554cc0ed8d8b8453ed745fff98fd755) |
 | [Jans TRACE producer](https://github.com/JanssenProject/jans) | [`c1609a1f`](https://github.com/JanssenProject/jans/commit/c1609a1fb65161f7bf08b3a1b33fa6368759145a) |
 
+## Verified by Probity
+
+Verified by Probity (github.com/probityai/probity). A score on this board is our CI running an outside implementation against the pinned corpus. It is not the badge. The badge is granted to a project, never self-declared, recorded in the grant ledger of agent-evidence-vectors, and re-checked at every release; the rules are on the [Verified by Probity page](https://github.com/probityai/agent-evidence/blob/main/docs/VERIFIED-BADGE.md). No row on this board carries it.
+
+To run the same corpus in your own CI, pin the package:
+
+```bash
+uv add agent-evidence-vectors==0.29.3
+pip install agent-evidence-vectors==0.29.3
+```
+
 ## Add an implementation
 
 Add one entry to [`data/board.toml`](https://github.com/probityai/agent-evidence/blob/main/site/data/board.toml): the repository, a pinned commit, the file and function that take the corpus, and its declared scope. The [workflow](https://github.com/probityai/agent-evidence/blob/main/.github/workflows/site-board.yml) scores it on the next run. To run one row by hand, see [`tools/run_board.py`](https://github.com/probityai/agent-evidence/blob/main/site/tools/run_board.py). The packaged corpus runs in your own CI with the [agent-evidence-vectors Action](https://github.com/probityai/agent-evidence-vectors).
