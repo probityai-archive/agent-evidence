@@ -15,9 +15,9 @@
 
 [meta]
 vectors_package = "agent-evidence-vectors"
-vectors_version = "0.29.2"
-vectors_tag = "v0.29.2"
-vectors_tag_commit = "d0e0e51cd7de6f7c54e5bc638d9bf50206cee871"
+vectors_version = "0.29.3"
+vectors_tag = "v0.29.3"
+vectors_tag_commit = "a78eb265ece4163e5d4e08eb5865fac05d12cab0"
 
 # Families the board scores. A family is a corpus plus the target of that corpus.
 [family.jcs-rfc8785]
@@ -100,6 +100,7 @@ declared_scope = "integrations/horizon55/canon.py jcs: RFC 8785 for objects, arr
   family = "jcs-rfc8785"
   adapter = "py"
   args = ["--file", "{src}/integrations/horizon55/canon.py", "--func", "jcs"]
+  subset = "float-free"
 
 [[implementation]]
 id = "aos-catalog"

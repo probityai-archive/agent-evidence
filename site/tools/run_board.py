@@ -22,6 +22,7 @@ into `not runnable` with the control named.
 from __future__ import annotations
 
 import argparse
+import datetime
 import json
 import os
 import re
@@ -107,6 +108,43 @@ def smoke(command: list[str], tmp: Path) -> dict:
     return {"ok": got == GOOD_OUTPUT, "exit": proc.returncode, "got": None if got is None else got.decode("utf-8", "replace")}
 
 
+def float_vector_ids(harness_python: str) -> set[str]:
+    """Ids of the vectors whose input holds a JSON number with a fraction or an exponent."""
+    code = ("import agent_evidence_vectors,os;print(os.path.join(os.path.dirname(agent_evidence_vectors.__file__),"
+            "'corpora','vectors-a2a-jcs-v01'))")
+    base = Path(subprocess.run([harness_python, "-I", "-c", code], capture_output=True, text=True, check=True).stdout.strip())
+
+    def has_float(node) -> bool:
+        if isinstance(node, float):
+            return True
+        if isinstance(node, dict):
+            return any(has_float(v) for v in node.values())
+        if isinstance(node, list):
+            return any(has_float(v) for v in node)
+        return False
+
+    found = set()
+    for path in base.glob("*/*.json"):
+        data = json.loads(path.read_text(encoding="utf-8"))
+        if "id" not in data:
+            continue
+        raw = data.get("input_raw")
+        value = json.loads(raw, parse_float=lambda t: float(t)) if isinstance(raw, str) and raw.lstrip()[:1] in "{[" else data.get("input")
+        if has_float(value):
+            found.add(data["id"])
+    return found
+
+
+def declared_subset(entry: dict, rule: str, harness_python: str) -> dict:
+    """Score beside the verdict the vectors inside the subset the implementation declares."""
+    outside = float_vector_ids(harness_python)
+    failing_ids = {r["id"] for r in entry.get("failing", [])}
+    inside = entry["vectors"] - len(outside)
+    return {"rule": rule, "vectors": inside, "passed": inside - len(failing_ids - outside),
+            "failing_inside": sorted(failing_ids - outside), "failing_outside": sorted(failing_ids & outside),
+            "outside": len(outside)}
+
+
 def run_jcs(item: dict, run: dict, args, tmp: Path) -> dict:
     src = Path(args.src)
     command = adapter_command(run, src, args.python, args.node_runner)
@@ -119,7 +157,37 @@ def run_jcs(item: dict, run: dict, args, tmp: Path) -> dict:
         return {**entry, "verdict": "not runnable", "why": "a control did not behave, so no verdict is kept"}
     if not sm["ok"]:
         return {**entry, "verdict": "not runnable", "why": "the implementation did not answer the known-good input through its adapter"}
-    return {**entry, **summarize(harness_run(args.harness, command, tmp / "report.json"))}
+    scored = {**entry, **summarize(harness_run(args.harness, command, tmp / "report.json"))}
+    if run.get("subset") and scored["verdict"] in ("pass", "fail"):
+        scored["declared_subset"] = declared_subset(scored, run["subset"], args.harness_python or args.python)
+    return scored
+
+
+def proposed_clauses(vectors_src: Path) -> set[str]:
+    """Clauses the corpus marks proposed: the verifier's own contract text leaves them open."""
+    index = (vectors_src / "vectors-anchor-stream" / "INDEX.md").read_text(encoding="utf-8")
+    return set(re.findall(r"^\| `(ans-c-\d+)` \| proposed \|", index, flags=re.M))
+
+
+def anchor_control(args, runner: Path, tmp: Path) -> dict:
+    """The runner, given the tag the corpus recorded, must reproduce that recording member by member."""
+    tag = "anchors-verify-v0.10"
+    recording = json.loads((runner.parent / "recordings" / f"{tag}.json").read_text(encoding="utf-8"))[tag]
+    show = subprocess.run(["git", "-C", args.src, "show", f"{tag}:anchors_verify.py"], capture_output=True, check=False)
+    if show.returncode != 0:
+        return {"ok": False, "note": f"the tag {tag} could not be read from the implementation's history"}
+    verifier = tmp / "anchors_verify.py"
+    verifier.write_bytes(show.stdout)
+    proc = subprocess.run([args.python, "-I", str(runner), "--verifier", str(verifier), "--label", tag, "--json"],
+                          capture_output=True, text=True, check=False, cwd=runner.parent)
+    try:
+        rows = json.loads(proc.stdout)[tag]
+    except (json.JSONDecodeError, KeyError):
+        return {"ok": False, "note": "the runner printed no table for the recorded tag"}
+    seen = {row["id"]: bool(row["agrees"]) for row in rows}
+    same = all(seen.get(member) == agreed for member, agreed in recording.items())
+    return {"ok": same, "note": f"the runner reproduces the corpus's own recording of {tag} on all {len(recording)} recorded members"
+            if same else f"the runner disagrees with the recording of {tag}"}
 
 
 def run_anchor_stream(item: dict, run: dict, args, tmp: Path) -> dict:
@@ -128,6 +196,9 @@ def run_anchor_stream(item: dict, run: dict, args, tmp: Path) -> dict:
     runner = vectors_src / "vectors-anchor-stream" / "run_verifier.py"
     command = [args.python, "-I", str(runner), *expand(run["args"], src)]
     entry = {"family": run["family"], "command": "python3 -I vectors-anchor-stream/run_verifier.py --verifier {src}/anchors_verify.py"}
+    ctl = anchor_control(args, runner, tmp)
+    if not ctl["ok"]:
+        return {**entry, "controls": ctl, "verdict": "not runnable", "why": "the control did not behave, so no verdict is kept: " + ctl["note"]}
     proc = subprocess.run(command, capture_output=True, text=True, check=False, cwd=runner.parent)
     text = proc.stdout + proc.stderr
     found = re.search(r"==\s*\S+:\s*(\d+) of (\d+) agree", text)
@@ -137,8 +208,9 @@ def run_anchor_stream(item: dict, run: dict, args, tmp: Path) -> dict:
     lines = [ln.strip() for ln in text.splitlines() if re.match(r"\s+v[0-9a-f]{16} ", ln)]
     # The corpus's own expectation is checked against a verifier that passes: the member lines come from the runner itself.
     return {**entry, "verdict": "pass" if agree == total and proc.returncode == 0 else "fail", "vectors": total, "executed": total,
-            "passed": agree, "failed": total - agree, "failing": [{"detail": ln[:240]} for ln in lines],
-            "controls": {"ok": True, "note": "the runner replaces the verifier's network fetchers with a function that raises and scores the verdict and the stop reason of each member"}}
+            "passed": agree, "failed": total - agree, "failing": [{"detail": ln[:240], "clause": (re.search(r"(ans-c-\d+)", ln) or [None, ""])[1],
+                         "proposed": bool(re.search(r"(ans-c-\d+)", ln)) and re.search(r"(ans-c-\d+)", ln)[1] in proposed_clauses(vectors_src)} for ln in lines],
+            "controls": ctl}
 
 
 def main() -> int:
@@ -152,11 +224,19 @@ def main() -> int:
     ap.add_argument("--harness-python")
     ap.add_argument("--node-runner")
     ap.add_argument("--vectors-src")
+    ap.add_argument("--aggregate", help="directory of per-run result files; write them as one results file to --out")
     ap.add_argument("--list", action="store_true")
     ap.add_argument("--print-deps", action="store_true")
     args = ap.parse_args()
     if args.list:
         print(json.dumps([i["id"] for i in BOARD["implementation"] if i["status"] == "scored"]))
+        return 0
+    if args.aggregate:
+        records = [json.loads(p.read_text(encoding="utf-8")) for p in sorted(Path(args.aggregate).rglob("*.json"))]
+        records.sort(key=lambda r: (r["id"], r["slot"]))
+        out = {"generated": datetime.date.today().isoformat(), "vectors_version": BOARD["meta"]["vectors_version"], "results": records}
+        Path(args.out).write_text(json.dumps(out, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+        print(f"aggregated {len(records)} results")
         return 0
     item = implementation(args.id)
     if args.print_deps:

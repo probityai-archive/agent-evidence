@@ -36,8 +36,10 @@ def cell(record: dict | None, family: str, pin: str, repo: str) -> str:
     verdict = entry["verdict"]
     counts = f" ({entry['passed']} of {entry['vectors']})" if "passed" in entry else ""
     same = " (the pin)" if record["source_sha"] == pin else ""
+    sub = entry.get("declared_subset")
+    extra = f"; inside its declared {sub['rule']} subset **{sub['passed']} of {sub['vectors']}**" if sub else ""
     link = f"[`{short(record['source_sha'])}`](https://github.com/{repo}/commit/{record['source_sha']})"
-    return f"**{verdict}**{counts} at {link}{same}"
+    return f"**{verdict}**{counts}{extra} at {link}{same}"
 
 
 def failing(record: dict | None, family: str) -> str:
@@ -54,7 +56,9 @@ def failing(record: dict | None, family: str) -> str:
     if "id" in rows[0]:
         ids = [r["id"] for r in rows]
         return f"{len(ids)}: " + ", ".join(f"`{i}`" for i in ids[:14]) + (", and more" if len(ids) > 14 else "")
-    return f"{len(rows)} members: " + "; ".join(r["detail"].split(" ", 1)[1] if " " in r["detail"] else r["detail"] for r in rows)[:600]
+    proposed = sum(1 for r in rows if r.get("proposed"))
+    lead = f"{len(rows)} members, {proposed} of them under clauses the corpus marks proposed because the verifier's contract text leaves them open: "
+    return lead + "; ".join(r["detail"].split(" ", 1)[1] if " " in r["detail"] else r["detail"] for r in rows)[:600]
 
 
 def run_link(records: list[dict]) -> str:
@@ -79,7 +83,7 @@ def render(board: dict, results: dict) -> str:
         "",
         f"Each row runs an outside implementation's own code on the saved records of [agent-evidence-vectors](https://pypi.org/project/agent-evidence-vectors/) {meta['vectors_version']}. Our CI re-runs every score on a schedule and whenever the implementation's default branch moves, so a verdict at a new upstream commit appears here without anyone asking for it. Pass means the harness executed every vector and none failed. Fail means it executed every vector and some failed. Not runnable means the implementation could not be run to completion on that corpus, and the cell says why.",
         "",
-        "A verdict is kept only when the same adapter first passes two controls: the corpus's reference canonicalizer must pass every vector, and a deliberately wrong canonicalizer must fail the ten vectors the corpus expects it to fail. A failure in a row below therefore comes from the implementation, not from the adapter or the harness. Each implementation's declared scope is printed beside its verdict. A vector outside the scope an implementation declares is a difference of profile, and the row says so rather than hiding it.",
+        "A verdict is kept only when the same adapter first passes two controls: the corpus's reference canonicalizer must pass every vector, and a deliberately wrong canonicalizer must fail the ten vectors the corpus expects it to fail. For the anchor stream the control is that the runner reproduces the corpus's own recording of a published verifier tag on every member. A failure in a row below therefore comes from the implementation, not from the adapter or the harness. Each implementation's declared scope is printed beside its verdict. A vector outside the scope an implementation declares is a difference of profile, and the row says so rather than hiding it.",
         "",
     ]
     for key, family in board["family"].items():
