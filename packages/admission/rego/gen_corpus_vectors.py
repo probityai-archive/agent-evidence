@@ -107,7 +107,12 @@ _OUT = Path(__file__).resolve().parent / "corpus_vectors.json"
 # re-proves that equality inside `opa test`, so the boundary cannot silently rot.
 #
 # Whole families that USED to sit here and no longer do are worth stating, because the
-# reason is a capability gain rather than a corpus move. The 1xx observationRefs class
+# reason is a capability gain rather than a corpus move. The latest two: a record payload
+# spelled in non-canonical base64 (nonzero trailing bits, an embedded line break), and
+# the duplicate-record vector whose undecodable record is spelled that way, sat here as
+# "out of rego scope". They never were. The module already decoded every record and
+# already refused the spellings Go's decoder refuses; it now refuses the ones that
+# decoder accepts as well, through `_payload_text`. The 1xx observationRefs class
 # match, the 3xx aeeMethod-cap lattice, the 7xx record-class deep validation and the
 # 0.7 attribution rules are all evaluated now; several entries that once claimed to
 # need a SIGNED payload were reading a member this module already decodes, and were
@@ -193,17 +198,6 @@ _OUTSIDE_REGO_REACH: tuple[ScopeFamily, ...] = (
         count=5,
     ),
     ScopeFamily(
-        what="record base64 canonicality -- out of rego scope",
-        conditions=frozenset(["aee-c-19"]),
-        expected={
-            "alsoCarries": ["observed-set-mismatch"],
-            "alsoEmits": ["payload-not-canonical", "reconstructed-row-uncovered"],
-            "codes": ["record-undecodable"],
-            "verdict": "invalid",
-        },
-        count=1,
-    ),
-    ScopeFamily(
         what="RFC-6962 fold (domain separation) -- out of rego scope",
         conditions=frozenset(["aee-c-25"]),
         expected={"codes": ["batch-root-mismatch"], "verdict": "invalid"},
@@ -219,18 +213,6 @@ _OUTSIDE_REGO_REACH: tuple[ScopeFamily, ...] = (
         what="RFC-6962 fold (leaf order) -- out of rego scope",
         conditions=frozenset(["aee-c-27"]),
         expected={"codes": ["batch-root-mismatch"], "verdict": "invalid"},
-        count=1,
-    ),
-    ScopeFamily(
-        what=(
-            "record-hash dedup plus an undecodable record body -- both at the base64 "
-            "record pre-image layer, the same boundary as the dedup family below"
-        ),
-        conditions=frozenset(["aee-c-29"]),
-        expected={
-            "codes": ["duplicate-record", "record-undecodable"],
-            "verdict": "invalid",
-        },
         count=1,
     ),
     ScopeFamily(

@@ -393,6 +393,30 @@ test_reject_stripped_catch_policy if {
 
 _bad_record := _record(object.union(_arming_payload, {"aeeRunBinding": "deadbeef"}))
 
+# A record payload spelled any way but the canonical RFC 4648 one carries no bytes.
+# The Go decoder behind base64.decode refuses a missing pad and a non-alphabet byte by
+# itself; these two shapes it accepts, so they are the ones the round trip exists for.
+test_payload_nonzero_trailing_bits_undecodable if {
+	base64.decode("YR==") == "a"
+	not _payload_text({"payload": "YR=="})
+	_payload_text({"payload": "YQ=="}) == "a"
+}
+
+test_payload_line_break_undecodable if {
+	base64.decode("YWJj\r\nZGVm") == "abcdef"
+	not _payload_text({"payload": "YWJj\r\nZGVm"})
+}
+
+test_reject_record_payload_with_line_break if {
+	spelled := _arming_record.payload
+	broken := concat("\r\n", [substring(spelled, 0, 16), substring(spelled, 16, -1)])
+	stmt := object.union(accept, {"predicate": {"observationRecords": [object.union(_arming_record, {"payload": broken}), _sealed_record]}})
+	bindings_ok with input as stmt
+	not soundness_ok with input as stmt
+	soundness_ok with input as accept
+}
+
+
 # Clean-row coverage still resolves here (the covering predicate reads the record
 # CLASS; run_binding_ok owns the binding, for every record rather than the referenced
 # ones), so the denial below is attributable to the run-binding rule alone.
