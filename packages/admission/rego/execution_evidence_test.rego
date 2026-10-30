@@ -301,6 +301,13 @@ test_fail_closed_oov_label_is_valid if {
 	_valid_and_floored_at_fail(_artifact_row({"containmentObserved": "totally-unknown"}))
 }
 
+# An ABSENT label is fail-closed exactly as an out-of-vocabulary one is. It is swept
+# separately because the actualLayer rule once refused it: a negated call with the
+# absent member as its argument fails rather than holding.
+test_fail_closed_missing_label_is_valid if {
+	_valid_and_floored_at_fail(json.remove(_artifact_row({}), ["containmentObserved"]))
+}
+
 # The other side of the same sentence: the identical faults on a `basis: substrate` row
 # leave the class match with nothing to dispatch on, and there the statement IS
 # invalid. `basis` is named in that sentence and cannot fire from it — a row whose

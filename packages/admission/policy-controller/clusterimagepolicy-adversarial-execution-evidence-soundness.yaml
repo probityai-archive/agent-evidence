@@ -781,15 +781,24 @@ spec:
 
               # actualLayer REQUIRED: present on every row; a clean-label row's actualLayer is
               # the literal "none".
+              #
+              # The clean test is wrapped in `_clean_label_row` rather than written as
+              # `not _is_clean_label(r.containmentObserved)`. OPA hoists a function argument out of
+              # a negation, so with the label ABSENT that form fails instead of holding, and a row
+              # whose label is missing (fail-closed, valid, floored at "fail") was refused here as a
+              # malformed statement. The corpus accept with an absent label and actualLayer "none"
+              # measured exactly that false reject.
+              _clean_label_row(r) if _is_clean_label(r.containmentObserved)
+
               _actual_layer_row_ok(r) if {
               	r.actualLayer
-              	_is_clean_label(r.containmentObserved)
+              	_clean_label_row(r)
               	r.actualLayer == "none"
               }
 
               _actual_layer_row_ok(r) if {
               	r.actualLayer
-              	not _is_clean_label(r.containmentObserved)
+              	not _clean_label_row(r)
               }
 
               actual_layer_ok if {
