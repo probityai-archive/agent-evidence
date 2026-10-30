@@ -160,18 +160,25 @@ _OUTSIDE_REGO_REACH: tuple[ScopeFamily, ...] = (
         count=14,
     ),
     ScopeFamily(
-        what="record-internal JCS canonicality -- out of rego scope",
+        what=(
+            "record-internal RFC 8785 canonicality -- unsorted members, and a number "
+            "spelled other than its canonical form (a negative zero, a trailing "
+            "fraction zero, an uppercase exponent). Each lives in the decoded payload "
+            "bytes; rego reads the lenient parse, in which every one of those spellings "
+            "is the same value as its canonical form"
+        ),
         conditions=frozenset(["aee-c-17"]),
         expected={
             "alsoEmits": ["caught-row-uncovered", "observed-set-mismatch"],
             "codes": ["payload-not-canonical"],
             "verdict": "invalid",
         },
-        count=1,
+        count=4,
     ),
     ScopeFamily(
         what=(
-            "record-payload i-JSON and string-scalar faults -- a bignum, a duplicate "
+            "record-payload i-JSON and string-scalar faults -- a bignum, a number "
+            "whose exponent puts it past the exact-integer range, a duplicate "
             "member, a lone surrogate escape, CESU-8, a noncharacter, and nesting at "
             "or past the depth bound. All sit inside the base64 catch-record "
             "pre-image or in raw string bytes; rego reads the lenient parse of an "
@@ -184,18 +191,19 @@ _OUTSIDE_REGO_REACH: tuple[ScopeFamily, ...] = (
             "codes": ["payload-not-ijson"],
             "verdict": "invalid",
         },
-        count=7,
+        count=8,
     ),
     ScopeFamily(
         what=(
             "statement-wide raw-byte faults -- a duplicate member rego parses "
             "last-wins, a lone high or low surrogate escape, a reversed surrogate "
-            "pair, and a noncharacter in a vocabulary label. Each lives in the bytes "
-            "rather than in the parse rego is handed"
+            "pair, a noncharacter in a vocabulary label, and a supplementary-plane "
+            "noncharacter written as an escaped surrogate pair. Each lives in the "
+            "bytes rather than in the parse rego is handed"
         ),
         conditions=frozenset(["aee-c-18"]),
         expected={"codes": ["statement-malformed"], "verdict": "invalid"},
-        count=5,
+        count=6,
     ),
     ScopeFamily(
         what="RFC-6962 fold (domain separation) -- out of rego scope",

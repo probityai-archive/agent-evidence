@@ -25,10 +25,10 @@ env:
   # gets it: the published agent-evidence-vectors package from PyPI, pinned by
   # version AND by the SHA-256 of its wheel, and then held to the corpus digest
   # the vendored registry records. That release ships the AEE corpus of tag
-  # v0.10.1 unchanged (same corpus digest), so the projection is the same bytes.
-  VECTORS_PACKAGE: agent-evidence-vectors==0.12.1
-  VECTORS_WHEEL_SHA256: 9b9e7371feff06d96657cd8116150d394211ea639275f35d71461857bb4b0d8d
-  VECTORS_CORPUS_DIGEST: 8b035678def9e5ac00ba761b8c640e4412c57163134afb9d2c1a90f49d573a52
+  # v0.30.0 unchanged (same corpus digest), so the projection is the same bytes.
+  VECTORS_PACKAGE: agent-evidence-vectors==0.30.0
+  VECTORS_WHEEL_SHA256: f2a0a41c275bfda404f26ab75d296857413cf1049aadb6ab1bf049301a1c2301
+  VECTORS_CORPUS_DIGEST: bf3e5befd71640757ff1b3f0af63507364b823b5e3f9059678f72f64a46e11c1
 
   # Engine versions, each with the SHA-256 of the release asset. An unpinned
   # engine turns a red build into a question about which binary ran.
