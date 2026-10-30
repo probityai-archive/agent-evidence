@@ -1599,21 +1599,8 @@ done_verification:
       folded into either side.
 
 # incident_response: how a party that does not trust the responder checks that
-# a response to an incident happened and held. One record per response action
-# answers four questions: was it executed, did it cover what it claimed, did it
-# hold for the interval claimed, and was the restoration that ended it
-# authorised and verified. The terms are one model: response_decision says what
-# was decided (including the decision not to act), response_function says what
-# an action did, enforcement_vantage and control_failure_posture say where and
-# under what posture it was enforced, revocation_state, containment_scope and
-# pause_hold say whether each kind of action held, escalation_outcome says how
-# fast an alert reached someone able to act, restoration_decision and
-# restoration_gate say who ended the containment and on what evidence, and
-# incident_identifier lets two organisations' records of one incident be
-# joined. Source paths that begin predicate. name fields of a response-action
-# predicate that is proposed for agent-evidence-vectors and not yet published,
-# so no predicate URI is claimed here. NIST SP 800-61r3 RC.RP-05 and the NIST
-# Key Practices 7.3 and 7.5 ask for verification and a documented decision
+# a response to an incident happened and held. NIST SP 800-61r3 RC.RP-05 and
+# the NIST Key Practices 7.3 and 7.5 ask for verification and a documented decision
 # before resumption and define no record for either.
 incident_response:
 
@@ -1856,24 +1843,17 @@ incident_response:
     values: [resume_full, resume_staged, remain_restricted, not_established]
     value_definitions:
       resume_full: "The containment is ended and the subject resumes in full."
-      resume_staged: "The containment is ended in part or in stages; the record names the restored scope, and each stage is approved and validated before the next."
+      resume_staged: "The containment is ended in part or in stages."
       remain_restricted: "The containment stays in force."
       not_established: "A required element of the decision is missing."
     definition: >
-      The decision that ends a recorded containment, bound to it by digest.
-      resume_full and resume_staged REQUIRE an approver identity different from
-      the actor who activated the containment, a validation result by digest for
-      every containment layer the containment record named, and a residual-risk
-      statement; any missing element makes the verdict not_established.
-      resume_staged additionally REQUIRES a restoredScope naming what is
-      restored at that stage, and a verifier reads anything outside it as still
-      contained. A decision not to resume is remain_restricted, and it is
-      recorded the same way as a resumption.
+      The decision that ends a recorded containment, bound to it by digest, with
+      an approver identity different from the actor who activated the containment.
+      A missing element makes the verdict not_established. A decision not to
+      resume is remain_restricted, and it is recorded the same way as a resumption.
     check: >
-      A verifier recomputes the set of layers from the containment record,
-      requires one passing validation digest per layer, and requires approver
-      to differ from activator. For resume_staged it also requires a non-empty
-      restoredScope and treats any item outside it as still contained.
+      A verifier requires the binding to the containment and requires approver
+      to differ from activator.
     source_path: "predicate.restoration"
     issuers_in_production: []
     promotion_trigger: "An independently maintained system that is not us emits the decision bound to a containment digest and files a crosswalk with evidence: emitted."
@@ -1895,7 +1875,7 @@ incident_response:
     value_definitions:
       gated: "A resume was observed, and a restoration_decision of resume_full or resume_staged bound to the containment by digest, with every element met, is timed before it."
       ungated: "A resume was observed and no restoration_decision is bound to the containment it ended."
-      gate_unmet: "A resume was observed after a decision that is bound to the containment but fails a requirement: the approver is the activator, or a containment layer has no passing validation."
+      gate_unmet: "A resume was observed after a decision that is bound to the containment but fails a requirement of that decision."
       not_established: "The resume was not observed by the substrate."
     definition: >
       Whether an observed restart passed the gate that restoration_decision

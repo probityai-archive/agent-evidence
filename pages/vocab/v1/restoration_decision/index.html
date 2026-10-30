@@ -17,7 +17,7 @@
   {
    "@id": "https://w3id.org/agent-evidence/vocab/v1/restoration_decision",
    "@type": "skos:Concept",
-   "skos:definition": "The decision that ends a recorded containment, bound to it by digest. resume_full and resume_staged REQUIRE an approver identity different from the actor who activated the containment, a validation result by digest for every containment layer the containment record named, and a residual-risk statement; any missing element makes the verdict not_established. resume_staged additionally REQUIRES a restoredScope naming what is restored at that stage, and a verifier reads anything outside it as still contained. A decision not to resume is remain_restricted, and it is recorded the same way as a resumption.",
+   "skos:definition": "The decision that ends a recorded containment, bound to it by digest, with an approver identity different from the actor who activated the containment. A missing element makes the verdict not_established. A decision not to resume is remain_restricted, and it is recorded the same way as a resumption.",
    "skos:inScheme": {
     "@id": "https://w3id.org/agent-evidence/vocab/v1/"
    },
@@ -45,7 +45,7 @@
    "rdfs:isDefinedBy": {
     "@id": "https://w3id.org/agent-evidence/vocab/v1/restoration_decision"
    },
-   "skos:definition": "The containment is ended in part or in stages; the record names the restored scope, and each stage is approved and validated before the next.",
+   "skos:definition": "The containment is ended in part or in stages.",
    "skos:inScheme": {
     "@id": "https://w3id.org/agent-evidence/vocab/v1/"
    },
@@ -99,11 +99,11 @@ th,td{border:1px solid var(--rule);padding:.4rem .6rem;text-align:left;vertical-
 <h1><code>restoration_decision</code></h1>
 <p>Term URI: <a href="https://w3id.org/agent-evidence/vocab/v1/restoration_decision">https://w3id.org/agent-evidence/vocab/v1/restoration_decision</a></p>
 <p>Section: <code>incident_response</code>. Criticality: <code>critical</code>.</p>
-<p>The decision that ends a recorded containment, bound to it by digest. resume_full and resume_staged REQUIRE an approver identity different from the actor who activated the containment, a validation result by digest for every containment layer the containment record named, and a residual-risk statement; any missing element makes the verdict not_established. resume_staged additionally REQUIRES a restoredScope naming what is restored at that stage, and a verifier reads anything outside it as still contained. A decision not to resume is remain_restricted, and it is recorded the same way as a resumption.</p>
+<p>The decision that ends a recorded containment, bound to it by digest, with an approver identity different from the actor who activated the containment. A missing element makes the verdict not_established. A decision not to resume is remain_restricted, and it is recorded the same way as a resumption.</p>
 <h2>Registered values</h2>
 <ul>
 <li id="resume_full"><code>https://w3id.org/agent-evidence/vocab/v1/restoration_decision#resume_full</code>: The containment is ended and the subject resumes in full.</li>
-<li id="resume_staged"><code>https://w3id.org/agent-evidence/vocab/v1/restoration_decision#resume_staged</code>: The containment is ended in part or in stages; the record names the restored scope, and each stage is approved and validated before the next.</li>
+<li id="resume_staged"><code>https://w3id.org/agent-evidence/vocab/v1/restoration_decision#resume_staged</code>: The containment is ended in part or in stages.</li>
 <li id="remain_restricted"><code>https://w3id.org/agent-evidence/vocab/v1/restoration_decision#remain_restricted</code>: The containment stays in force.</li>
 <li id="not_established"><code>https://w3id.org/agent-evidence/vocab/v1/restoration_decision#not_established</code>: A required element of the decision is missing.</li>
 </ul>

@@ -1,6 +1,6 @@
 {
   "source": "vocabulary.yaml",
-  "source_sha256": "831c3f456ec7b9422256e2c1fefa4c5b46db6c4146f9fc0858274c73503729b8",
+  "source_sha256": "1c5ff80bd97237a603afc402db692ffe5abe15e4a7f9eca13f20068ada347fdc",
   "term_uri_base": "https://w3id.org/agent-evidence/vocab/v1/",
   "terms": {
     "acceptance_observed": {
@@ -490,14 +490,14 @@
     },
     "restoration_decision": {
       "criticality": "critical",
-      "definition": "The decision that ends a recorded containment, bound to it by digest. resume_full and resume_staged REQUIRE an approver identity different from the actor who activated the containment, a validation result by digest for every containment layer the containment record named, and a residual-risk statement; any missing element makes the verdict not_established. resume_staged additionally REQUIRES a restoredScope naming what is restored at that stage, and a verifier reads anything outside it as still contained. A decision not to resume is remain_restricted, and it is recorded the same way as a resumption.",
+      "definition": "The decision that ends a recorded containment, bound to it by digest, with an approver identity different from the actor who activated the containment. A missing element makes the verdict not_established. A decision not to resume is remain_restricted, and it is recorded the same way as a resumption.",
       "section": "incident_response",
       "uri": "https://w3id.org/agent-evidence/vocab/v1/restoration_decision",
       "value_definitions": {
         "not_established": "A required element of the decision is missing.",
         "remain_restricted": "The containment stays in force.",
         "resume_full": "The containment is ended and the subject resumes in full.",
-        "resume_staged": "The containment is ended in part or in stages; the record names the restored scope, and each stage is approved and validated before the next."
+        "resume_staged": "The containment is ended in part or in stages."
       },
       "values": [
         "resume_full",
@@ -512,7 +512,7 @@
       "section": "incident_response",
       "uri": "https://w3id.org/agent-evidence/vocab/v1/restoration_gate",
       "value_definitions": {
-        "gate_unmet": "A resume was observed after a decision that is bound to the containment but fails a requirement: the approver is the activator, or a containment layer has no passing validation.",
+        "gate_unmet": "A resume was observed after a decision that is bound to the containment but fails a requirement of that decision.",
         "gated": "A resume was observed, and a restoration_decision of resume_full or resume_staged bound to the containment by digest, with every element met, is timed before it.",
         "not_established": "The resume was not observed by the substrate.",
         "ungated": "A resume was observed and no restoration_decision is bound to the containment it ended."

@@ -59,8 +59,7 @@ incident_response:
     divergences:
     - RC.RP-05 R2 asks to verify the correctness and adequacy of restoration actions before putting a
       restored system online, and RC.RP-01 R2 asks that people with recovery responsibilities be told
-      the authorizations required; neither requires an approver separate from the activator, a validation
-      per containment layer, or a record.
+      the authorizations required; neither requires an approver separate from the activator or a record.
     notes: RC.RP-06 asks that the end of recovery be declared on criteria and documented.
   restoration_gate:
     match: no_mapping

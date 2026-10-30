@@ -8,10 +8,6 @@ When something goes wrong in an agent system, the people responding take decisio
 
 Did anyone decide not to act? A `response_decision` of `continue` is a signed record with the deciding authority and a reason, so a non-action is not an absence. What did an action serve? Its `response_function` values. Was it enforced beneath the subject, or only honoured by it? That is `enforcement_vantage`. What happened when the decision service gave no answer? A `control_failure_posture`. Was a revocation only issued, or refused when used? A `revocation_state`. Which channels were cut, and which were never assessed? A `containment_scope`. Did a pause stop the subject, or does its earlier work remain? A `pause_hold`. How long from the alert to someone able to act? An `escalation_outcome`. Who approved the restart, and did it follow a decision? A `restoration_decision`, and a `restoration_gate` for whether the restart that happened was preceded by one. Which two organisations' records are the same incident? An `incident_identifier`.
 
-## One model
-
-An incident has decision points. At each one the responders choose `act`, `continue` or `escalate` (`response_decision`). An action carries one or more functions (`response_function`), is enforced from a stated vantage (`enforcement_vantage`), and states its posture if the decision service failed (`control_failure_posture`). Two kinds of action have their own terms because their effect needs separate evidence: a revocation (`revocation_state`) and a pause (`pause_hold`). The channels a containment cut are a partition against a manifest (`containment_scope`). A detection alert that did not reach someone able to act is its own finding (`escalation_outcome`). A containment ends by a decision (`restoration_decision`), and the restart that really happened is checked against that decision (`restoration_gate`). `restoration` in `response_function` names the action; `restoration_decision` names the choice before it, and the two are never merged. An `incident_identifier` joins the records of different parties.
-
 ## The terms
 
 | term | what it names | check |
@@ -24,7 +20,7 @@ An incident has decision points. At each one the responders choose `act`, `conti
 | `containment_scope` | a partition of the channels a subject could use into cut, retained and unassessed | the union equals a manifest the subject does not control; a non-empty unassessed set is partial |
 | `pause_hold` | whether a pause held | `effect_after_pause` only for an effect initiated at or after the pause; never `held` while an in-flight operation is unconfirmed or created state is active |
 | `escalation_outcome` | whether an alert reached someone able to act in time | `pagedAt` minus `alertAt` against the bound; times from the responder's own system give `not_established` |
-| `restoration_decision` | the decision that ends a recorded containment | an approver different from the activator, a passing validation per containment layer, and for `resume_staged` a non-empty `restoredScope` |
+| `restoration_decision` | the decision that ends a recorded containment | bound to the containment, with an approver different from the activator |
 | `restoration_gate` | whether an observed restart passed the gate the decision sets | the restart time comes from the substrate; no bound decision before it gives `ungated` |
 | `incident_identifier` | one identifier, scoped by its issuer, for one incident | joins only on equal issuer and id, or a `related` entry; never on timing or names |
 
