@@ -50,18 +50,18 @@ PAGES = ("README.md", "llms.txt", "PROVENANCE.md", "docs/DESIGN.md")
 PIN_LINE = re.compile(
     r"^agent-evidence-vectors==(\d+\.\d+\.\d+) --hash=sha256:([0-9a-f]{64})$"
 )
-DIGEST_ENV = re.compile(r"^\s*VECTORS_CORPUS_DIGEST:\s*([0-9a-f]{64})\s*$", re.M)
+DIGEST_ENV = re.compile(
+    r"^\s*VECTORS_CORPUS_DIGEST:\s*([0-9a-f]{64})\s*$", re.MULTILINE
+)
 
 # What a page can state, each with the group that must equal the pin.
-VERSION_RES = (
-    re.compile(r"agent-evidence-vectors(?:==|`? )(\d+\.\d+\.\d+)"),
-)
+VERSION_RES = (re.compile(r"agent-evidence-vectors(?:==|`? )(\d+\.\d+\.\d+)"),)
 TAG_RES = (
     re.compile(r"\btag(?:\s+is)?\s+`?v(\d+\.\d+\.\d+)"),
     re.compile(r"--branch\s+v(\d+\.\d+\.\d+)"),
     re.compile(r"\bcorpus of tag\s+`?v(\d+\.\d+\.\d+)"),
 )
-DIGEST_RE = re.compile(r"corpus\s+digest[\s:`*]*([0-9a-f]{12,64})\b", re.I)
+DIGEST_RE = re.compile(r"corpus\s+digest[\s:`*]*([0-9a-f]{12,64})\b", re.IGNORECASE)
 COUNT_RE = re.compile(r"\b(\d+) obligations\b")
 
 
@@ -112,7 +112,9 @@ def check_text(
                 f"{name}:{lineno}: states corpus digest {m.group(1)}; the pin is {digest}"
             )
     if page and not stated:
-        problems.append(f"{name}: states no vectors version or tag; it must name {version}")
+        problems.append(
+            f"{name}: states no vectors version or tag; it must name {version}"
+        )
     return problems
 
 
@@ -138,13 +140,17 @@ def gather() -> tuple[str, str, int, list[str]]:
         ("profiles/MEASUREMENTS.json", measurements.get("corpusDigest")),
     ):
         if got != digest:
-            problems.append(f"{label}: read at corpus digest {got}; the workflow pins {digest}")
+            problems.append(
+                f"{label}: read at corpus digest {got}; the workflow pins {digest}"
+            )
     problems += check_text("workflow", workflow, version, digest, count, page=False)
     for rel in PAGES:
         path = HERE / rel
         if not path.is_file():
             cannot(f"missing {path}")
-        problems += check_text(rel, path.read_text(encoding="utf-8"), version, digest, count, page=True)
+        problems += check_text(
+            rel, path.read_text(encoding="utf-8"), version, digest, count, page=True
+        )
     return version, digest, count, problems
 
 
@@ -160,10 +166,16 @@ def selftest() -> int:
         "a consistent page passes": (good, 0),
         "an old package version fails": (good.replace(f"=={v}", "==1.2.2"), 1),
         "an old tag fails": (good.replace(f"tag `v{v}`", "tag `v0.10.1`"), 1),
-        "an old clone branch fails": (good.replace(f"--branch v{v}", "--branch v0.10.1"), 1),
+        "an old clone branch fails": (
+            good.replace(f"--branch v{v}", "--branch v0.10.1"),
+            1,
+        ),
         "a different corpus digest fails": (good.replace(d, "cd" * 32), 1),
         "a different short digest fails": (good.replace(f"`{d}`", "`8b035678def9`"), 1),
-        "a stale obligation count fails": (good.replace(f"{n} obligations", "93 obligations"), 1),
+        "a stale obligation count fails": (
+            good.replace(f"{n} obligations", "93 obligations"),
+            1,
+        ),
         "a page naming no version fails": ("This page names nothing.\n", 1),
     }
     failed = 0
@@ -173,9 +185,17 @@ def selftest() -> int:
             failed += 1
             print(f"selftest: {label}: expected {'a refusal' if want else 'a pass'}")
     for label, req, ok in (
-        ("a hashed pin parses", f"# c\nagent-evidence-vectors=={v} --hash=sha256:{d}\n", True),
+        (
+            "a hashed pin parses",
+            f"# c\nagent-evidence-vectors=={v} --hash=sha256:{d}\n",
+            True,
+        ),
         ("an unhashed pin is refused", f"agent-evidence-vectors=={v}\n", False),
-        ("two pins are refused", f"agent-evidence-vectors=={v} --hash=sha256:{d}\n" * 2, False),
+        (
+            "two pins are refused",
+            f"agent-evidence-vectors=={v} --hash=sha256:{d}\n" * 2,
+            False,
+        ),
     ):
         try:
             read_pin(req)
@@ -186,7 +206,10 @@ def selftest() -> int:
             failed += 1
             print(f"selftest: {label}: wrong answer")
     if failed:
-        print(f"vectors-pin-gate selftest: {failed} control(s) answered wrongly", file=sys.stderr)
+        print(
+            f"vectors-pin-gate selftest: {failed} control(s) answered wrongly",
+            file=sys.stderr,
+        )
         return 1
     print(f"vectors-pin-gate selftest: {len(cases) + 3} controls answered as expected")
     return 0
@@ -202,7 +225,10 @@ def main(argv: list[str]) -> int:
     if problems:
         for p in problems:
             print(f"  {p}")
-        print(f"\nvectors-pin-gate: {len(problems)} statement(s) disagree with the pin.", file=sys.stderr)
+        print(
+            f"\nvectors-pin-gate: {len(problems)} statement(s) disagree with the pin.",
+            file=sys.stderr,
+        )
         return 1
     print(
         f"vectors-pin-gate: agent-evidence-vectors {version}, corpus digest {digest[:12]}, "
