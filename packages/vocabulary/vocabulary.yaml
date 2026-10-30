@@ -1856,7 +1856,7 @@ incident_response:
     values: [resume_full, resume_staged, remain_restricted, not_established]
     value_definitions:
       resume_full: "The containment is ended and the subject resumes in full."
-      resume_staged: "The containment is ended in stages, each approved and validated before the next."
+      resume_staged: "The containment is ended in part or in stages; the record names the restored scope, and each stage is approved and validated before the next."
       remain_restricted: "The containment stays in force."
       not_established: "A required element of the decision is missing."
     definition: >
@@ -1865,18 +1865,25 @@ incident_response:
       the actor who activated the containment, a validation result by digest for
       every containment layer the containment record named, and a residual-risk
       statement; any missing element makes the verdict not_established.
+      resume_staged additionally REQUIRES a restoredScope naming what is
+      restored at that stage, and a verifier reads anything outside it as still
+      contained. A decision not to resume is remain_restricted, and it is
+      recorded the same way as a resumption.
     check: >
       A verifier recomputes the set of layers from the containment record,
       requires one passing validation digest per layer, and requires approver
-      to differ from activator.
+      to differ from activator. For resume_staged it also requires a non-empty
+      restoredScope and treats any item outside it as still contained.
     source_path: "predicate.restoration"
     issuers_in_production: []
     promotion_trigger: "An independently maintained system that is not us emits the decision bound to a containment digest and files a crosswalk with evidence: emitted."
     why_this_registry: >
       NIST SP 800-61r3 (RC.RP-05) and the NIST Key Practices (7.3 and 7.5) ask
-      for verification and a documented decision before resumption, and AWS
-      AGENTSEC07-BP04 asks for multi-person authorization for restoration; none
-      defines a record that binds the decision to the containment it ends.
+      for verification and a documented decision before resumption, AWS
+      AGENTSEC07-BP04 asks for multi-person authorization for restoration, and
+      NIST SP 800-184 section 2.3.3 allows a partial restoration as an interim
+      measure; none defines a record that binds the decision, and the scope it
+      restores, to the containment it ends.
       OpenAI's report recommends clarifying who approves restoration (p31) and
       names no approver.
 
