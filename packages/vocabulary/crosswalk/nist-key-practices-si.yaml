@@ -57,8 +57,7 @@ incident_response:
     divergences:
     - Practice 2.6 asks that activity resume only if senior leadership is satisfied with the risk levels;
       7.5 asks to document the recovery decision and the remaining risks. Neither asks that the approver
-      differ from the activator, that each containment layer have a passing validation, or that the decision
-      be bound to the containment by digest.
+      differ from the activator or that the decision be bound to the containment by digest.
     notes: Practices 2.6 and 7.5.
   restoration_gate:
     match: partial
