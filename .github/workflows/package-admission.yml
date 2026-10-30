@@ -69,6 +69,10 @@ jobs:
         run: python3 scripts/gen_profile_registry.py --check
       - name: the ratchet report agrees with its own data
         run: python3 scripts/ratchet_report.py --check
+      - name: the vectors pin gate fires on its own controls
+        run: python3 scripts/vectors-pin-gate.py --selftest
+      - name: every page names the pinned vectors release, digest and obligation count
+        run: python3 scripts/vectors-pin-gate.py
       - name: the maturity-model gate fires on its own positive controls
         run: python3 scripts/maturity-map-gate.py --selftest
       - name: the maturity-model page cites files that exist and quotes the model exactly
