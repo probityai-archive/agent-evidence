@@ -167,10 +167,10 @@ that it did so, because a self-consistency pass is not evidence that the finding
 ## Running the conformance harness
 
 ```bash
-python3 conformance/run_policy_conformance.py --jobs 2
+python3 conformance/run_policy_conformance.py --jobs 4
 ```
 
-Needs `opa`, `kyverno`, and `cue` on the path. It takes about forty minutes. It runs every vector
+Needs `opa`, `kyverno`, and `cue` on the path. It takes about twelve minutes on a four-job run, and the `rails` job runs it on every push. It runs every vector
 through every rail and refuses on an undeclared divergence, on a Kyverno document whose condition
 set has drifted from its siblings, and on a declared divergence that no longer reproduces, which is
 what stops the declaration list becoming a place to file inconvenient results.

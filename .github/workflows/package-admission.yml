@@ -319,6 +319,12 @@ jobs:
       - name: measure every rail over every vector
         run: python3 scripts/gen_profile_map.py --jobs 4
 
+      # The conformance harness asserts every declared rail divergence in both
+      # directions over the same corpus, so a declaration that has gone stale
+      # against a new release fails here instead of living on in the harness.
+      - name: the declared rail divergences are what the rails do
+        run: python3 conformance/run_policy_conformance.py --jobs 4
+
       - name: the committed maps are what the measurement produces
         run: |
           set -euo pipefail
