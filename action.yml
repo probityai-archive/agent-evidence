@@ -50,6 +50,10 @@ outputs:
 runs:
   using: composite
   steps:
+    - name: warn that this Action moved
+      shell: bash
+      run: |
+        echo "::warning::probityai-archive/agent-evidence moved to probityai/agent-evidence-vectors@v0.31.0; update your workflow. This copy stays but gets no fixes."
     - name: install the pinned tools
       id: tools
       shell: bash
