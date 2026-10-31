@@ -1,3 +1,6 @@
+<!-- moved-to-monorepo -->
+> **Moved to [probityai/agent-evidence-vectors](https://github.com/probityai/agent-evidence-vectors). Star and follow it there.** This repository is archived and has no planned delete date; its tags and releases keep working.
+
 # Agent Evidence
 
 [![CI](https://img.shields.io/github/actions/workflow/status/probityai/agent-evidence/ci.yml?label=CI)](https://github.com/probityai/agent-evidence/actions/workflows/ci.yml)
